@@ -22,9 +22,9 @@ public class V2ServiceImpl implements V2Service {
 		return cusDao.getCustomr(info);
 	}
 
-	public List<V2DbContact> getContacts(String cid) {
+	public List<V2DbContact> getContacts(String cid, String addTime) {
 		// TODO Auto-generated method stub
-		return conDao.getContacts(cid);
+		return conDao.getContacts(cid, addTime);
 	}
 
 }

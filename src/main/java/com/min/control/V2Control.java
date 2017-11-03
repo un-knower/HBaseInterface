@@ -30,6 +30,7 @@ public class V2Control {
 		// post请求传来身份证号和平台id
 		info.setIdNumber(request.getParameter("idcard"));
 		info.setMemberId(request.getParameter("siteid"));
+		String addTime = request.getParameter("addtime");
 		// 获取cid
 		V2ZScustomerInfo customr = service.getCustomr(info);
 		System.out.println("customrid:" + customr.getId());
@@ -38,7 +39,7 @@ public class V2Control {
 		// 获取通讯录
 		String cid = customr.getId();
 		if (cid != null && cid.length() > 0) {
-			contacts = service.getContacts(cid);
+			contacts = service.getContacts(cid, addTime);
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {

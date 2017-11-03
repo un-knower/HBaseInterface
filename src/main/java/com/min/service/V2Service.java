@@ -14,5 +14,5 @@ public interface V2Service {
 	/*
 	 * 根据客户cid获取通讯录列表
 	 */
-	List<V2DbContact> getContacts(String cid);
+	List<V2DbContact> getContacts(String cid,String addTime);
 }
