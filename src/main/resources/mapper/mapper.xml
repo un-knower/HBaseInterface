@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.dao.V2ZsCustomInfoDao">
+	<select id="getCustomr" resultType="com.min.model.V2ZScustomerInfo">select * from
+		C##GN_ADMIN.V2_ZS_CUSTOMER_INFO where ID_NUMBER = #{idNumber} and
+		MEMBER_ID = #{memberId}
+	</select>
+</mapper>
