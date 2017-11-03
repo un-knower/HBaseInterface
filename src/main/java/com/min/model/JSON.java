@@ -3,10 +3,10 @@ package com.min.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSON {
+public class JSON<E> {
 	private String msg;
 	private String code;
-	private List<V2DbContact> data = new ArrayList<V2DbContact>();
+	private List<?> data = new ArrayList<E>();
 
 	public String getMsg() {
 		return msg;
@@ -24,11 +24,11 @@ public class JSON {
 		this.code = code;
 	}
 
-	public List<V2DbContact> getData() {
+	public List<?> getData() {
 		return data;
 	}
 
-	public void setData(List<V2DbContact> data) {
+	public void setData(List<?> data) {
 		this.data = data;
 	}
 }

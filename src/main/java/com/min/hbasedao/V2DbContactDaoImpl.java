@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
@@ -13,13 +14,16 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.filter.BinaryComparator;
 import org.apache.hadoop.hbase.filter.BinaryPrefixComparator;
 import org.apache.hadoop.hbase.filter.CompareFilter;
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.RowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
+
 import com.min.model.V2DbContact;
+import com.min.model.V2DbMxNet;
 
 @Component
 public class V2DbContactDaoImpl implements V2DbContactDao {
@@ -72,6 +76,63 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 					v2Con.setName(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("NAME"))));
 					v2Con.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
 					list.add(v2Con);
+				}	
+			}
+			scanner.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public List<V2DbMxNet> getMxOldNets(String cid, String addTime) {
+		// TODO Auto-generated method stub
+		List<V2DbMxNet> list = new ArrayList<V2DbMxNet>();
+		try {
+			// 根据配置得到连接
+			Connection con = ConnectionFactory.createConnection(conf);
+			// 根据连接得到表
+			Table table = con.getTable(TableName.valueOf("V2_DB_MX_OLD_NETS"));
+			String cloum = "nets";
+			Scan scan = new Scan();
+
+			// 根据rowkey过滤查找结果
+			Filter filter = new RowFilter(CompareFilter.CompareOp.EQUAL,
+					// 以前缀开始
+					new BinaryComparator(Bytes.toBytes(cid)));
+			scan.setFilter(filter);
+			ResultScanner scanner = table.getScanner(scan);
+			// 遍历结果
+			for (Result res : scanner) {
+				// System.out.println(res);
+				// 保存到实体类
+				long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
+				if (addTime != null && addTime.length() > 0) {
+					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
+					if (time >= addT && time <= addT*3600*30*24) {
+						V2DbMxNet v2 = new V2DbMxNet();
+						v2.setId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ID"))));
+						v2.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
+						//v2.setMobile(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("MOBILE"))));
+						v2.setAddtime(String.valueOf(time));
+						//v2.setName(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("NAME"))));
+						v2.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
+						list.add(v2);
+					}
+				}
+				else {
+					V2DbMxNet v2 = new V2DbMxNet();
+					v2.setId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ID"))));
+					v2.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
+					//v2.setMobile(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("MOBILE"))));
+					v2.setAddtime(String.valueOf(time));
+					//v2.setName(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("NAME"))));
+					v2.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
+					list.add(v2);
 				}	
 			}
 			scanner.close();
