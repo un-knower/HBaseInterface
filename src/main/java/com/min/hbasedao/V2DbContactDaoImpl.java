@@ -1,6 +1,7 @@
 package com.min.hbasedao;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 import com.min.model.V2DbContact;
 import com.min.model.V2DbMxNet;
+import com.min.until.HbaseUntil;
 
 @Component
 public class V2DbContactDaoImpl implements V2DbContactDao {
@@ -56,7 +58,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 				long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
 				if (addTime != null && addTime.length() > 0) {
 					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
-					if (time >= addT && time <= addT*3600*30*24) {
+					if (time >= addT && time <= addT * 3600 * 30 * 24) {
 						V2DbContact v2Con = new V2DbContact();
 						v2Con.setId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ID"))));
 						v2Con.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
@@ -66,8 +68,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 						v2Con.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
 						list.add(v2Con);
 					}
-				}
-				else {
+				} else {
 					V2DbContact v2Con = new V2DbContact();
 					v2Con.setId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ID"))));
 					v2Con.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
@@ -76,7 +77,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 					v2Con.setName(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("NAME"))));
 					v2Con.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
 					list.add(v2Con);
-				}	
+				}
 			}
 			scanner.close();
 		} catch (IOException e) {
@@ -113,33 +114,35 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 				long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
 				if (addTime != null && addTime.length() > 0) {
 					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
-					if (time >= addT && time <= addT*3600*30*24) {
+					if (time >= addT && time <= addT * 3600 * 30 * 24) {
 						V2DbMxNet v2 = new V2DbMxNet();
-						v2.setId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ID"))));
-						v2.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
-						//v2.setMobile(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("MOBILE"))));
-						v2.setAddtime(String.valueOf(time));
-						//v2.setName(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("NAME"))));
-						v2.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
+						@SuppressWarnings("unchecked")
+						Class<V2DbMxNet> cls = (Class<V2DbMxNet>) v2.getClass();
+						Field[] fields = cls.getDeclaredFields();
+						for (Field field : fields) {
+							field.setAccessible(true);
+							String fieldName = field.getName();
+							field.set(v2, res.getValue(Bytes.toBytes(cloum),
+									Bytes.toBytes(HbaseUntil.switchParam(fieldName).toUpperCase())));
+						}
 						list.add(v2);
 					}
-				}
-				else {
+				} else {
 					V2DbMxNet v2 = new V2DbMxNet();
-					v2.setId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ID"))));
-					v2.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
-					//v2.setMobile(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("MOBILE"))));
-					v2.setAddtime(String.valueOf(time));
-					//v2.setName(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("NAME"))));
-					v2.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
+					@SuppressWarnings("unchecked")
+					Class<V2DbMxNet> cls = (Class<V2DbMxNet>) v2.getClass();
+					Field[] fields = cls.getDeclaredFields();
+					for (Field field : fields) {
+						field.setAccessible(true);
+						String fieldName = field.getName();
+						field.set(v2, res.getValue(Bytes.toBytes(cloum),
+								Bytes.toBytes(HbaseUntil.switchParam(fieldName).toUpperCase())));
+					}
 					list.add(v2);
-				}	
+				}
 			}
 			scanner.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
