@@ -1,4 +1,4 @@
-package com.min.until;
+package com.min.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * @author: han
  * @date: 2017年11月4日 下午4:44:54
  */
-public class HbaseUntil {
+public class HbaseUtils {
 	/*
 	 * 转换rowkey,将传入的身份证和平台ID处理为rowkey
 	 */

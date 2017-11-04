@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
@@ -22,10 +21,9 @@ import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.filter.RowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
-
 import com.min.model.V2DbContact;
 import com.min.model.V2DbMxNet;
-import com.min.until.HbaseUntil;
+import com.min.utils.HbaseUtils;
 
 @Component
 public class V2DbContactDaoImpl implements V2DbContactDao {
@@ -123,7 +121,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 							field.setAccessible(true);
 							String fieldName = field.getName();
 							field.set(v2, res.getValue(Bytes.toBytes(cloum),
-									Bytes.toBytes(HbaseUntil.switchParam(fieldName).toUpperCase())));
+									Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
 						}
 						list.add(v2);
 					}
@@ -136,7 +134,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 						field.setAccessible(true);
 						String fieldName = field.getName();
 						field.set(v2, res.getValue(Bytes.toBytes(cloum),
-								Bytes.toBytes(HbaseUntil.switchParam(fieldName).toUpperCase())));
+								Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
 					}
 					list.add(v2);
 				}
@@ -144,7 +142,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			scanner.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return list;
 		}
 		return list;
 	}
