@@ -10,6 +10,7 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
@@ -23,6 +24,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
 import com.min.model.V2DbContact;
 import com.min.model.V2DbMxNet;
+import com.min.model.V2ZScustomerInfo;
 import com.min.utils.HbaseUtils;
 
 @Component
@@ -145,6 +147,26 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			return list;
 		}
 		return list;
+	}
+
+	public V2ZScustomerInfo getCustomr(String idcard, String siteid) {
+		// TODO Auto-generated method stub
+		String rowkey = HbaseUtils.transformRowkey(idcard, siteid);
+		if (rowkey == null) {
+			return null;
+		}
+		try {
+			V2ZScustomerInfo info = new V2ZScustomerInfo();
+			Connection con = ConnectionFactory.createConnection(conf);
+			Table table = con.getTable(TableName.valueOf("V2_DB_CUSTOMER_INFO"));
+			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
+
+			info.setId(String.valueOf(result.getValue(Bytes.toBytes("ic"), Bytes.toBytes("ID"))));
+			return info;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
 	}
 
 	// 测试

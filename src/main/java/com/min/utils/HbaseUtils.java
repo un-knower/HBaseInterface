@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @ClassName: HbaseUntil
+ * @ClassName: HbaseUtils
  * @Description: TODO
  * @author: han
  * @date: 2017年11月4日 下午4:44:54
