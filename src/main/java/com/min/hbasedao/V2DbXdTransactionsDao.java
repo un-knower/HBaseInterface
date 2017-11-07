@@ -6,6 +6,7 @@ package com.min.hbasedao;
 import java.util.List;
 
 
+
 import com.min.model.V2DbXdTransactions;
 
 /**
@@ -14,5 +15,5 @@ import com.min.model.V2DbXdTransactions;
  * @version 2017-11-03
  */
 public interface V2DbXdTransactionsDao {
-	List<V2DbXdTransactions> getContacts(String cid);
+	List<V2DbXdTransactions> getContacts(String cid, String addTime);
 }

@@ -26,6 +26,7 @@ import com.min.model.V2DbContact;
 import com.min.model.V2DbXdTransactions;
 import com.min.model.V2ZScustomerInfo;
 import com.min.service.V2DbXdTransactionsService;
+import com.min.service.V2Service;
 
 
 
@@ -44,6 +45,9 @@ public class V2DbXdTransactionsController {
 
 	@Autowired
 	private V2DbXdTransactionsService v2DbXdTranService;
+	
+	@Autowired
+	private V2Service service;
 
 	@RequestMapping(value = "/v2/XdTransaction", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 账单记录查询
@@ -53,21 +57,23 @@ public class V2DbXdTransactionsController {
 		info.setIdNumber(request.getParameter("idcard"));
 		info.setMemberId(request.getParameter("siteid"));
 		// 获取cid
-		V2ZScustomerInfo customr = v2DbXdTranService.getCustomr(info);
-		System.out.println("customrid:" + customr.getId());
-		JSON_XdTransactions json = new JSON_XdTransactions();
+		//V2ZScustomerInfo customr = v2DbXdTranService.getCustomr(info);
+		//System.out.println("customrid:" + customr.getId());
+		
+		//获取addtime
+		String addTime = request.getParameter("addtime");
+		JSON<V2DbXdTransactions> json = new JSON<V2DbXdTransactions>();
 		List<V2DbXdTransactions> xdtrans = null;
 		// 获取通讯录
-		String cid = customr.getId();
-		if (cid != null && cid.length() > 0) {
-			xdtrans = v2DbXdTranService.getContacts(cid);
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+		if (customr.getId() != null) {
+			xdtrans = v2DbXdTranService.getContacts(customr.getId(), addTime);
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {
-			json.setCode("");
-			json.setMsg("");
+			json.setCode("404");
+			json.setMsg("没有找到");
 		}
-		System.out.println(xdtrans.size());
 		json.setData(xdtrans);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
