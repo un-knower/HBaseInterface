@@ -47,7 +47,7 @@ public class V2DbXdTransactionsDaoImp implements V2DbXdTransactionsDao {
 				long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
 				if (addTime != null && addTime.length() > 0) {
 					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
-					/* if (time >= addT && time <= addT * 3600 * 30 * 24) { */
+					/*if (time >= addT && time <= (addT + 3600 * 30 * 24)) { */
 					
 					// 保存到实体类
 					V2DbXdTransactions v2XdTr = new V2DbXdTransactions();

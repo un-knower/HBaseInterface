@@ -47,7 +47,7 @@ public class V2DbMxOldBillsDaoImp implements V2DbMxOldBillsDao {
 						
 						if (addTime != null && addTime.length() > 0) {
 							long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
-							/*if (time >= addT && time <= addT * 3600 * 30 * 24) {*/
+							/*if (time >= addT && time <= (addT + 3600 * 30 * 24)) {*/
 						// 保存到实体类
 						V2DbMxOldBills v2MxOldB = new V2DbMxOldBills();
 						

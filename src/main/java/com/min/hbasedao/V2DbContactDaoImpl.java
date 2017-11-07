@@ -54,7 +54,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 				long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
 				if (addTime != null && addTime.length() > 0) {
 					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
-					if (time >= addT && time <= addT * 3600 * 30 * 24) {
+					if (time >= addT && time <= (addT + 3600 * 30 * 24)) {
 						V2DbContact v2Con = new V2DbContact();
 						v2Con.setId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ID"))));
 						v2Con.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
