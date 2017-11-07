@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
@@ -15,13 +16,9 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
-import org.apache.hadoop.hbase.filter.BinaryComparator;
-import org.apache.hadoop.hbase.filter.BinaryPrefixComparator;
-import org.apache.hadoop.hbase.filter.CompareFilter;
-import org.apache.hadoop.hbase.filter.Filter;
-import org.apache.hadoop.hbase.filter.RowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
+
 import com.min.model.V2DbContact;
 import com.min.model.V2DbMxNet;
 import com.min.model.V2ZScustomerInfo;
@@ -45,11 +42,8 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			String cloum = "con";
 			Scan scan = new Scan();
 
-			// 根据rowkey过滤查找结果
-			Filter filter = new RowFilter(CompareFilter.CompareOp.EQUAL,
-					// 以前缀开始
-					new BinaryPrefixComparator(Bytes.toBytes(cid + "|")));
-			scan.setFilter(filter);
+			// 根据rowkey 前缀过滤查找结果
+			scan.setRowPrefixFilter((cid + "|").getBytes());
 			ResultScanner scanner = table.getScanner(scan);
 			// 遍历结果
 			for (Result res : scanner) {
@@ -101,11 +95,8 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			String cloum = "nets";
 			Scan scan = new Scan();
 
-			// 根据rowkey过滤查找结果
-			Filter filter = new RowFilter(CompareFilter.CompareOp.EQUAL,
-					// 以前缀开始
-					new BinaryComparator(Bytes.toBytes(cid)));
-			scan.setFilter(filter);
+			// 根据rowkey 前缀过滤查找结果
+			scan.setRowPrefixFilter(cid.getBytes());
 			ResultScanner scanner = table.getScanner(scan);
 			// 遍历结果
 			for (Result res : scanner) {
@@ -160,6 +151,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_CUSTOMER_INFO"));
 			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
+			// 按照需求只需要id
 			info.setId(Bytes.toString(result.getValue(Bytes.toBytes("ic"), Bytes.toBytes("ID"))));
 			return info;
 		} catch (IOException e) {
@@ -169,8 +161,9 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 	}
 
 	// 测试
-	// public static void main(String[] args) throws ParseException {
-	// V2DbContactDaoImpl dao = new V2DbContactDaoImpl();
-	// System.out.println(dao.getContacts("2467").size());
-	// }
+	public static void main(String[] args) throws ParseException {
+		V2DbContactDaoImpl dao = new V2DbContactDaoImpl();
+		int size = dao.getContacts("7117", null).size();
+		System.out.println(size);
+	}
 }
