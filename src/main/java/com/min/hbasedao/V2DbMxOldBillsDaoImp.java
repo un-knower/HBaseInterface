@@ -43,17 +43,21 @@ public class V2DbMxOldBillsDaoImp implements V2DbMxOldBillsDao {
 					
 					// 遍历结果
 					for (Result res : scanner) {
-						long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
-						
+						//获取数据库中的时间戳
+						String time = Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME")));
+						//将时间戳转化为long型
+						long timelong = Long.parseLong(time);
 						if (addTime != null && addTime.length() > 0) {
+							//获取当月时间戳
 							long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
-							/*if (time >= addT && time <= (addT + 3600 * 30 * 24)) {*/
+							//查看数据库中的时间戳是否在用户填写的参数时间范围内
+							if (timelong >= addT && timelong <= (addT + 3600 * 30 * 24)) {
 						// 保存到实体类
 						V2DbMxOldBills v2MxOldB = new V2DbMxOldBills();
 						
 						v2MxOldB.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
 						v2MxOldB.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
-						v2MxOldB.setAddtime(String.valueOf(time));
+						v2MxOldB.setAddtime(String.valueOf(timelong));
 						v2MxOldB.setBaseinfoId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("BASEINFO_ID"))));
 						v2MxOldB.setPoint(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("POINT"))));
 						v2MxOldB.setBillMonth(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("BILL_MONTH"))));
@@ -76,7 +80,7 @@ public class V2DbMxOldBillsDaoImp implements V2DbMxOldBillsDao {
 						v2MxOldB.setNotes(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("NOTES"))));
 						
 						list.add(v2MxOldB);
-							/*}*/
+							}
 						} else {
 						
 						V2DbMxOldBills v2MxOldB = new V2DbMxOldBills();
