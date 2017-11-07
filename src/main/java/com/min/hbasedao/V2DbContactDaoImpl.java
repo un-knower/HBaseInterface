@@ -16,6 +16,10 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.filter.CompareFilter;
+import org.apache.hadoop.hbase.filter.Filter;
+import org.apache.hadoop.hbase.filter.RegexStringComparator;
+import org.apache.hadoop.hbase.filter.RowFilter;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
 
@@ -28,8 +32,6 @@ import com.min.utils.HbaseUtils;
 public class V2DbContactDaoImpl implements V2DbContactDao {
 	// 加载配置文件
 	static Configuration conf = HBaseConfiguration.create();
-	// hbase表名
-	static String tableName = "V2_DB_CONTACT";
 
 	public List<V2DbContact> getContacts(String cid, String addTime) {
 		// TODO Auto-generated method stub
@@ -38,7 +40,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			// 根据配置得到连接
 			Connection con = ConnectionFactory.createConnection(conf);
 			// 根据连接得到表
-			Table table = con.getTable(TableName.valueOf(tableName));
+			Table table = con.getTable(TableName.valueOf("V2_DB_CONTACT"));
 			String cloum = "con";
 			Scan scan = new Scan();
 
@@ -94,9 +96,10 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			Table table = con.getTable(TableName.valueOf("V2_DB_MX_OLD_NETS"));
 			String cloum = "nets";
 			Scan scan = new Scan();
-
-			// 根据rowkey 前缀过滤查找结果
-			scan.setRowPrefixFilter(cid.getBytes());
+			// 根据rowkey 后缀过滤查找结果
+			String rowkey = ".*" + cid;
+			Filter filter = new RowFilter(CompareFilter.CompareOp.EQUAL, new RegexStringComparator(rowkey));
+			scan.setFilter(filter);
 			ResultScanner scanner = table.getScanner(scan);
 			// 遍历结果
 			for (Result res : scanner) {
