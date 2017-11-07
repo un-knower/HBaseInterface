@@ -160,8 +160,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_CUSTOMER_INFO"));
 			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
-
-			info.setId(String.valueOf(result.getValue(Bytes.toBytes("ic"), Bytes.toBytes("ID"))));
+			info.setId(Bytes.toString(result.getValue(Bytes.toBytes("ic"), Bytes.toBytes("ID"))));
 			return info;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
