@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.min.model.JSON;
-import com.min.model.JSON_MxOldBills;
-import com.min.model.V2DbContact;
 import com.min.model.V2DbMxOldBills;
 import com.min.model.V2ZScustomerInfo;
 import com.min.service.V2DbMxOldBillsService;
@@ -44,15 +41,9 @@ public class V2DbMxOldBillsController {
 	@RequestMapping(value = "/v2/MxOldBills", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 账单记录查询
 	public void getCusInfoId(HttpServletRequest request, HttpServletResponse response) {
-		//V2ZScustomerInfo info = new V2ZScustomerInfo();
-		// post请求传来身份证号和平台id
-		//info.setIdNumber(request.getParameter("idcard"));
-		//info.setMemberId(request.getParameter("siteid"));
 		// 获取addTime
 		String addTime = request.getParameter("addtime");
-		//V2ZScustomerInfo customr = v2DbMxOldBillsService.getCustomr(info);
 		JSON<V2DbMxOldBills> json = new JSON<V2DbMxOldBills>();
-		//JSON_MxOldBills json = new JSON_MxOldBills();
 		List<V2DbMxOldBills> contacts = null;
 		
 		// 获取cid
@@ -60,14 +51,13 @@ public class V2DbMxOldBillsController {
 		System.out.println("获取cid："+customr.getId());
 				
 		// 获取通讯录
-		//String cid = customr.getId();
 		if (customr.getId() != null) {
 			contacts = v2DbMxOldBillsService.getContacts(customr.getId(), addTime);
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {
 			json.setCode("404");
-			json.setMsg("没有找到");
+			json.setMsg("无相关数据");
 		}
 		json.setData(contacts);
 		ObjectMapper mapper = new ObjectMapper();

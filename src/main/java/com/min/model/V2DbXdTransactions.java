@@ -10,7 +10,9 @@ package com.min.model;
  */
 public class V2DbXdTransactions {
 	
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
+	
 	private String userid;		// userid
 	private String cid;		// cid
 	private String addtime;		// addtime
