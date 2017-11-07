@@ -11,7 +11,9 @@ package com.min.model;
  */
 public class V2DbMxOldBills {
 	
-	//private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private static final long serialVersionUID = 1L;
+	
 	private String userid;		// userid
 	private String cid;		// cid
 	private String addtime;		// addtime

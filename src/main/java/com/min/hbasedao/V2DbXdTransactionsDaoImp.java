@@ -1,6 +1,7 @@
 package com.min.hbasedao;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +45,22 @@ public class V2DbXdTransactionsDaoImp implements V2DbXdTransactionsDao {
 
 			// 遍历结果
 			for (Result res : scanner) {
-				long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
+				//获取数据库中的时间戳
+				String time = Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME")));
+				//将时间戳转化为long型
+				long timelong = Long.parseLong(time);
 				if (addTime != null && addTime.length() > 0) {
+					//获取当月时间戳
 					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
-					/*if (time >= addT && time <= (addT + 3600 * 30 * 24)) { */
+					//查看数据库中的时间戳是否在用户填写的参数时间范围内
+					if (timelong >= addT && timelong <= (addT + 3600 * 30 * 24)) { 
 					
 					// 保存到实体类
 					V2DbXdTransactions v2XdTr = new V2DbXdTransactions();
 					
 					v2XdTr.setUserid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("USERID"))));
 					v2XdTr.setCid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CID"))));
-					v2XdTr.setAddtime(String.valueOf(time));
+					v2XdTr.setAddtime(String.valueOf(timelong));
 					v2XdTr.setBaseinfoId(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("BASEINFO_ID"))));
 					v2XdTr.setCellPhone(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("CELL_PHONE"))));
 					v2XdTr.setTotalAmt(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("TOTAL_AMT"))));
@@ -64,7 +70,7 @@ public class V2DbXdTransactionsDaoImp implements V2DbXdTransactionsDao {
 					v2XdTr.setPlanAmt(Bytes.toString(res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("PLAN_AMT"))));
 
 					list.add(v2XdTr);
-					/* } */
+					 } 
 				} else {
 					
 					V2DbXdTransactions v2XdTr = new V2DbXdTransactions();
@@ -91,5 +97,4 @@ public class V2DbXdTransactionsDaoImp implements V2DbXdTransactionsDao {
 		}
 		return list;
 	}
-
 }
