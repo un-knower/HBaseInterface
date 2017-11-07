@@ -32,7 +32,7 @@ public class V2Control {
 		List<V2DbContact> contacts = null;
 		// 获取通讯录
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
-		System.out.println("获取cid："+customr.getId());
+		System.out.println("获取cid：" + customr.getId());
 		if (customr.getId() != null) {
 			contacts = service.getContacts(customr.getId(), addTime);
 			json.setCode("200");
@@ -41,7 +41,7 @@ public class V2Control {
 			json.setCode("404");
 			json.setMsg("没有找到");
 		}
-		System.out.println("查询结果："+contacts.size());
+		System.out.println("查询结果：" + contacts.size());
 		json.setData(contacts);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -68,7 +68,7 @@ public class V2Control {
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
 		if (customr.getId() != null) {
 			// vList = service.getMxOldNets(customr.getId(), addTime);
-			System.out.println("获取cid："+customr.getId());
+			System.out.println("获取cid：" + customr.getId());
 			vList = new V2DbContactDaoImpl().getMxOldNets(customr.getId(), addTime);
 			json.setCode("200");
 			json.setMsg("返回成功");
@@ -76,7 +76,7 @@ public class V2Control {
 			json.setCode("404");
 			json.setMsg("没有找到");
 		}
-		 System.out.println("查询结果："+vList.size());
+		System.out.println("查询结果：" + vList.size());
 		json.setData(vList);
 		ObjectMapper mapper = new ObjectMapper();
 		response.setContentType("text/plain;charset=UTF-8");
