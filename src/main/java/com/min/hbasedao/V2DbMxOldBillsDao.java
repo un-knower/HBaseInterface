@@ -15,5 +15,8 @@ import com.min.model.V2DbMxOldBills;
  * @version 2017-11-03
  */
 public interface V2DbMxOldBillsDao {
-	List<V2DbMxOldBills> getContacts(String cid);
+	/*
+	 * 根据客户cid获取账单信息
+	 */
+	List<V2DbMxOldBills> getContacts(String cid, String addTime);
 }
