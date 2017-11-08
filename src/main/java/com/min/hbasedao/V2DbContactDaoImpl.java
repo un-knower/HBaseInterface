@@ -26,7 +26,10 @@ import org.springframework.stereotype.Component;
 import com.min.model.V2DbContact;
 import com.min.model.V2DbMoBase;
 import com.min.model.V2DbMxNet;
+
 import com.min.model.V2DbOperatorCall;
+
+import com.min.model.V2DbOperatorTask;
 import com.min.model.V2ZScustomerInfo;
 import com.min.utils.HbaseUtils;
 
@@ -249,14 +252,57 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 		}
 		return null;
 	}
+
+	public V2DbOperatorTask getOperatorTask(String cid, String addTime) {
+		// TODO Auto-generated method stub
+		try {
+			// 根据配置得到连接
+			Connection con = ConnectionFactory.createConnection(conf);
+			// 根据连接得到表
+			Table table = con.getTable(TableName.valueOf("V2_DB_OPERATOR_TASK"));
+			String cloum = "ot"; // 列族
+
+			// 根据表结构的设计注意反转cid
+			String rowKey = new StringBuilder(cid).reverse().toString();
+			Result res = table.get(new Get(rowKey.getBytes()));
+			V2DbOperatorTask v2 = new V2DbOperatorTask();
+			// 保存到实体类
+			long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
+			if (addTime != null && addTime.length() > 0) {
+				long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
+				if (time >= addT && time <= (addT + 3600 * 30 * 24)) {
+					@SuppressWarnings("unchecked")
+					Class<V2DbOperatorTask> cls = (Class<V2DbOperatorTask>) v2.getClass();
+					Field[] fields = cls.getDeclaredFields();
+					for (Field field : fields) {
+						field.setAccessible(true);
+						String fieldName = field.getName();
+						field.set(v2, res.getValue(Bytes.toBytes(cloum), // 注意小写转大写
+								Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
+					}
+				}
+			} else {
+				@SuppressWarnings("unchecked")
+				Class<V2DbOperatorTask> cls = (Class<V2DbOperatorTask>) v2.getClass();
+				Field[] fields = cls.getDeclaredFields();
+				for (Field field : fields) {
+					field.setAccessible(true);
+					String fieldName = field.getName();
+					field.set(v2, res.getValue(Bytes.toBytes(cloum),
+							Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
+				}
+			}
+			return v2;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
+
 	// 测试
 	public static void main(String[] args) throws ParseException {
 		V2DbContactDaoImpl dao = new V2DbContactDaoImpl();
 		int size = dao.getContacts("7117", null).size();
 		System.out.println(size);
-	}
-
-	
-
-	
+	}	
 }
