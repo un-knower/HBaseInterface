@@ -34,7 +34,7 @@ public class V2Control {
 		List<V2DbContact> contacts = null;
 		// 获取通讯录
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
-		//System.out.println("获取cid：" + customr.getId());
+//		System.out.println("获取cid：" + customr.getId());
 		if (customr != null && customr.getId() != null) {
 			contacts = service.getContacts(customr.getId(), addTime);
 			json.setCode("200");
@@ -43,7 +43,7 @@ public class V2Control {
 			json.setCode("404");
 			json.setMsg("没有找到");
 		}
-		//System.out.println("查询结果：" + contacts.size());
+//		System.out.println("查询结果：" + contacts.size());
 		json.setData(contacts);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -68,16 +68,27 @@ public class V2Control {
 		List<V2DbMxNet> vList = null;
 		// 获取通讯录
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+<<<<<<< HEAD
+		if (customr!=null&&customr.getId() != null) {
+			 vList = service.getMxOldNets(customr.getId(), addTime);
+			System.out.println("获取cid：" + customr.getId());
+			//vList = new V2DbContactDaoImpl().getMxOldNets(customr.getId(), addTime);
+=======
 		if (customr != null && customr.getId() != null) {
 			vList = service.getMxOldNets(customr.getId(), addTime);
 			//System.out.println("获取cid：" + customr.getId());
+>>>>>>> e4583608b3386dd0c3a6ff6a7d3ad43a2748e459
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {
 			json.setCode("404");
 			json.setMsg("没有找到");
 		}
+<<<<<<< HEAD
+//		System.out.println("查询结果：" + vList.size());
+=======
 		//System.out.println("查询结果：" + vList.size());
+>>>>>>> e4583608b3386dd0c3a6ff6a7d3ad43a2748e459
 		json.setData(vList);
 		ObjectMapper mapper = new ObjectMapper();
 		response.setContentType("text/plain;charset=UTF-8");
