@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.min.model.JSON;
 import com.min.model.V2DbContact;
 import com.min.model.V2DbMxNet;
+import com.min.model.V2DbOperatorCall;
 import com.min.model.V2ZScustomerInfo;
 import com.min.service.V2Service;
 
@@ -59,6 +60,39 @@ public class V2Control {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping(value = "/v2/OperatorCall",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+     //客户信息查询
+	public void getCusInfoId1(HttpServletRequest request1, HttpServletResponse response1) {
+		// System.out.println(request.getParameter("idcard"));
+		//System.out.println("开始查询");
+		String addTime = request1.getParameter("addtime");
+		JSON<V2DbOperatorCall> json = new JSON<V2DbOperatorCall>();
+		List<V2DbOperatorCall> OperatorCall = null;
+		//获取运营商B的通话记录
+		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"));
+		if (customr != null && customr.getId() !=null) {
+			OperatorCall = service.getV2DbOperatorCall(customr.getId(), addTime);
+			json.setCode("200");
+			json.setMsg("返回成功");
+		} else {
+			json.setCode("404");
+			json.setMsg("没有找到");
+		}
+		json.setData(OperatorCall);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			response1.setContentType("text/plain;charset=UTF-8");
+			response1.setCharacterEncoding("utf-8");
+			response1.setHeader("Pragma", "No-cache");
+			response1.setHeader("Cache-Control", "no-cache");
+			response1.setDateHeader("Expires", 0);
+			String result = mapper.writeValueAsString(json);
+			response1.getWriter().write(result);
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+	}
 
 	@RequestMapping(value = "/v2/mxoldnets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getMxOldNets(HttpServletRequest request, HttpServletResponse response) {
@@ -68,27 +102,21 @@ public class V2Control {
 		List<V2DbMxNet> vList = null;
 		// 获取通讯录
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
-<<<<<<< HEAD
+
 		if (customr!=null&&customr.getId() != null) {
 			 vList = service.getMxOldNets(customr.getId(), addTime);
 			System.out.println("获取cid：" + customr.getId());
 			//vList = new V2DbContactDaoImpl().getMxOldNets(customr.getId(), addTime);
-=======
-		if (customr != null && customr.getId() != null) {
-			vList = service.getMxOldNets(customr.getId(), addTime);
-			//System.out.println("获取cid：" + customr.getId());
->>>>>>> e4583608b3386dd0c3a6ff6a7d3ad43a2748e459
+
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {
 			json.setCode("404");
 			json.setMsg("没有找到");
 		}
-<<<<<<< HEAD
-//		System.out.println("查询结果：" + vList.size());
-=======
+
 		//System.out.println("查询结果：" + vList.size());
->>>>>>> e4583608b3386dd0c3a6ff6a7d3ad43a2748e459
+
 		json.setData(vList);
 		ObjectMapper mapper = new ObjectMapper();
 		response.setContentType("text/plain;charset=UTF-8");

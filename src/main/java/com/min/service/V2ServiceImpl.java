@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.min.hbasedao.V2DbContactDao;
 import com.min.model.V2DbContact;
+import com.min.model.V2DbMoBase;
 import com.min.model.V2DbMxNet;
+import com.min.model.V2DbOperatorCall;
 import com.min.model.V2ZScustomerInfo;
 
 @Service
@@ -28,6 +30,16 @@ public class V2ServiceImpl implements V2Service {
 	public V2ZScustomerInfo getCustomr(String idcard, String siteid) {
 		// TODO Auto-generated method stub
 		return conDao.getCustomr(idcard, siteid);
+	}
+
+	public V2DbMoBase getV2DbMoBase(String cid, String addtime) {
+		// TODO Auto-generated method stub
+		return conDao.getV2DbMoBase(cid, addtime);
+	}
+
+	public List<V2DbOperatorCall> getV2DbOperatorCall(String cid, String addtime) {
+		// TODO Auto-generated method stub
+		return conDao.getV2DbOperatorCall(cid, addtime);
 	}
 
 }
