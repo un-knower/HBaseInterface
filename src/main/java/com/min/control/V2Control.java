@@ -60,7 +60,7 @@ public class V2Control {
 		}
 	}
 
-	@RequestMapping(value = "/v2/mxoldnets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/v2/MxOldCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getMxOldNets(HttpServletRequest request, HttpServletResponse response) {
 		//System.out.println("开始查询");
 		String addTime = request.getParameter("addtime");
