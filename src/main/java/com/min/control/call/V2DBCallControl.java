@@ -66,12 +66,9 @@ public class V2DBCallControl {
 	@RequestMapping(value = "/v2/OperatorCall", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 客户信息查询
 	public void getOperatorCall(HttpServletRequest request1, HttpServletResponse response1) {
-		// System.out.println(request.getParameter("idcard"));
-		// System.out.println("开始查询");
 		String addTime = request1.getParameter("addtime");
 		JSON<V2DbOperatorCall> json = new JSON<V2DbOperatorCall>();
 		List<V2DbOperatorCall> OperatorCall = null;
-
 		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"));
 		if (customr != null && customr.getId() != null) {
 			// 获取运营商B的通话记录
@@ -101,13 +98,10 @@ public class V2DBCallControl {
 	@RequestMapping(value = "/v2/XdCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
 		String addTime = request.getParameter("addtime");
-		System.out.println("开始查询");
-		System.out.println(request.getParameter("idcard") + request.getParameter("siteid"));
 		JSON<V2DbXdCalls> json = new JSON<V2DbXdCalls>();
 		List<V2DbXdCalls> XdCalls = new ArrayList<V2DbXdCalls>();
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
 		if (customr != null && customr.getId() != null) {
-			System.out.println("获取id：" + customr.getId());
 			List<V2DbXdBase> xdBase = service.getV2DbXdBase(customr.getId(), addTime);
 			for (V2DbXdBase v2DbXdBase : xdBase) {
 				List<V2DbXdCalls> list = service.getV2DbXdCalls(v2DbXdBase.getID(), addTime);
@@ -115,6 +109,7 @@ public class V2DBCallControl {
 					XdCalls.add(v2DbXdCalls);
 				}
 			}
+			json.setData(XdCalls);
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {

@@ -218,7 +218,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			String colum = "xb";// 列族
 			Scan scan = new Scan();
 			// rowkey设计,反转cid
-			System.out.println("cid" + cid);
 			String rowkey = new StringBuilder(cid).reverse().toString() + "|";
 			// 根据前缀
 			scan.setRowPrefixFilter(rowkey.getBytes());
@@ -238,7 +237,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 				} else {
 					V2DbXdBase v2XB = new V2DbXdBase();
 					v2XB.setID(Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ID"))));
-					System.out.println(Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ID"))));
 					list.add(v2XB);
 				}
 			}
@@ -275,8 +273,10 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 						for (Field field : fields) {
 							field.setAccessible(true);
 							String fieldName = field.getName();
-							field.set(v2DbXdCalls,Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes(fieldName))));
+							field.set(v2DbXdCalls,
+									Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes(fieldName))));
 						}
+						list.add(v2DbXdCalls);
 					}
 				} else {
 					@SuppressWarnings("unchecked")
@@ -285,17 +285,20 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 					for (Field field : fields) {
 						field.setAccessible(true);
 						String fieldName = field.getName();
-						field.set(v2DbXdCalls,Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes(fieldName))));
+						field.set(v2DbXdCalls,
+								Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes(fieldName))));
 					}
+					list.add(v2DbXdCalls);
 				}
-				list.add(v2DbXdCalls);
-				scanner.close();
 			}
+			scanner.close();
+			return list;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return null;
 		}
-		return list;
+
 	}
 
 	public V2DbOperatorTask getOperatorTask(String cid, String addTime) {
