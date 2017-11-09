@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.min.hbasedao.call.V2DbContactDao;
+import com.min.hbasedao.call.V2DbCallDao;
 import com.min.model.V2DbMoBase;
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2ZScustomerInfo;
@@ -13,9 +12,9 @@ import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbOperatorCall;
 
 @Service
-public class V2ContactServiceImpl implements V2ContactService {
+public class V2CallServiceImpl implements V2CallService {
 	@Autowired
-	private V2DbContactDao conDao;
+	private V2DbCallDao conDao;
 
 	public List<V2DbContact> getContacts(String cid, String addTime) {
 		// TODO Auto-generated method stub

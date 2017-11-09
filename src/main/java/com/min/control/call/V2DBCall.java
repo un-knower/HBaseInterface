@@ -16,14 +16,15 @@ import com.min.model.JSON;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbOperatorCall;
-import com.min.service.call.V2ContactService;
+import com.min.service.call.V2CallService;
+
 
 @Controller
 @RequestMapping("/api")
-public class V2DBContact {
+public class V2DBCall {
 
 	@Autowired
-	private V2ContactService service;
+	private V2CallService service;
 
 	@RequestMapping(value = "/v2/contact", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getContact(HttpServletRequest request, HttpServletResponse response) {

@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.min.model.V2DbMoBase;
 import com.min.model.V2DbOperatorTask;
+import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbOperatorCall;
 
-public interface V2DbContactDao {
+public interface V2DbCallDao {
 	/*
 	 * 根据客户cid获取通讯录列表
 	 */
@@ -34,8 +35,8 @@ public interface V2DbContactDao {
 	 */
 	V2DbOperatorTask getOperatorTask(String cid, String addTime);
 
-	// /*
-	// * 根据客户的cid获取V2DbXdBase表
-	// */
-	// List<V2DbXdBase> getV2DbXdBase(String cid,String addtime);
+	 /*
+	 * 根据客户的cid获取V2DbXdBase表
+	 */
+	 V2DbXdBase getV2DbXdBase(String cid,String addtime);
 }

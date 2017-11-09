@@ -20,7 +20,8 @@ import com.min.model.JSON;
 import com.min.model.V2DbMxOldBills;
 import com.min.model.V2ZScustomerInfo;
 import com.min.service.bill.V2DbMxOldBillsService;
-import com.min.service.call.V2ContactService;
+import com.min.service.call.V2CallService;
+
 
 
 /**
@@ -36,7 +37,7 @@ public class V2DbMxOldBillsController {
 	private V2DbMxOldBillsService v2DbMxOldBillsService;
 	
 	@Autowired
-	private V2ContactService service;
+	private V2CallService service;
 	
 	@RequestMapping(value = "/v2/MxOldBills", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 账单记录查询

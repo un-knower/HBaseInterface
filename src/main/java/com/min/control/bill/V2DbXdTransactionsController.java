@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.min.model.JSON;
 import com.min.model.V2DbXdTransactions;
 import com.min.model.V2ZScustomerInfo;
-import com.min.service.call.V2ContactService;
+import com.min.service.call.V2CallService;
+
 import com.min.service.call.V2DbXdTransactionsService;
 
 /**
@@ -36,7 +37,7 @@ public class V2DbXdTransactionsController {
 	private V2DbXdTransactionsService v2DbXdTranService;
 
 	@Autowired
-	private V2ContactService service;
+	private V2CallService service;
 
 	@RequestMapping(value = "/v2/XdTransaction", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 账单记录查询

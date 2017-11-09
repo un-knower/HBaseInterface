@@ -21,74 +21,92 @@ import org.springframework.stereotype.Component;
 
 import com.min.model.V2DbMoBase;
 import com.min.model.V2DbOperatorTask;
+import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbOperatorCall;
 import com.min.utils.HbaseUtils;
 
 @Component
-public class V2DbContactDaoImpl implements V2DbContactDao {
+public class V2DbCallDaoImpl implements V2DbCallDao {
 	// 加载配置文件
 	static Configuration conf = HBaseConfiguration.create();
-   //运营商B的通话记录表
+
+	// 运营商B的通话记录表
 	public List<V2DbOperatorCall> getV2DbOperatorCall(String cid, String addtime) {
 		// TODO Auto-generated method stub
 		List<V2DbOperatorCall> list = new ArrayList<V2DbOperatorCall>();
 		try {
-			//根据配置拿到连接
+			// 根据配置拿到连接
 			Connection con = ConnectionFactory.createConnection(conf);
-			//根据连接拿到表
+			// 根据连接拿到表
 			Table table = con.getTable(TableName.valueOf("V2_DB_OPERATOR_CALL"));
 			String column = "call";
 			Scan scan = new Scan();
-		    String rowkey = new StringBuilder(cid).reverse().toString()+ "|";
-		    scan.setRowPrefixFilter(rowkey.getBytes());
-		    ResultScanner scanner = table.getScanner(scan);
-		    //遍历结果
-		    for (Result res : scanner) {
-		    	long time = Bytes.toLong((res.getValue(Bytes.toBytes(column), Bytes.toBytes("ADDTIME"))));
-		    	if(addtime != null &&addtime.length() > 0) {
-		    		long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addtime).getTime() / 1000;
+			String rowkey = new StringBuilder(cid).reverse().toString() + "|";
+			scan.setRowPrefixFilter(rowkey.getBytes());
+			ResultScanner scanner = table.getScanner(scan);
+			// 遍历结果
+			for (Result res : scanner) {
+				long time = Bytes.toLong((res.getValue(Bytes.toBytes(column), Bytes.toBytes("ADDTIME"))));
+				if (addtime != null && addtime.length() > 0) {
+					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addtime).getTime() / 1000;
 					if (time >= addT && time <= (addT + 3600 * 30 * 24)) {
 						V2DbOperatorCall v2DbOpca = new V2DbOperatorCall();
 						v2DbOpca.setID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("ID"))));
-						v2DbOpca.setUSERID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("USERID"))));
+						v2DbOpca.setUSERID(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("USERID"))));
 						v2DbOpca.setCID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("CID"))));
 						v2DbOpca.setADDTIME(String.valueOf(time));
-						v2DbOpca.setPHONEID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("PHONEID"))));
+						v2DbOpca.setPHONEID(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("PHONEID"))));
 						v2DbOpca.setTIME(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("TIME"))));
-						v2DbOpca.setPEERNUMBER(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("PEERNUMBER"))));
-						v2DbOpca.setLOCATION(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LOCATION"))));
-						v2DbOpca.setLOCATIONTYPE(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LOCATIONTYPE"))));
-						v2DbOpca.setDURATIONSEC(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("DURATIONSEC"))));
-						v2DbOpca.setDIALTYPE(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("DIALTYPE"))));
+						v2DbOpca.setPEERNUMBER(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("PEERNUMBER"))));
+						v2DbOpca.setLOCATION(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LOCATION"))));
+						v2DbOpca.setLOCATIONTYPE(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LOCATIONTYPE"))));
+						v2DbOpca.setDURATIONSEC(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("DURATIONSEC"))));
+						v2DbOpca.setDIALTYPE(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("DIALTYPE"))));
 						v2DbOpca.setFEE(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("FEE"))));
-						v2DbOpca.setCREATETIME(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("CREATIETIME"))));
-						v2DbOpca.setLASTMODIFYTIME(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LASTMODIFYTIME"))));
+						v2DbOpca.setCREATETIME(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("CREATIETIME"))));
+						v2DbOpca.setLASTMODIFYTIME(
+								Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LASTMODIFYTIME"))));
 						v2DbOpca.setCOUNT(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("COUNT"))));
 						list.add(v2DbOpca);
 					}
-		    	}else {
-		    		V2DbOperatorCall v2DbOpca = new V2DbOperatorCall();
+				} else {
+					V2DbOperatorCall v2DbOpca = new V2DbOperatorCall();
 					v2DbOpca.setID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("ID"))));
 					v2DbOpca.setUSERID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("USERID"))));
 					v2DbOpca.setCID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("CID"))));
 					v2DbOpca.setADDTIME(String.valueOf(time));
 					v2DbOpca.setPHONEID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("PHONEID"))));
 					v2DbOpca.setTIME(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("TIME"))));
-					v2DbOpca.setPEERNUMBER(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("PEERNUMBER"))));
-					v2DbOpca.setLOCATION(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LOCATION"))));
-					v2DbOpca.setLOCATIONTYPE(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LOCATIONTYPE"))));
-					v2DbOpca.setDURATIONSEC(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("DURATIONSEC"))));
-					v2DbOpca.setDIALTYPE(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("DIALTYPE"))));
+					v2DbOpca.setPEERNUMBER(
+							Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("PEERNUMBER"))));
+					v2DbOpca.setLOCATION(
+							Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LOCATION"))));
+					v2DbOpca.setLOCATIONTYPE(
+							Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LOCATIONTYPE"))));
+					v2DbOpca.setDURATIONSEC(
+							Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("DURATIONSEC"))));
+					v2DbOpca.setDIALTYPE(
+							Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("DIALTYPE"))));
 					v2DbOpca.setFEE(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("FEE"))));
-					v2DbOpca.setCREATETIME(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("CREATIETIME"))));
-					v2DbOpca.setLASTMODIFYTIME(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LASTMODIFYTIME"))));
+					v2DbOpca.setCREATETIME(
+							Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("CREATIETIME"))));
+					v2DbOpca.setLASTMODIFYTIME(
+							Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LASTMODIFYTIME"))));
 					v2DbOpca.setCOUNT(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("COUNT"))));
 					list.add(v2DbOpca);
-		    	}
-		    }
-		    scanner.close();
+				}
+			}
+			scanner.close();
 		} catch (IOException e) {
 			// TODO: handle exception
 		} catch (ParseException e) {
@@ -97,6 +115,7 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 		}
 		return list;
 	}
+
 	public List<V2DbContact> getContacts(String cid, String addTime) {
 		// TODO Auto-generated method stub
 		List<V2DbContact> list = new ArrayList<V2DbContact>();
@@ -149,8 +168,6 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 		}
 		return list;
 	}
-	
-	
 
 	public V2ZScustomerInfo getCustomr(String idcard, String siteid) {
 		// TODO Auto-generated method stub
@@ -171,11 +188,29 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 			return null;
 		}
 	}
-//运营商A的中间表
+
+	public V2DbXdBase getV2DbXdBase(String cid, String addtime) {
+		// TODO Auto-generated method stub
+		String rowkey = new StringBuilder(cid).reverse().toString() + "|";
+		try {
+			V2DbXdBase xb = new V2DbXdBase();
+			Connection con = ConnectionFactory.createConnection(conf);
+			Table table = con.getTable(TableName.valueOf("V2_DB_XD_BASE"));
+			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
+			//按照需求只需要ID
+			xb.setID(Bytes.toString(result.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
+			return xb;
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
+	// 运营商A的中间表
 	public V2DbMoBase getV2DbMoBase(String cid, String addtime) {
 		// TODO Auto-generated method stub
 		String rowkey = new StringBuilder(cid).reverse().toString();
-		if(rowkey == null) {
+		if (rowkey == null) {
 			return null;
 		}
 		try {
@@ -239,8 +274,9 @@ public class V2DbContactDaoImpl implements V2DbContactDao {
 
 	// 测试
 	public static void main(String[] args) throws ParseException {
-		V2DbContactDaoImpl dao = new V2DbContactDaoImpl();
+		V2DbCallDaoImpl dao = new V2DbCallDaoImpl();
 		int size = dao.getContacts("7117", null).size();
 		System.out.println(size);
-	}	
+	}
+
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.min.model.JSON;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.net.V2DbMxNet;
-import com.min.service.call.V2ContactService;
+import com.min.service.call.V2CallService;
 import com.min.service.net.V2NetService;
 
 @Controller
@@ -21,7 +21,7 @@ public class V2DBNet {
 	@Autowired
 	private V2NetService netService;
 	@Autowired
-	private V2ContactService service;
+	private V2CallService service;
 
 	@RequestMapping(value = "/v2/MxOldNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getMxOldNets(HttpServletRequest request, HttpServletResponse response) {

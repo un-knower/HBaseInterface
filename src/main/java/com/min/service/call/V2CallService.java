@@ -8,7 +8,7 @@ import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbOperatorCall;
 
-public interface V2ContactService {
+public interface V2CallService {
 
 	/*
 	 * 根据客户cid获取通讯录列表
