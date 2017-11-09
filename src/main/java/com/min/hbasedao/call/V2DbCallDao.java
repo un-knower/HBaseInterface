@@ -9,6 +9,7 @@ import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbMoBase;
 import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
+import com.min.model.call.V2DbXdCalls;
 
 public interface V2DbCallDao {
 	/*
@@ -39,7 +40,12 @@ public interface V2DbCallDao {
 	/*
 	 * 根据客户的cid获取V2DbXdBase表
 	 */
-	V2DbXdBase getV2DbXdBase(String cid, String addtime);
+	List<V2DbXdBase> getV2DbXdBase(String cid, String addtime);
+
+	/*
+	 * 根据客户的baseinfo_id获取V2DbXdCalls表
+	 */
+	List<V2DbXdCalls> getV2DbXdCalls(String baseinfo_id, String addtime);
 
 	/*
 	 * 根据baseinfoid获取通话记录

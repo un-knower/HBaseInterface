@@ -9,7 +9,7 @@ import com.min.hbasedao.net.V2DBNetsDao;
 import com.min.model.net.V2DbMxNet;
 
 @Service
-public class V2NetServiceImpl {
+public class V2NetServiceImpl implements V2NetService{
 	@Autowired
 	private V2DBNetsDao nDao;
 

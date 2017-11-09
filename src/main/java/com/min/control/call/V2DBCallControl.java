@@ -1,6 +1,7 @@
 package com.min.control.call;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.min.model.JSON;
+import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbMoBase;
 import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
+import com.min.model.call.V2DbXdCalls;
 import com.min.service.call.V2CallService;
 
 @Controller
@@ -94,6 +97,36 @@ public class V2DBCallControl {
 		}
 	}
 
+	// 运营商C的通话记录查询
+	@RequestMapping(value = "/v2/XdCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
+		String addTime = request.getParameter("addtime");
+		JSON<V2DbXdCalls> json = new JSON<V2DbXdCalls>();
+		List<V2DbXdCalls> XdCalls = new ArrayList<V2DbXdCalls>();
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+		List<V2DbXdBase> xdBase = service.getV2DbXdBase(customr.getId(), addTime);
+
+		for (V2DbXdBase v2DbXdBase : xdBase) {
+			List<V2DbXdCalls> list = service.getV2DbXdCalls(v2DbXdBase.getID(), addTime);
+			for (V2DbXdCalls v2DbXdCalls : list) {
+				XdCalls.add(v2DbXdCalls);
+			}
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			response.setContentType("text/plain;charset=UTF-8");
+			response.setCharacterEncoding("utf-8");
+			response.setHeader("Pragma", "No-cache");
+			response.setHeader("Cache-Control", "no-cache");
+			response.setDateHeader("Expires", 0);
+			String result = mapper.writeValueAsString(json);
+			response.getWriter().write(result);
+		} catch (IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
 	@RequestMapping(value = "/v2/MoRecordsCall", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 客户信息查询
 	public void getV2DbMoRecordsCall(HttpServletRequest request1, HttpServletResponse response1) {
@@ -128,4 +161,5 @@ public class V2DBCallControl {
 			// TODO: handle exception
 		}
 	}
+
 }

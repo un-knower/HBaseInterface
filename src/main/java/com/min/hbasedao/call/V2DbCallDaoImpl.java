@@ -24,6 +24,7 @@ import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbMoBase;
 import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
+import com.min.model.call.V2DbXdCalls;
 import com.min.utils.HbaseUtils;
 
 @Component
@@ -207,23 +208,96 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		}
 	}
 
-	public V2DbXdBase getV2DbXdBase(String cid, String addtime) {
+	public List<V2DbXdBase> getV2DbXdBase(String cid, String addtime) {
 		// TODO Auto-generated method stub
+		List<V2DbXdBase> list = new ArrayList<V2DbXdBase>();
 		try {
-			V2DbXdBase xb = new V2DbXdBase();
 			// 根据配置拿到连接
 			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_XD_BASE"));
+			String colum = "xb";// 列族
+			Scan scan = new Scan();
 			// rowkey设计,反转cid
+			System.out.println("cid" + cid);
 			String rowkey = new StringBuilder(cid).reverse().toString() + "|";
-			Result res = table.get(new Get(rowkey.getBytes()));
-			// 按照需求只需要ID
-			xb.setID(Bytes.toString(res.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
-			return xb;
+			// 根据前缀
+			scan.setRowPrefixFilter(rowkey.getBytes());
+			ResultScanner scanner = table.getScanner(scan);
+			// 遍历结果
+
+			for (Result res : scanner) {
+				long time = Bytes.toLong((res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ADDTIME"))));
+				if (addtime != null && addtime.length() > 0) {
+					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addtime).getTime() / 1000;
+					if (time >= addT && time <= (addT + 3600 * 30 * 24)) {
+						V2DbXdBase v2XB = new V2DbXdBase();
+						v2XB.setID(Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ID")))); // 按照需求只需要ID
+						list.add(v2XB);
+
+					}
+				} else {
+					V2DbXdBase v2XB = new V2DbXdBase();
+					v2XB.setID(Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ID"))));
+					System.out.println(Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ID"))));
+					list.add(v2XB);
+				}
+			}
+
+			scanner.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return null;
+
+		return list;
+	}
+
+	public List<V2DbXdCalls> getV2DbXdCalls(String baseinfo_id, String addtime) {
+		// TODO Auto-generated method stub
+		List<V2DbXdCalls> list = new ArrayList<V2DbXdCalls>();
+		try {
+			Connection con = ConnectionFactory.createConnection(conf);
+			Table table = con.getTable(TableName.valueOf("V2_DB_XD_CALLS"));
+			String colum = "calls";
+			Scan scan = new Scan();
+			String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
+			scan.setRowPrefixFilter(rowkey.getBytes());
+			ResultScanner scanner = table.getScanner(scan);
+
+			for (Result res : scanner) {
+				V2DbXdCalls v2DbXdCalls = new V2DbXdCalls();
+				long time = Bytes.toLong((res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ADDTIME"))));
+				if (addtime != null && addtime.length() > 0) {
+					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addtime).getTime() / 1000;
+					if (time >= addT && time <= (addT + 3600 * 30 * 24)) {
+						@SuppressWarnings("unchecked")
+						Class<V2DbXdCalls> cls = (Class<V2DbXdCalls>) v2DbXdCalls.getClass();
+						Field[] fields = cls.getDeclaredFields();
+						for (Field field : fields) {
+							field.setAccessible(true);
+							String fieldName = field.getName();
+							field.set(v2DbXdCalls, res.getValue(Bytes.toBytes(colum), // 注意小写转大写
+									Bytes.toBytes(fieldName)));
+						}
+					}
+				} else {
+					@SuppressWarnings("unchecked")
+					Class<V2DbXdCalls> cls = (Class<V2DbXdCalls>) v2DbXdCalls.getClass();
+					Field[] fields = cls.getDeclaredFields();
+					for (Field field : fields) {
+						field.setAccessible(true);
+						String fieldName = field.getName();
+						System.out.println("kpok0op" + fieldName);
+						field.set(v2DbXdCalls, res.getValue(Bytes.toBytes(colum), Bytes.toBytes(fieldName)));
+					}
+				}
+				list.add(v2DbXdCalls);
+				scanner.close();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	public V2DbOperatorTask getOperatorTask(String cid, String addTime) {

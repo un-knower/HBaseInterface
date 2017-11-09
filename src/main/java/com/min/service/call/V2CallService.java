@@ -3,11 +3,13 @@ package com.min.service.call;
 import java.util.List;
 
 import com.min.model.V2DbOperatorTask;
+import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbMoBase;
 import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
+import com.min.model.call.V2DbXdCalls;
 
 public interface V2CallService {
 
@@ -35,6 +37,15 @@ public interface V2CallService {
 	 * 根据客户cid获取OperatorTask
 	 */
 	V2DbOperatorTask getOperatorTask(String cid, String addTime);
+	/*
+	 * 根据客户的cid获取V2DbXdBase表
+	 */
+	List<V2DbXdBase> getV2DbXdBase(String cid, String addtime);
+
+	/*
+	 * 根据客户的baseinfo_id获取V2DbXdCalls表
+	 */
+	List<V2DbXdCalls> getV2DbXdCalls(String baseinfo_id, String addtime);
 
 	/*
 	 * 根据baseinfoid获取通话记录
