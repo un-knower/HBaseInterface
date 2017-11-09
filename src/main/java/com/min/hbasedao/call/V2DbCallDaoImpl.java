@@ -189,23 +189,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		}
 	}
 
-	public V2DbXdBase getV2DbXdBase(String cid, String addtime) {
-		// TODO Auto-generated method stub
-		String rowkey = new StringBuilder(cid).reverse().toString() + "|";
-		try {
-			V2DbXdBase xb = new V2DbXdBase();
-			Connection con = ConnectionFactory.createConnection(conf);
-			Table table = con.getTable(TableName.valueOf("V2_DB_XD_BASE"));
-			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
-			//按照需求只需要ID
-			xb.setID(Bytes.toString(result.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
-			return xb;
-		} catch (IOException e) {
-			// TODO: handle exception
-		}
-		return null;
-	}
-
 	// 运营商A的中间表
 	public V2DbMoBase getV2DbMoBase(String cid, String addtime) {
 		// TODO Auto-generated method stub
@@ -221,6 +204,26 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			mb.setId(Bytes.toString(result.getValue(Bytes.toBytes("mb"), Bytes.toBytes("ID"))));
 			return mb;
 		} catch (IOException e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
+	public V2DbXdBase getV2DbXdBase(String cid, String addtime) {
+		// TODO Auto-generated method stub
+		try {
+			V2DbXdBase xb = new V2DbXdBase();
+			// 根据配置拿到连接
+			Connection con = ConnectionFactory.createConnection(conf);
+			Table table = con.getTable(TableName.valueOf("V2_DB_XD_BASE"));
+			String colum = "xb";// 列族
+			// rowkey设计,反转cid
+			String rowkey = new StringBuilder(cid).reverse().toString() + "|";
+			Result res = table.get(new Get(rowkey.getBytes()));
+			// 按照需求只需要ID
+			xb.setID(Bytes.toString(res.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
+			return xb;
+		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return null;

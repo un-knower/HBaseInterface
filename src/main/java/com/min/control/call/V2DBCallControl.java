@@ -21,7 +21,7 @@ import com.min.service.call.V2CallService;
 
 @Controller
 @RequestMapping("/api")
-public class V2DBCall {
+public class V2DBCallControl {
 
 	@Autowired
 	private V2CallService service;
