@@ -36,8 +36,14 @@ public interface V2DbContactDao {
 	 * 根据客户的ID关联获取V2DbOperatorCall表的信息
 	 */
 	List<V2DbOperatorCall> getV2DbOperatorCall(String cid, String addtime);
-/*
+
+	/*
 	 * 根据客户cid获取OperatorTask
 	 */
 	V2DbOperatorTask getOperatorTask(String cid, String addTime);
+
+//	/*
+//	 * 根据客户的cid获取V2DbXdBase表
+//	 */
+//	List<V2DbXdBase> getV2DbXdBase(String cid,String addtime);
 }
