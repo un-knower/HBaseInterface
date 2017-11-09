@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
@@ -18,12 +17,12 @@ import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
-
-import com.min.model.V2DbMoBase;
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
+import com.min.model.call.V2DbMoBase;
+import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
 import com.min.utils.HbaseUtils;
 
@@ -204,9 +203,8 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			mb.setId(Bytes.toString(result.getValue(Bytes.toBytes("mb"), Bytes.toBytes("ID"))));
 			return mb;
 		} catch (IOException e) {
-			// TODO: handle exception
+			return null;
 		}
-		return null;
 	}
 
 	public V2DbXdBase getV2DbXdBase(String cid, String addtime) {
@@ -216,7 +214,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			// 根据配置拿到连接
 			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_XD_BASE"));
-			String colum = "xb";// 列族
 			// rowkey设计,反转cid
 			String rowkey = new StringBuilder(cid).reverse().toString() + "|";
 			Result res = table.get(new Get(rowkey.getBytes()));
@@ -275,11 +272,69 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		}
 	}
 
+	public List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId, String addtime) {
+		String rowkey = new StringBuilder(baseInfoId).reverse().toString();
+		if (rowkey == null) {
+			return null;
+		}
+		List<V2DbMoRecordsCall> list = new ArrayList<V2DbMoRecordsCall>();
+		try {
+			// 根据配置得到连接
+			Connection con = ConnectionFactory.createConnection(conf);
+			// 根据连接得到表
+			Table table = con.getTable(TableName.valueOf("V2_DB_MO_RECORDS_CALL"));
+			String cloum = "call";
+			Scan scan = new Scan();
+
+			// 根据rowkey 前缀过滤查找结果
+			scan.setRowPrefixFilter((rowkey + "|").getBytes());
+			ResultScanner scanner = table.getScanner(scan);
+			// 遍历结果
+			for (Result res : scanner) {
+				// System.out.println(res);
+				// 保存到实体类
+				V2DbMoRecordsCall v2 = new V2DbMoRecordsCall();
+				long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
+				if (addtime != null && addtime.length() > 0) {
+					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addtime).getTime() / 1000;
+					if (time >= addT && time <= (addT + 3600 * 30 * 24)) {
+						@SuppressWarnings("unchecked")
+						Class<V2DbMoRecordsCall> cls = (Class<V2DbMoRecordsCall>) v2.getClass();
+						Field[] fields = cls.getDeclaredFields();
+						for (Field field : fields) {
+							field.setAccessible(true);
+							String fieldName = field.getName();
+							field.set(v2, res.getValue(Bytes.toBytes(cloum),
+									Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
+						}
+						list.add(v2);
+					}
+				} else {
+					@SuppressWarnings("unchecked")
+					Class<V2DbMoRecordsCall> cls = (Class<V2DbMoRecordsCall>) v2.getClass();
+					Field[] fields = cls.getDeclaredFields();
+					for (Field field : fields) {
+						field.setAccessible(true);
+						String fieldName = field.getName();
+						field.set(v2, res.getValue(Bytes.toBytes(cloum),
+								Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
+					}
+					list.add(v2);
+				}
+			}
+			scanner.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		return list;
+	}
+
 	// 测试
 	public static void main(String[] args) throws ParseException {
 		V2DbCallDaoImpl dao = new V2DbCallDaoImpl();
-		int size = dao.getContacts("7117", null).size();
+		int size = dao.getV2DbMoRecordsCall("7117", null).size();
 		System.out.println(size);
 	}
-
 }

@@ -2,11 +2,12 @@ package com.min.hbasedao.call;
 
 import java.util.List;
 
-import com.min.model.V2DbMoBase;
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
+import com.min.model.call.V2DbMoBase;
+import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
 
 public interface V2DbCallDao {
@@ -35,8 +36,13 @@ public interface V2DbCallDao {
 	 */
 	V2DbOperatorTask getOperatorTask(String cid, String addTime);
 
-	 /*
+	/*
 	 * 根据客户的cid获取V2DbXdBase表
 	 */
-	 V2DbXdBase getV2DbXdBase(String cid,String addtime);
+	V2DbXdBase getV2DbXdBase(String cid, String addtime);
+
+	/*
+	 * 根据baseinfoid获取通话记录
+	 */
+	List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId, String addtime);
 }

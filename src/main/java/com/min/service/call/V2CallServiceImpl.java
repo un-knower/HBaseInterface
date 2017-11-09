@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.min.hbasedao.call.V2DbCallDao;
-import com.min.model.V2DbMoBase;
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbContact;
+import com.min.model.call.V2DbMoBase;
+import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
 
 @Service
@@ -41,4 +42,8 @@ public class V2CallServiceImpl implements V2CallService {
 		return conDao.getOperatorTask(cid, addTime);
 	}
 
+	public List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId, String addtime) {
+		// TODO Auto-generated method stub
+		return conDao.getV2DbMoRecordsCall(baseInfoId, addtime);
+	}
 }
