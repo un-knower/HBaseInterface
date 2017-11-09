@@ -1,4 +1,4 @@
-package com.min.service;
+package com.min.service.bill;
 
 import java.util.List;
 

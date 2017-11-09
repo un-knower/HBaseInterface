@@ -1,15 +1,12 @@
-package com.min.hbasedao;
+package com.min.hbasedao.call;
 
 import java.util.List;
 
-import com.min.model.V2DbContact;
 import com.min.model.V2DbMoBase;
-import com.min.model.V2DbMxNet;
-
-import com.min.model.V2DbOperatorCall;
-
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.call.V2DbContact;
+import com.min.model.call.V2DbOperatorCall;
 
 public interface V2DbContactDao {
 	/*
@@ -18,12 +15,7 @@ public interface V2DbContactDao {
 	List<V2DbContact> getContacts(String cid, String addTime);
 
 	/*
-	 * 上网记录列表
-	 */
-	List<V2DbMxNet> getMxOldNets(String cid, String addTime);
-
-	/*
-	 * 根据客户cid获取通讯录列表
+	 * 根据身份证号和平台id获取客户信息
 	 */
 	V2ZScustomerInfo getCustomr(String idcard, String siteid);
 
@@ -42,8 +34,8 @@ public interface V2DbContactDao {
 	 */
 	V2DbOperatorTask getOperatorTask(String cid, String addTime);
 
-//	/*
-//	 * 根据客户的cid获取V2DbXdBase表
-//	 */
-//	List<V2DbXdBase> getV2DbXdBase(String cid,String addtime);
+	// /*
+	// * 根据客户的cid获取V2DbXdBase表
+	// */
+	// List<V2DbXdBase> getV2DbXdBase(String cid,String addtime);
 }

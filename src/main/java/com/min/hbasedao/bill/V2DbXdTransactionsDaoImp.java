@@ -1,4 +1,4 @@
-package com.min.hbasedao;
+package com.min.hbasedao.bill;
 
 import java.io.IOException;
 

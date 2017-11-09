@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.min.service;
+package com.min.service.bill;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.min.hbasedao.V2DbMxOldBillsDao;
+import com.min.hbasedao.bill.V2DbMxOldBillsDao;
 import com.min.model.V2DbMxOldBills;
 
 

@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.min.hbasedao;
+package com.min.hbasedao.bill;
 
 import java.util.List;
 

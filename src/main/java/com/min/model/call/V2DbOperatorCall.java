@@ -1,4 +1,4 @@
-package com.min.model;
+package com.min.model.call;
 
 public class V2DbOperatorCall {
 

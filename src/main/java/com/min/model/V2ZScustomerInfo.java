@@ -5,58 +5,57 @@ package com.min.model;
 
 /**
  * CONTACTEntity
+ * 
  * @author d
  * @version 2017-11-01
  */
 public class V2ZScustomerInfo {
-	
-	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
-	//V2_ZS_CUSTOMER_INFO表字段
+
+	// V2_ZS_CUSTOMER_INFO表字段
 	private String id;
-	private String memberId;		// member_id
-	private String name;		// V2_ZS_CUSTOMER_INFO表中字段name
-	private String sex;			// sex
-	private String idNumber;		// id_number
-	private String email;		// email
-	private String mobile;		// V2_ZS_CUSTOMER_INFO表中字段mobile
-	private String mobileServicePwd;		// mobile_service_pwd
-	private String hasDriverLicense;		// has_driver_license
-	private String xxwPassword;		// xxw_password
-	private String xxwType;		// xxw_type
-	private String jg;			// jg
-	private String familyAddress;		// family_address
-	private String address;		// address
-	private String qq;			// qq
-	private String wechat;		// wechat
-	private String imei;		// imei
-	private String imsi;		// imsi
-	private String tel;			// tel
-	private String ip;			// ip
-	private String addTime;		// add_time
-	private String authTime;		// auth_time
-	private String authItems;		// auth_items
-	private String province;		// province
-	private String area;		// area
-	private String isAuthed;		// is_authed
-	private String isDeleted;		// is_deleted
-	private String hasCar;		// has_car
-	private String hasBankCard;		// has_bank_card
-	private String hasCompanyInfo;		// has_company_info
-	private String hasHouse;		// has_house
-	private String hasContacts;		// has_contacts
-	private String hasWeb;		// has_web
-	private String contactNum;		// contact_num
-	private String callsNum;		// calls_num
-	private String verifyId;		// verify_id
-	private String verifyTime;		// verify_time
-	private String verify;		// verify
-	private String operatorType;		// operator_type
-	private String loanAmount;		// loan_amount
-	private String monthlyIncome;		// monthly_income
-	private String ifUpload;		// if_upload
-	private String yys;			// yys
-	
+	private String memberId; // member_id
+	private String name; // V2_ZS_CUSTOMER_INFO表中字段name
+	private String sex; // sex
+	private String idNumber; // id_number
+	private String email; // email
+	private String mobile; // V2_ZS_CUSTOMER_INFO表中字段mobile
+	private String mobileServicePwd; // mobile_service_pwd
+	private String hasDriverLicense; // has_driver_license
+	private String xxwPassword; // xxw_password
+	private String xxwType; // xxw_type
+	private String jg; // jg
+	private String familyAddress; // family_address
+	private String address; // address
+	private String qq; // qq
+	private String wechat; // wechat
+	private String imei; // imei
+	private String imsi; // imsi
+	private String tel; // tel
+	private String ip; // ip
+	private String addTime; // add_time
+	private String authTime; // auth_time
+	private String authItems; // auth_items
+	private String province; // province
+	private String area; // area
+	private String isAuthed; // is_authed
+	private String isDeleted; // is_deleted
+	private String hasCar; // has_car
+	private String hasBankCard; // has_bank_card
+	private String hasCompanyInfo; // has_company_info
+	private String hasHouse; // has_house
+	private String hasContacts; // has_contacts
+	private String hasWeb; // has_web
+	private String contactNum; // contact_num
+	private String callsNum; // calls_num
+	private String verifyId; // verify_id
+	private String verifyTime; // verify_time
+	private String verify; // verify
+	private String operatorType; // operator_type
+	private String loanAmount; // loan_amount
+	private String monthlyIncome; // monthly_income
+	private String ifUpload; // if_upload
+	private String yys; // yys
+
 	public String getCName() {
 		return name;
 	}
@@ -72,7 +71,7 @@ public class V2ZScustomerInfo {
 	public void setCMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	
+
 	public String getMemberId() {
 		return memberId;
 	}
@@ -80,7 +79,6 @@ public class V2ZScustomerInfo {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	
 
 	public String getName() {
 		return name;
@@ -89,7 +87,7 @@ public class V2ZScustomerInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getSex() {
 		return sex;
 	}
@@ -97,7 +95,7 @@ public class V2ZScustomerInfo {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	
+
 	public String getIdNumber() {
 		return idNumber;
 	}
@@ -105,7 +103,7 @@ public class V2ZScustomerInfo {
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -113,6 +111,7 @@ public class V2ZScustomerInfo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getMobile() {
 		return mobile;
 	}
@@ -120,7 +119,7 @@ public class V2ZScustomerInfo {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	
+
 	public String getMobileServicePwd() {
 		return mobileServicePwd;
 	}
@@ -128,7 +127,7 @@ public class V2ZScustomerInfo {
 	public void setMobileServicePwd(String mobileServicePwd) {
 		this.mobileServicePwd = mobileServicePwd;
 	}
-	
+
 	public String getHasDriverLicense() {
 		return hasDriverLicense;
 	}
@@ -136,7 +135,7 @@ public class V2ZScustomerInfo {
 	public void setHasDriverLicense(String hasDriverLicense) {
 		this.hasDriverLicense = hasDriverLicense;
 	}
-	
+
 	public String getXxwPassword() {
 		return xxwPassword;
 	}
@@ -144,7 +143,7 @@ public class V2ZScustomerInfo {
 	public void setXxwPassword(String xxwPassword) {
 		this.xxwPassword = xxwPassword;
 	}
-	
+
 	public String getXxwType() {
 		return xxwType;
 	}
@@ -152,7 +151,7 @@ public class V2ZScustomerInfo {
 	public void setXxwType(String xxwType) {
 		this.xxwType = xxwType;
 	}
-	
+
 	public String getJg() {
 		return jg;
 	}
@@ -160,7 +159,7 @@ public class V2ZScustomerInfo {
 	public void setJg(String jg) {
 		this.jg = jg;
 	}
-	
+
 	public String getFamilyAddress() {
 		return familyAddress;
 	}
@@ -168,7 +167,7 @@ public class V2ZScustomerInfo {
 	public void setFamilyAddress(String familyAddress) {
 		this.familyAddress = familyAddress;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -176,7 +175,7 @@ public class V2ZScustomerInfo {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getQq() {
 		return qq;
 	}
@@ -184,7 +183,7 @@ public class V2ZScustomerInfo {
 	public void setQq(String qq) {
 		this.qq = qq;
 	}
-	
+
 	public String getWechat() {
 		return wechat;
 	}
@@ -192,7 +191,7 @@ public class V2ZScustomerInfo {
 	public void setWechat(String wechat) {
 		this.wechat = wechat;
 	}
-	
+
 	public String getImei() {
 		return imei;
 	}
@@ -200,7 +199,7 @@ public class V2ZScustomerInfo {
 	public void setImei(String imei) {
 		this.imei = imei;
 	}
-	
+
 	public String getImsi() {
 		return imsi;
 	}
@@ -208,7 +207,7 @@ public class V2ZScustomerInfo {
 	public void setImsi(String imsi) {
 		this.imsi = imsi;
 	}
-	
+
 	public String getTel() {
 		return tel;
 	}
@@ -216,7 +215,7 @@ public class V2ZScustomerInfo {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	
+
 	public String getIp() {
 		return ip;
 	}
@@ -224,7 +223,7 @@ public class V2ZScustomerInfo {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	
+
 	public String getAddTime() {
 		return addTime;
 	}
@@ -232,7 +231,7 @@ public class V2ZScustomerInfo {
 	public void setAddTime(String addTime) {
 		this.addTime = addTime;
 	}
-	
+
 	public String getAuthTime() {
 		return authTime;
 	}
@@ -240,7 +239,7 @@ public class V2ZScustomerInfo {
 	public void setAuthTime(String authTime) {
 		this.authTime = authTime;
 	}
-	
+
 	public String getAuthItems() {
 		return authItems;
 	}
@@ -248,7 +247,7 @@ public class V2ZScustomerInfo {
 	public void setAuthItems(String authItems) {
 		this.authItems = authItems;
 	}
-	
+
 	public String getProvince() {
 		return province;
 	}
@@ -256,7 +255,7 @@ public class V2ZScustomerInfo {
 	public void setProvince(String province) {
 		this.province = province;
 	}
-	
+
 	public String getArea() {
 		return area;
 	}
@@ -264,7 +263,7 @@ public class V2ZScustomerInfo {
 	public void setArea(String area) {
 		this.area = area;
 	}
-	
+
 	public String getIsAuthed() {
 		return isAuthed;
 	}
@@ -272,7 +271,7 @@ public class V2ZScustomerInfo {
 	public void setIsAuthed(String isAuthed) {
 		this.isAuthed = isAuthed;
 	}
-	
+
 	public String getIsDeleted() {
 		return isDeleted;
 	}
@@ -280,7 +279,7 @@ public class V2ZScustomerInfo {
 	public void setIsDeleted(String isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	
+
 	public String getHasCar() {
 		return hasCar;
 	}
@@ -288,7 +287,7 @@ public class V2ZScustomerInfo {
 	public void setHasCar(String hasCar) {
 		this.hasCar = hasCar;
 	}
-	
+
 	public String getHasBankCard() {
 		return hasBankCard;
 	}
@@ -296,7 +295,7 @@ public class V2ZScustomerInfo {
 	public void setHasBankCard(String hasBankCard) {
 		this.hasBankCard = hasBankCard;
 	}
-	
+
 	public String getHasCompanyInfo() {
 		return hasCompanyInfo;
 	}
@@ -304,7 +303,7 @@ public class V2ZScustomerInfo {
 	public void setHasCompanyInfo(String hasCompanyInfo) {
 		this.hasCompanyInfo = hasCompanyInfo;
 	}
-	
+
 	public String getHasHouse() {
 		return hasHouse;
 	}
@@ -312,7 +311,7 @@ public class V2ZScustomerInfo {
 	public void setHasHouse(String hasHouse) {
 		this.hasHouse = hasHouse;
 	}
-	
+
 	public String getHasContacts() {
 		return hasContacts;
 	}
@@ -320,7 +319,7 @@ public class V2ZScustomerInfo {
 	public void setHasContacts(String hasContacts) {
 		this.hasContacts = hasContacts;
 	}
-	
+
 	public String getHasWeb() {
 		return hasWeb;
 	}
@@ -328,7 +327,7 @@ public class V2ZScustomerInfo {
 	public void setHasWeb(String hasWeb) {
 		this.hasWeb = hasWeb;
 	}
-	
+
 	public String getContactNum() {
 		return contactNum;
 	}
@@ -336,7 +335,7 @@ public class V2ZScustomerInfo {
 	public void setContactNum(String contactNum) {
 		this.contactNum = contactNum;
 	}
-	
+
 	public String getCallsNum() {
 		return callsNum;
 	}
@@ -344,7 +343,7 @@ public class V2ZScustomerInfo {
 	public void setCallsNum(String callsNum) {
 		this.callsNum = callsNum;
 	}
-	
+
 	public String getVerifyId() {
 		return verifyId;
 	}
@@ -352,7 +351,7 @@ public class V2ZScustomerInfo {
 	public void setVerifyId(String verifyId) {
 		this.verifyId = verifyId;
 	}
-	
+
 	public String getVerifyTime() {
 		return verifyTime;
 	}
@@ -360,7 +359,7 @@ public class V2ZScustomerInfo {
 	public void setVerifyTime(String verifyTime) {
 		this.verifyTime = verifyTime;
 	}
-	
+
 	public String getVerify() {
 		return verify;
 	}
@@ -368,7 +367,7 @@ public class V2ZScustomerInfo {
 	public void setVerify(String verify) {
 		this.verify = verify;
 	}
-	
+
 	public String getOperatorType() {
 		return operatorType;
 	}
@@ -376,7 +375,7 @@ public class V2ZScustomerInfo {
 	public void setOperatorType(String operatorType) {
 		this.operatorType = operatorType;
 	}
-	
+
 	public String getLoanAmount() {
 		return loanAmount;
 	}
@@ -384,7 +383,7 @@ public class V2ZScustomerInfo {
 	public void setLoanAmount(String loanAmount) {
 		this.loanAmount = loanAmount;
 	}
-	
+
 	public String getMonthlyIncome() {
 		return monthlyIncome;
 	}
@@ -392,7 +391,7 @@ public class V2ZScustomerInfo {
 	public void setMonthlyIncome(String monthlyIncome) {
 		this.monthlyIncome = monthlyIncome;
 	}
-	
+
 	public String getIfUpload() {
 		return ifUpload;
 	}
@@ -400,7 +399,7 @@ public class V2ZScustomerInfo {
 	public void setIfUpload(String ifUpload) {
 		this.ifUpload = ifUpload;
 	}
-	
+
 	public String getYys() {
 		return yys;
 	}

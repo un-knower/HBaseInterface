@@ -1,4 +1,4 @@
-package com.min.control;
+package com.min.control.call;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,34 +13,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.min.model.JSON;
-import com.min.model.V2DbContact;
-import com.min.model.V2DbMxNet;
-import com.min.model.V2DbOperatorCall;
 import com.min.model.V2ZScustomerInfo;
-import com.min.service.V2Service;
+import com.min.model.call.V2DbContact;
+import com.min.model.call.V2DbOperatorCall;
+import com.min.service.call.V2ContactService;
 
 @Controller
 @RequestMapping("/api")
-public class V2Control {
+public class V2DBContact {
+
 	@Autowired
-	private V2Service service;
+	private V2ContactService service;
 
 	@RequestMapping(value = "/v2/contact", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	// 客户信息查询
-	public void getCusInfoId(HttpServletRequest request, HttpServletResponse response) {
+	public void getContact(HttpServletRequest request, HttpServletResponse response) {
 		// System.out.println(request.getParameter("idcard"));
 		// System.out.println("开始查询");
 		String addTime = request.getParameter("addtime");
 		JSON<V2DbContact> json = new JSON<V2DbContact>();
 		List<V2DbContact> contacts = null;
-		// 获取通讯录
+		// 客户信息获取
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
 		// System.out.println("获取cid：" + customr.getId());
+		// 获取成功
 		if (customr != null && customr.getId() != null) {
 			contacts = service.getContacts(customr.getId(), addTime);
 			json.setCode("200");
 			json.setMsg("返回成功");
-		} else {
+		} else { // 没有查到结果
 			json.setCode("404");
 			json.setMsg("没有找到");
 		}
@@ -60,18 +60,19 @@ public class V2Control {
 			e.printStackTrace();
 		}
 	}
-	
-	@RequestMapping(value = "/v2/OperatorCall",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
-     //客户信息查询
-	public void getCusInfoId1(HttpServletRequest request1, HttpServletResponse response1) {
+
+	@RequestMapping(value = "/v2/OperatorCall", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	// 客户信息查询
+	public void getOperatorCall(HttpServletRequest request1, HttpServletResponse response1) {
 		// System.out.println(request.getParameter("idcard"));
-		//System.out.println("开始查询");
+		// System.out.println("开始查询");
 		String addTime = request1.getParameter("addtime");
 		JSON<V2DbOperatorCall> json = new JSON<V2DbOperatorCall>();
 		List<V2DbOperatorCall> OperatorCall = null;
-		//获取运营商B的通话记录
+
 		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"));
-		if (customr != null && customr.getId() !=null) {
+		if (customr != null && customr.getId() != null) {
+			// 获取运营商B的通话记录
 			OperatorCall = service.getV2DbOperatorCall(customr.getId(), addTime);
 			json.setCode("200");
 			json.setMsg("返回成功");
@@ -91,47 +92,6 @@ public class V2Control {
 			response1.getWriter().write(result);
 		} catch (IOException e) {
 			// TODO: handle exception
-		}
-	}
-
-	@RequestMapping(value = "/v2/MxOldCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	public void getMxOldNets(HttpServletRequest request, HttpServletResponse response) {
-		// System.out.println("开始查询");
-		String addTime = request.getParameter("addtime");
-		JSON<V2DbMxNet> json = new JSON<V2DbMxNet>();
-		List<V2DbMxNet> vList = null;
-		// 获取通讯录
-		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
-
-
-		if (customr != null && customr.getId() != null) {
-			vList = service.getMxOldNets(customr.getId(), addTime);
-			System.out.println("获取cid：" + customr.getId());
-			if (customr != null && customr.getId() != null) {
-				vList = service.getMxOldNets(customr.getId(), addTime);
-				// System.out.println("获取cid：" + customr.getId());
-				json.setCode("200");
-				json.setMsg("返回成功");
-			} else {
-				json.setCode("404");
-				json.setMsg("没有找到");
-			}
-
-			// System.out.println("查询结果：" + vList.size());
-			json.setData(vList);
-			ObjectMapper mapper = new ObjectMapper();
-			response.setContentType("text/plain;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.setHeader("Pragma", "No-cache");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setDateHeader("Expires", 0);
-			try {
-				String result = mapper.writeValueAsString(json);
-				response.getWriter().write(result);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 }
