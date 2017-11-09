@@ -275,8 +275,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 						for (Field field : fields) {
 							field.setAccessible(true);
 							String fieldName = field.getName();
-							field.set(v2DbXdCalls, res.getValue(Bytes.toBytes(colum), // 注意小写转大写
-									Bytes.toBytes(fieldName)));
+							field.set(v2DbXdCalls,Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes(fieldName))));
 						}
 					}
 				} else {
@@ -286,8 +285,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 					for (Field field : fields) {
 						field.setAccessible(true);
 						String fieldName = field.getName();
-						System.out.println("kpok0op" + fieldName);
-						field.set(v2DbXdCalls, res.getValue(Bytes.toBytes(colum), Bytes.toBytes(fieldName)));
+						field.set(v2DbXdCalls,Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes(fieldName))));
 					}
 				}
 				list.add(v2DbXdCalls);
