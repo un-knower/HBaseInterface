@@ -29,7 +29,7 @@ public interface V2DbCallDao {
 	/*
 	 * 根据客户的ID关联获取V2DbOperatorCall表的信息
 	 */
-	List<V2DbOperatorCall> getV2DbOperatorCall(String cid, String addtime);
+	List<V2DbOperatorCall> getV2DbOperatorCall(String taskid, String addtime);
 
 	/*
 	 * 根据客户cid获取OperatorTask

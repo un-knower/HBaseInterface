@@ -27,18 +27,13 @@ public class V2DBCallControl {
 
 	@Autowired
 	private V2CallService service;
-
+    //通讯录接口
 	@RequestMapping(value = "/v2/contact", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getContact(HttpServletRequest request, HttpServletResponse response) {
-		// System.out.println(request.getParameter("idcard"));
-		// System.out.println("开始查询");
 		String addTime = request.getParameter("addtime");
 		JSON<V2DbContact> json = new JSON<V2DbContact>();
 		List<V2DbContact> contacts = null;
-		// 客户信息获取
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
-		// System.out.println("获取cid：" + customr.getId());
-		// 获取成功
 		if (customr != null && customr.getId() != null) {
 			contacts = service.getContacts(customr.getId(), addTime);
 			json.setCode("200");
@@ -47,7 +42,6 @@ public class V2DBCallControl {
 			json.setCode("404");
 			json.setMsg("没有找到");
 		}
-		// System.out.println("查询结果：" + contacts.size());
 		json.setData(contacts);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -59,9 +53,8 @@ public class V2DBCallControl {
 			e.printStackTrace();
 		}
 	}
-
+    //运营商B的通话记录接口
 	@RequestMapping(value = "/v2/OperatorCall", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	// 客户信息查询
 	public void getOperatorCall(HttpServletRequest request1, HttpServletResponse response1) {
 		String addTime = request1.getParameter("addtime");
 		JSON<V2DbOperatorCall> json = new JSON<V2DbOperatorCall>();
@@ -69,7 +62,6 @@ public class V2DBCallControl {
 		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"));
 		if (customr != null && ("1").equals(customr.getOperatorType())) {
 			if (customr != null && customr.getId() != null) {
-				// 获取运营商B的通话记录
 				OperatorCall = service.getV2DbOperatorCall(customr.getId(), addTime);
 				json.setCode("200");
 				json.setMsg("返回成功");
@@ -89,7 +81,7 @@ public class V2DBCallControl {
 		}
 	}
 
-	// 运营商C的通话记录查询
+	// 运营商C的通话记录接口
 	@RequestMapping(value = "/v2/XdCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
 		String addTime = request.getParameter("addtime");
@@ -124,9 +116,8 @@ public class V2DBCallControl {
 			e.printStackTrace();
 		}
 	}
-
+    //运营商A的通话记录接口
 	@RequestMapping(value = "/v2/MoRecordsCall", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	// 客户信息查询
 	public void getV2DbMoRecordsCall(HttpServletRequest request1, HttpServletResponse response1) {
 		System.out.println(request1.getParameter("idcard"));
 		System.out.println("开始查询");

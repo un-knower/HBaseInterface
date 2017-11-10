@@ -43,7 +43,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	}
 
 	// 运营商B的通话记录表
-	public List<V2DbOperatorCall> getV2DbOperatorCall(String cid, String addtime) {
+	public List<V2DbOperatorCall> getV2DbOperatorCall(String taskid, String addtime) {
 		// TODO Auto-generated method stub
 		List<V2DbOperatorCall> list = new ArrayList<V2DbOperatorCall>();
 		try {
@@ -51,7 +51,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			Table table = con.getTable(TableName.valueOf("V2_DB_OPERATOR_CALL"));
 			String column = "call";
 			Scan scan = new Scan();
-			String rowkey = new StringBuilder(cid).reverse().toString() + "|";
+			String rowkey = new StringBuilder(taskid).reverse().toString() + "|";
 			scan.setRowPrefixFilter(rowkey.getBytes());
 			ResultScanner scanner = table.getScanner(scan);
 			// 遍历结果
