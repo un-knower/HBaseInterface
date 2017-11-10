@@ -9,12 +9,12 @@ import com.min.hbasedao.net.V2DBNetsDao;
 import com.min.model.net.V2DbMxNet;
 
 @Service
-public class V2NetServiceImpl implements V2NetService{
+public class V2NetServiceImpl implements V2NetService {
 	@Autowired
 	private V2DBNetsDao nDao;
 
-	public List<V2DbMxNet> getMxOldNets(String cid, String addTime) {
+	public List<V2DbMxNet> getMxOldNets(String cid) {
 		// TODO Auto-generated method stub
-		return nDao.getMxOldNets(cid, addTime);
+		return nDao.getMxOldNets(cid);
 	}
 }

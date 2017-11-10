@@ -4,24 +4,20 @@
 package com.min.control.bill;
 
 import java.io.IOException;
-
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.min.model.JSON;
 import com.min.model.V2DbXdTransactions;
 import com.min.model.V2ZScustomerInfo;
 import com.min.service.call.V2CallService;
-
 import com.min.service.call.V2DbXdTransactionsService;
+import com.min.utils.HbaseUtils;
 
 /**
  * 账单记录Controller
@@ -42,15 +38,12 @@ public class V2DbXdTransactionsController {
 	@RequestMapping(value = "/v2/XdTransaction", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 账单记录查询
 	public void getCusInfoId(HttpServletRequest request, HttpServletResponse response) {
-
-		// 获取addtime
-		String addTime = request.getParameter("addtime");
 		JSON<V2DbXdTransactions> json = new JSON<V2DbXdTransactions>();
 		List<V2DbXdTransactions> xdtrans = null;
 		// 获取账单信息
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
 		if (customr.getId() != null) {
-			xdtrans = v2DbXdTranService.getContacts(customr.getId(), addTime);
+			xdtrans = v2DbXdTranService.getContacts(customr.getId());
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {
@@ -60,11 +53,7 @@ public class V2DbXdTransactionsController {
 		json.setData(xdtrans);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			response.setContentType("text/plain;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.setHeader("Pragma", "No-cache");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setDateHeader("Expires", 0);
+			HbaseUtils.setResponse(response);
 			String result = mapper.writeValueAsString(json);
 			response.getWriter().write(result);
 		} catch (IOException e) {

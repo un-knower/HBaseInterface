@@ -19,9 +19,9 @@ public class V2CallServiceImpl implements V2CallService {
 	@Autowired
 	private V2DbCallDao conDao;
 
-	public List<V2DbContact> getContacts(String cid, String addTime) {
+	public List<V2DbContact> getContacts(String cid) {
 		// TODO Auto-generated method stub
-		return conDao.getContacts(cid, addTime);
+		return conDao.getContacts(cid);
 	}
 
 	public V2ZScustomerInfo getCustomr(String idcard, String siteid) {
@@ -29,33 +29,33 @@ public class V2CallServiceImpl implements V2CallService {
 		return conDao.getCustomr(idcard, siteid);
 	}
 
-	public V2DbMoBase getV2DbMoBase(String cid, String addtime) {
+	public V2DbMoBase getV2DbMoBase(String cid) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbMoBase(cid, addtime);
+		return conDao.getV2DbMoBase(cid);
 	}
 
-	public List<V2DbOperatorCall> getV2DbOperatorCall(String cid, String addtime) {
+	public List<V2DbOperatorCall> getV2DbOperatorCall(String cid) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbOperatorCall(cid, addtime);
+		return conDao.getV2DbOperatorCall(cid);
 	}
 
-	public V2DbOperatorTask getOperatorTask(String cid, String addTime) {
+	public V2DbOperatorTask getOperatorTask(String cid) {
 		// TODO Auto-generated method stub
-		return conDao.getOperatorTask(cid, addTime);
+		return conDao.getOperatorTask(cid);
 	}
 
-	public List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId, String addtime) {
+	public List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbMoRecordsCall(baseInfoId, addtime);
+		return conDao.getV2DbMoRecordsCall(baseInfoId);
 	}
 
-	public List<V2DbXdBase> getV2DbXdBase(String cid, String addtime) {
+	public List<V2DbXdBase> getV2DbXdBase(String cid) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbXdBase(cid, addtime);
+		return conDao.getV2DbXdBase(cid);
 	}
 
-	public List<V2DbXdCalls> getV2DbXdCalls(String baseinfo_id, String addtime) {
+	public List<V2DbXdCalls> getV2DbXdCalls(String baseinfo_id) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbXdCalls(baseinfo_id, addtime);
+		return conDao.getV2DbXdCalls(baseinfo_id);
 	}
 }

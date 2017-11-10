@@ -6,7 +6,7 @@ import java.util.List;
 public class JSON<E> {
 	private String msg;
 	private String code;
-	private List<?> data = new ArrayList<E>();
+	private List<E> data = new ArrayList<E>();
 
 	public String getMsg() {
 		return msg;
@@ -24,11 +24,11 @@ public class JSON<E> {
 		this.code = code;
 	}
 
-	public List<?> getData() {
+	public List<E> getData() {
 		return data;
 	}
 
-	public void setData(List<?> data) {
+	public void setData(List<E> data) {
 		this.data = data;
 	}
 }

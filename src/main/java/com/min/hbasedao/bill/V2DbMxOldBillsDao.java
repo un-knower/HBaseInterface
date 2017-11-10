@@ -4,9 +4,6 @@
 package com.min.hbasedao.bill;
 
 import java.util.List;
-
-
-
 import com.min.model.V2DbMxOldBills;
 
 
@@ -19,5 +16,5 @@ public interface V2DbMxOldBillsDao {
 	/*
 	 * 根据客户cid获取账单信息
 	 */
-	List<V2DbMxOldBills> getContacts(String cid, String addTime);
+	List<V2DbMxOldBills> getContacts(String cid);
 }

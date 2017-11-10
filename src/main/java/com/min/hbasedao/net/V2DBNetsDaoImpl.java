@@ -26,7 +26,7 @@ public class V2DBNetsDaoImpl implements V2DBNetsDao {
 	// 加载配置文件
 	static Configuration conf = HBaseConfiguration.create();
 
-	public List<V2DbMxNet> getMxOldNets(String cid, String addTime) {
+	public List<V2DbMxNet> getMxOldNets(String cid) {
 		// TODO Auto-generated method stub
 		List<V2DbMxNet> list = new ArrayList<V2DbMxNet>();
 		try {
@@ -43,42 +43,23 @@ public class V2DBNetsDaoImpl implements V2DBNetsDao {
 			ResultScanner scanner = table.getScanner(scan);
 			// 遍历结果
 			for (Result res : scanner) {
-				// System.out.println(res);
-				// 保存到实体类
-				long time = Bytes.toLong((res.getValue(Bytes.toBytes(cloum), Bytes.toBytes("ADDTIME"))));
-				if (addTime != null && addTime.length() > 0) {
-					long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
-					if (time >= addT && time <= (addT + 3600 * 30 * 24)) {
-						V2DbMxNet v2 = new V2DbMxNet();
-						@SuppressWarnings("unchecked")
-						Class<V2DbMxNet> cls = (Class<V2DbMxNet>) v2.getClass();
-						Field[] fields = cls.getDeclaredFields();
-						for (Field field : fields) {
-							field.setAccessible(true);
-							String fieldName = field.getName();
-							field.set(v2, res.getValue(Bytes.toBytes(cloum),
-									Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
-						}
-						list.add(v2);
-					}
-				} else {
-					V2DbMxNet v2 = new V2DbMxNet();
-					@SuppressWarnings("unchecked")
-					Class<V2DbMxNet> cls = (Class<V2DbMxNet>) v2.getClass();
-					Field[] fields = cls.getDeclaredFields();
-					for (Field field : fields) {
-						field.setAccessible(true);
-						String fieldName = field.getName();
-						field.set(v2, res.getValue(Bytes.toBytes(cloum),
-								Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
-					}
-					list.add(v2);
+				V2DbMxNet v2 = new V2DbMxNet();
+				@SuppressWarnings("unchecked")
+				Class<V2DbMxNet> cls = (Class<V2DbMxNet>) v2.getClass();
+				Field[] fields = cls.getDeclaredFields();
+				for (Field field : fields) {
+					field.setAccessible(true);
+					String fieldName = field.getName();
+					field.set(v2, res.getValue(Bytes.toBytes(cloum),
+							Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
 				}
+				list.add(v2);
 			}
 			scanner.close();
+			table.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			return list;
+			return null;
 		}
 		return list;
 	}

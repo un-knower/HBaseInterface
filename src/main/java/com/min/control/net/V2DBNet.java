@@ -14,6 +14,7 @@ import com.min.model.V2ZScustomerInfo;
 import com.min.model.net.V2DbMxNet;
 import com.min.service.call.V2CallService;
 import com.min.service.net.V2NetService;
+import com.min.utils.HbaseUtils;
 
 @Controller
 @RequestMapping("/api")
@@ -25,18 +26,16 @@ public class V2DBNet {
 
 	@RequestMapping(value = "/v2/MxOldNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getMxOldNets(HttpServletRequest request, HttpServletResponse response) {
-		// System.out.println("开始查询");
-		String addTime = request.getParameter("addtime");
 		JSON<V2DbMxNet> json = new JSON<V2DbMxNet>();
 		List<V2DbMxNet> vList = null;
 		// 获取通讯录
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
 
 		if (customr != null && customr.getId() != null) {
-			vList = netService.getMxOldNets(customr.getId(), addTime);
+			vList = netService.getMxOldNets(customr.getId());
 			System.out.println("获取cid：" + customr.getId());
 			if (customr != null && customr.getId() != null) {
-				vList = netService.getMxOldNets(customr.getId(), addTime);
+				vList = netService.getMxOldNets(customr.getId());
 				// System.out.println("获取cid：" + customr.getId());
 				json.setCode("200");
 				json.setMsg("返回成功");
@@ -47,11 +46,7 @@ public class V2DBNet {
 			// System.out.println("查询结果：" + vList.size());
 			json.setData(vList);
 			ObjectMapper mapper = new ObjectMapper();
-			response.setContentType("text/plain;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.setHeader("Pragma", "No-cache");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setDateHeader("Expires", 0);
+			HbaseUtils.setResponse(response);
 			try {
 				String result = mapper.writeValueAsString(json);
 				response.getWriter().write(result);
