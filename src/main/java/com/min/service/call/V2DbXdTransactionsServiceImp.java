@@ -23,8 +23,8 @@ public class V2DbXdTransactionsServiceImp implements V2DbXdTransactionsService {
 	@Autowired
 	private V2DbXdTransactionsDao xdTranDao;
 
-	public List<V2DbXdTransactions> getContacts(String cid, String addTime) {
-		return xdTranDao.getContacts(cid, addTime);
+	public List<V2DbXdTransactions> getContacts(String cid) {
+		return xdTranDao.getContacts(cid);
 	}
 
 }

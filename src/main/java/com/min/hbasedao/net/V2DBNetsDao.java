@@ -7,5 +7,5 @@ public interface V2DBNetsDao {
 	/*
 	 * 上网记录列表
 	 */
-	List<V2DbMxNet> getMxOldNets(String cid, String addTime);
+	List<V2DbMxNet> getMxOldNets(String cid);
 }

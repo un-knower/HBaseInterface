@@ -38,15 +38,12 @@ public class V2DbXdTransactionsController {
 	@RequestMapping(value = "/v2/XdTransaction", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 账单记录查询
 	public void getCusInfoId(HttpServletRequest request, HttpServletResponse response) {
-
-		// 获取addtime
-		String addTime = request.getParameter("addtime");
 		JSON<V2DbXdTransactions> json = new JSON<V2DbXdTransactions>();
 		List<V2DbXdTransactions> xdtrans = null;
 		// 获取账单信息
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
 		if (customr.getId() != null) {
-			xdtrans = v2DbXdTranService.getContacts(customr.getId(), addTime);
+			xdtrans = v2DbXdTranService.getContacts(customr.getId());
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {

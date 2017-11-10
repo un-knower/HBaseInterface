@@ -9,5 +9,5 @@ public interface V2DbXdTransactionsService {
 	/*
 	 * 根据客户cid和addTime获取账单记录
 	 */
-	List<V2DbXdTransactions> getContacts(String cid, String addTime);
+	List<V2DbXdTransactions> getContacts(String cid);
 }

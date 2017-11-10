@@ -26,18 +26,16 @@ public class V2DBNet {
 
 	@RequestMapping(value = "/v2/MxOldNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public void getMxOldNets(HttpServletRequest request, HttpServletResponse response) {
-		// System.out.println("开始查询");
-		String addTime = request.getParameter("addtime");
 		JSON<V2DbMxNet> json = new JSON<V2DbMxNet>();
 		List<V2DbMxNet> vList = null;
 		// 获取通讯录
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
 
 		if (customr != null && customr.getId() != null) {
-			vList = netService.getMxOldNets(customr.getId(), addTime);
+			vList = netService.getMxOldNets(customr.getId());
 			System.out.println("获取cid：" + customr.getId());
 			if (customr != null && customr.getId() != null) {
-				vList = netService.getMxOldNets(customr.getId(), addTime);
+				vList = netService.getMxOldNets(customr.getId());
 				// System.out.println("获取cid：" + customr.getId());
 				json.setCode("200");
 				json.setMsg("返回成功");

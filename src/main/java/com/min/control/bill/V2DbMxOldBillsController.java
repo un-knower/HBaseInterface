@@ -38,8 +38,6 @@ public class V2DbMxOldBillsController {
 	@RequestMapping(value = "/v2/MxOldBills", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 账单记录查询
 	public void getCusInfoId(HttpServletRequest request, HttpServletResponse response) {
-		// 获取addTime
-		String addTime = request.getParameter("addtime");
 		JSON<V2DbMxOldBills> json = new JSON<V2DbMxOldBills>();
 		List<V2DbMxOldBills> contacts = null;
 
@@ -49,7 +47,7 @@ public class V2DbMxOldBillsController {
 
 		// 获取通讯录
 		if (customr.getId() != null) {
-			contacts = v2DbMxOldBillsService.getContacts(customr.getId(), addTime);
+			contacts = v2DbMxOldBillsService.getContacts(customr.getId());
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {
