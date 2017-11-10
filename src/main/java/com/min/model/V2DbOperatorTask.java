@@ -23,6 +23,8 @@ public class V2DbOperatorTask {
 	private String monthrecorddetailmap; //
 	private String isStart; //
 	private String isDownloaded; //
+	
+	private String taskid;
 
 	public V2DbOperatorTask() {
 		super();
@@ -122,5 +124,13 @@ public class V2DbOperatorTask {
 
 	public void setMonthrecorddetailmap(String monthrecorddetailmap) {
 		this.monthrecorddetailmap = monthrecorddetailmap;
+	}
+
+	public String getTaskid() {
+		return taskid;
+	}
+
+	public void setTaskid(String taskid) {
+		this.taskid = taskid;
 	}
 }
