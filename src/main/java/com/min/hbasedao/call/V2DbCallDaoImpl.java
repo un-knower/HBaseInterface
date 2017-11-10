@@ -321,26 +321,12 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			if (addTime != null && addTime.length() > 0) {
 				long addT = new java.text.SimpleDateFormat("yyyyMM").parse(addTime).getTime() / 1000;
 				if (time >= addT && time <= (addT + 3600 * 30 * 24)) {
-					@SuppressWarnings("unchecked")
-					Class<V2DbOperatorTask> cls = (Class<V2DbOperatorTask>) v2.getClass();
-					Field[] fields = cls.getDeclaredFields();
-					for (Field field : fields) {
-						field.setAccessible(true);
-						String fieldName = field.getName();
-						field.set(v2, res.getValue(Bytes.toBytes(cloum), // 注意小写转大写
-								Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
-					}
+					v2.setTaskid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), // 注意小写转大写
+							Bytes.toBytes("TASKID"))));
 				}
 			} else {
-				@SuppressWarnings("unchecked")
-				Class<V2DbOperatorTask> cls = (Class<V2DbOperatorTask>) v2.getClass();
-				Field[] fields = cls.getDeclaredFields();
-				for (Field field : fields) {
-					field.setAccessible(true);
-					String fieldName = field.getName();
-					field.set(v2, res.getValue(Bytes.toBytes(cloum),
-							Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
-				}
+				v2.setTaskid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), // 注意小写转大写
+						Bytes.toBytes("TASKID"))));
 			}
 			return v2;
 		} catch (Exception e) {
