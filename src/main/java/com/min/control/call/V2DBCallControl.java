@@ -3,16 +3,13 @@ package com.min.control.call;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.min.model.JSON;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
@@ -70,11 +67,13 @@ public class V2DBCallControl {
 		JSON<V2DbOperatorCall> json = new JSON<V2DbOperatorCall>();
 		List<V2DbOperatorCall> OperatorCall = null;
 		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"));
-		if (customr != null && customr.getId() != null) {
-			// 获取运营商B的通话记录
-			OperatorCall = service.getV2DbOperatorCall(customr.getId(), addTime);
-			json.setCode("200");
-			json.setMsg("返回成功");
+		if (customr != null && ("1").equals(customr.getOperatorType())) {
+			if (customr != null && customr.getId() != null) {
+				// 获取运营商B的通话记录
+				OperatorCall = service.getV2DbOperatorCall(customr.getId(), addTime);
+				json.setCode("200");
+				json.setMsg("返回成功");
+			}
 		} else {
 			json.setCode("404");
 			json.setMsg("没有找到");

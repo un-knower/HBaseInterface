@@ -1,7 +1,6 @@
 package com.min.hbasedao.call;
 
 import java.util.List;
-
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;

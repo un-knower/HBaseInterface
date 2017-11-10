@@ -4,9 +4,6 @@
 package com.min.hbasedao.bill;
 
 import java.util.List;
-
-
-
 import com.min.model.V2DbMxOldBills;
 
 

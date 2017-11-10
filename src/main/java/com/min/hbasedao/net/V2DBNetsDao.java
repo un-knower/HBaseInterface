@@ -1,7 +1,6 @@
 package com.min.hbasedao.net;
 
 import java.util.List;
-
 import com.min.model.net.V2DbMxNet;
 
 public interface V2DBNetsDao {

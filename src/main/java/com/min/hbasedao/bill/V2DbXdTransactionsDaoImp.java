@@ -1,11 +1,9 @@
 package com.min.hbasedao.bill;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
@@ -17,7 +15,6 @@ import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
-
 import com.min.model.V2DbXdTransactions;
 
 @Component
