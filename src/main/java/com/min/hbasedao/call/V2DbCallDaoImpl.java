@@ -31,14 +31,22 @@ import com.min.utils.HbaseUtils;
 public class V2DbCallDaoImpl implements V2DbCallDao {
 	// 加载配置文件
 	static Configuration conf = HBaseConfiguration.create();
+	// 根据配置拿到连接
+	static Connection con;
+	static {
+		try {
+			con = ConnectionFactory.createConnection(conf);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	// 运营商B的通话记录表
 	public List<V2DbOperatorCall> getV2DbOperatorCall(String cid, String addtime) {
 		// TODO Auto-generated method stub
 		List<V2DbOperatorCall> list = new ArrayList<V2DbOperatorCall>();
 		try {
-			// 根据配置拿到连接
-			Connection con = ConnectionFactory.createConnection(conf);
 			// 根据连接拿到表
 			Table table = con.getTable(TableName.valueOf("V2_DB_OPERATOR_CALL"));
 			String column = "call";
@@ -120,8 +128,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		// TODO Auto-generated method stub
 		List<V2DbContact> list = new ArrayList<V2DbContact>();
 		try {
-			// 根据配置得到连接
-			Connection con = ConnectionFactory.createConnection(conf);
 			// 根据连接得到表
 			Table table = con.getTable(TableName.valueOf("V2_DB_CONTACT"));
 			String cloum = "con";
@@ -177,11 +183,12 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		}
 		try {
 			V2ZScustomerInfo info = new V2ZScustomerInfo();
-			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_CUSTOMER_INFO"));
 			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
 			// 按照需求只需要id
 			info.setId(Bytes.toString(result.getValue(Bytes.toBytes("ic"), Bytes.toBytes("ID"))));
+			info.setOperatorType(Bytes.toString(result.getValue(Bytes.toBytes("ic"), Bytes.toBytes("OPERATOR_TYPE"))));
+			table.close();
 			return info;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -212,8 +219,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		// TODO Auto-generated method stub
 		List<V2DbXdBase> list = new ArrayList<V2DbXdBase>();
 		try {
-			// 根据配置拿到连接
-			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_XD_BASE"));
 			String colum = "xb";// 列族
 			Scan scan = new Scan();
@@ -253,7 +258,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		// TODO Auto-generated method stub
 		List<V2DbXdCalls> list = new ArrayList<V2DbXdCalls>();
 		try {
-			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_XD_CALLS"));
 			String colum = "calls";
 			Scan scan = new Scan();
@@ -304,8 +308,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	public V2DbOperatorTask getOperatorTask(String cid, String addTime) {
 		// TODO Auto-generated method stub
 		try {
-			// 根据配置得到连接
-			Connection con = ConnectionFactory.createConnection(conf);
 			// 根据连接得到表
 			Table table = con.getTable(TableName.valueOf("V2_DB_OPERATOR_TASK"));
 			String cloum = "ot"; // 列族
@@ -354,8 +356,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		}
 		List<V2DbMoRecordsCall> list = new ArrayList<V2DbMoRecordsCall>();
 		try {
-			// 根据配置得到连接
-			Connection con = ConnectionFactory.createConnection(conf);
 			// 根据连接得到表
 			Table table = con.getTable(TableName.valueOf("V2_DB_MO_RECORDS_CALL"));
 			String cloum = "call";

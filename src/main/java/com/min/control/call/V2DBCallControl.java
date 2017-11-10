@@ -101,21 +101,24 @@ public class V2DBCallControl {
 		JSON<V2DbXdCalls> json = new JSON<V2DbXdCalls>();
 		List<V2DbXdCalls> XdCalls = new ArrayList<V2DbXdCalls>();
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
-		if (customr != null && customr.getId() != null) {
-			List<V2DbXdBase> xdBase = service.getV2DbXdBase(customr.getId(), addTime);
-			for (V2DbXdBase v2DbXdBase : xdBase) {
-				List<V2DbXdCalls> list = service.getV2DbXdCalls(v2DbXdBase.getID(), addTime);
-				for (V2DbXdCalls v2DbXdCalls : list) {
-					XdCalls.add(v2DbXdCalls);
-				}
-			}
-			json.setData(XdCalls);
-			json.setCode("200");
-			json.setMsg("返回成功");
-		} else {
-			json.setCode("404");
-			json.setMsg("没有找到");
-		}
+			if (customr != null && ("2").equals(customr.getOperatorType())) {
+				if (customr != null &&customr.getId() != null) {
+					System.out.println(customr.getId());
+					List<V2DbXdBase> xdBase = service.getV2DbXdBase(customr.getId(), addTime);
+					for (V2DbXdBase v2DbXdBase : xdBase) {
+						List<V2DbXdCalls> list = service.getV2DbXdCalls(v2DbXdBase.getID(), addTime);
+						for (V2DbXdCalls v2DbXdCalls : list) {
+							XdCalls.add(v2DbXdCalls);	
+						}
+					}
+					json.setData(XdCalls);
+					json.setCode("200");
+					json.setMsg("返回成功");
+				} else {
+					json.setCode("404");
+					json.setMsg("没有找到");
+				}	
+			}	
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			response.setContentType("text/plain;charset=UTF-8");
