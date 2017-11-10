@@ -52,7 +52,6 @@ public class V2DbMxOldCallsController {
 			// 获取运营商的语音详情
 			V2DbMxBase mxBase = v2DbMxOldCallsService.getV2DbMxBase(customr.getId());
 			mxOldCalls = v2DbMxOldCallsService.getV2DbMxOldCalls(mxBase.getId());
-			System.out.println("mxOldCalls" + mxOldCalls.size());
 			json.setCode("200");
 			json.setMsg("返回成功");
 		} else {

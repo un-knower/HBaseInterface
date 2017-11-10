@@ -43,7 +43,6 @@ public class V2DbMxOldCallsDaoImp implements V2DbMxOldCallsDao {
 						Table table = con.getTable(TableName.valueOf("V2_DB_MX_BASE"));
 						Result result = table.get(new Get(Bytes.toBytes(rowkey)));
 						mx.setId(Bytes.toString(result.getValue(Bytes.toBytes("m"), Bytes.toBytes("ID"))));
-						System.out.println("ID" + mx.getId());
 						return mx;
 					} catch (IOException e) {
 						return null;
@@ -61,7 +60,6 @@ public class V2DbMxOldCallsDaoImp implements V2DbMxOldCallsDao {
 					String colum = "calls";
 					Scan scan = new Scan();
 					String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
-					System.out.println("rowkey" + rowkey);
 					scan.setRowPrefixFilter(rowkey.getBytes());
 					ResultScanner scanner = table.getScanner(scan);
 
