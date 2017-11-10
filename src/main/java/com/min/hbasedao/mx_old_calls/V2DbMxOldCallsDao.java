@@ -17,10 +17,10 @@ public interface V2DbMxOldCallsDao {
 	/*
 	 * 根据客户cid获取语音详情
 	 */
-	V2DbMxBase getV2DbMxBase(String cid, String addtime);
+	V2DbMxBase getV2DbMxBase(String cid);
 	
 	/*
-	 * 根据客户的baseinfo_id获取V2DbMxOldCalls表
+	 * 根据客户的baseinfo_id获取V2DbMxOldCalls表信息
 	 */
-	List<V2DbMxOldCalls> getV2DbMxOldCalls(String baseinfo_id, String addtime);
+	List<V2DbMxOldCalls> getV2DbMxOldCalls(String baseinfo_id);
 }

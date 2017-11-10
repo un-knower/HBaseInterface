@@ -25,14 +25,14 @@ public class V2DbMxOldCallsServiceImp implements V2DbMxOldCallsService{
 	@Autowired
 	private V2DbMxOldCallsDaoImp v2DbMxOldCallsDaoImp;
 	
-	public V2DbMxBase getV2DbMxBase(String cid, String addtime) {
+	public V2DbMxBase getV2DbMxBase(String cid) {
 		// TODO Auto-generated method stub
-		return v2DbMxOldCallsDaoImp.getV2DbMxBase(cid, addtime);
+		return v2DbMxOldCallsDaoImp.getV2DbMxBase(cid);
 	}
 
-	public List<V2DbMxOldCalls> getV2DbMxOldCalls(String baseinfo_id, String addtime) {
+	public List<V2DbMxOldCalls> getV2DbMxOldCalls(String baseinfo_id) {
 		// TODO Auto-generated method stub
-		return v2DbMxOldCallsDaoImp.getV2DbMxOldCalls(baseinfo_id, addtime);
+		return v2DbMxOldCallsDaoImp.getV2DbMxOldCalls(baseinfo_id);
 	}
 
 	

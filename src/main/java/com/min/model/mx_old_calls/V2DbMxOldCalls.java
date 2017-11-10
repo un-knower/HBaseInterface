@@ -11,7 +11,6 @@ package com.min.model.mx_old_calls;
  */
 public class V2DbMxOldCalls {
 	
-	private static final long serialVersionUID = 1L;
 	private String userid;		// userid
 	private String cid;		// cid
 	private String addtime;		// addtime
