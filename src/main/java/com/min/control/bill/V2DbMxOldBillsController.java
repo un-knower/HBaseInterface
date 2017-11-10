@@ -21,24 +21,24 @@ import com.min.model.V2DbMxOldBills;
 import com.min.model.V2ZScustomerInfo;
 import com.min.service.bill.V2DbMxOldBillsService;
 import com.min.service.call.V2CallService;
-
-
+import com.min.utils.HbaseUtils;
 
 /**
  * old_billsController
+ * 
  * @author dddd
  * @version 2017-11-03
  */
 @Controller
-@RequestMapping(value="/api")
+@RequestMapping(value = "/api")
 public class V2DbMxOldBillsController {
 
 	@Autowired
 	private V2DbMxOldBillsService v2DbMxOldBillsService;
-	
+
 	@Autowired
 	private V2CallService service;
-	
+
 	@RequestMapping(value = "/v2/MxOldBills", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 账单记录查询
 	public void getCusInfoId(HttpServletRequest request, HttpServletResponse response) {
@@ -46,11 +46,11 @@ public class V2DbMxOldBillsController {
 		String addTime = request.getParameter("addtime");
 		JSON<V2DbMxOldBills> json = new JSON<V2DbMxOldBills>();
 		List<V2DbMxOldBills> contacts = null;
-		
+
 		// 获取cid
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
-		System.out.println("获取cid："+customr.getId());
-				
+		System.out.println("获取cid：" + customr.getId());
+
 		// 获取通讯录
 		if (customr.getId() != null) {
 			contacts = v2DbMxOldBillsService.getContacts(customr.getId(), addTime);
@@ -63,11 +63,7 @@ public class V2DbMxOldBillsController {
 		json.setData(contacts);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			response.setContentType("text/plain;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.setHeader("Pragma", "No-cache");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setDateHeader("Expires", 0);
+			HbaseUtils.setResponse(response);
 			String result = mapper.writeValueAsString(json);
 			response.getWriter().write(result);
 		} catch (IOException e) {

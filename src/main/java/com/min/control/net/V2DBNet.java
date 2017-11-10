@@ -14,6 +14,7 @@ import com.min.model.V2ZScustomerInfo;
 import com.min.model.net.V2DbMxNet;
 import com.min.service.call.V2CallService;
 import com.min.service.net.V2NetService;
+import com.min.utils.HbaseUtils;
 
 @Controller
 @RequestMapping("/api")
@@ -47,11 +48,7 @@ public class V2DBNet {
 			// System.out.println("查询结果：" + vList.size());
 			json.setData(vList);
 			ObjectMapper mapper = new ObjectMapper();
-			response.setContentType("text/plain;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.setHeader("Pragma", "No-cache");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setDateHeader("Expires", 0);
+			HbaseUtils.setResponse(response);
 			try {
 				String result = mapper.writeValueAsString(json);
 				response.getWriter().write(result);

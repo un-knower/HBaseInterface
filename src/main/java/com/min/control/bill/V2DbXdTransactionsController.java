@@ -22,6 +22,7 @@ import com.min.model.V2ZScustomerInfo;
 import com.min.service.call.V2CallService;
 
 import com.min.service.call.V2DbXdTransactionsService;
+import com.min.utils.HbaseUtils;
 
 /**
  * 账单记录Controller
@@ -60,11 +61,7 @@ public class V2DbXdTransactionsController {
 		json.setData(xdtrans);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			response.setContentType("text/plain;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.setHeader("Pragma", "No-cache");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setDateHeader("Expires", 0);
+			HbaseUtils.setResponse(response);
 			String result = mapper.writeValueAsString(json);
 			response.getWriter().write(result);
 		} catch (IOException e) {

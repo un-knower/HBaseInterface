@@ -3,13 +3,16 @@ package com.min.control.call;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.min.model.JSON;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
@@ -19,6 +22,7 @@ import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
 import com.min.model.call.V2DbXdCalls;
 import com.min.service.call.V2CallService;
+import com.min.utils.HbaseUtils;
 
 @Controller
 @RequestMapping("/api")
@@ -50,11 +54,7 @@ public class V2DBCallControl {
 		json.setData(contacts);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			response.setContentType("text/plain;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.setHeader("Pragma", "No-cache");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setDateHeader("Expires", 0);
+			HbaseUtils.setResponse(response);
 			String result = mapper.writeValueAsString(json);
 			response.getWriter().write(result);
 		} catch (IOException e) {
@@ -82,11 +82,7 @@ public class V2DBCallControl {
 		json.setData(OperatorCall);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			response1.setContentType("text/plain;charset=UTF-8");
-			response1.setCharacterEncoding("utf-8");
-			response1.setHeader("Pragma", "No-cache");
-			response1.setHeader("Cache-Control", "no-cache");
-			response1.setDateHeader("Expires", 0);
+			HbaseUtils.setResponse(response1);
 			String result = mapper.writeValueAsString(json);
 			response1.getWriter().write(result);
 		} catch (IOException e) {
@@ -101,31 +97,27 @@ public class V2DBCallControl {
 		JSON<V2DbXdCalls> json = new JSON<V2DbXdCalls>();
 		List<V2DbXdCalls> XdCalls = new ArrayList<V2DbXdCalls>();
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
-			if (customr != null && ("2").equals(customr.getOperatorType())) {
-				if (customr != null &&customr.getId() != null) {
-					System.out.println(customr.getId());
-					List<V2DbXdBase> xdBase = service.getV2DbXdBase(customr.getId(), addTime);
-					for (V2DbXdBase v2DbXdBase : xdBase) {
-						List<V2DbXdCalls> list = service.getV2DbXdCalls(v2DbXdBase.getID(), addTime);
-						for (V2DbXdCalls v2DbXdCalls : list) {
-							XdCalls.add(v2DbXdCalls);	
-						}
+		if (customr != null && ("2").equals(customr.getOperatorType())) {
+			if (customr.getId() != null) {
+				// System.out.println(customr.getId());
+				List<V2DbXdBase> xdBase = service.getV2DbXdBase(customr.getId(), addTime);
+				for (V2DbXdBase v2DbXdBase : xdBase) {
+					List<V2DbXdCalls> list = service.getV2DbXdCalls(v2DbXdBase.getID(), addTime);
+					for (V2DbXdCalls v2DbXdCalls : list) {
+						XdCalls.add(v2DbXdCalls);
 					}
-					json.setData(XdCalls);
-					json.setCode("200");
-					json.setMsg("返回成功");
-				} else {
-					json.setCode("404");
-					json.setMsg("没有找到");
-				}	
-			}	
+				}
+				json.setData(XdCalls);
+				json.setCode("200");
+				json.setMsg("返回成功");
+			}
+		} else {
+			json.setCode("404");
+			json.setMsg("没有找到");
+		}
 		ObjectMapper mapper = new ObjectMapper();
+		HbaseUtils.setResponse(response);
 		try {
-			response.setContentType("text/plain;charset=UTF-8");
-			response.setCharacterEncoding("utf-8");
-			response.setHeader("Pragma", "No-cache");
-			response.setHeader("Cache-Control", "no-cache");
-			response.setDateHeader("Expires", 0);
 			String result = mapper.writeValueAsString(json);
 			response.getWriter().write(result);
 		} catch (IOException e) {
@@ -137,35 +129,33 @@ public class V2DBCallControl {
 	@RequestMapping(value = "/v2/MoRecordsCall", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	// 客户信息查询
 	public void getV2DbMoRecordsCall(HttpServletRequest request1, HttpServletResponse response1) {
-		 System.out.println(request1.getParameter("idcard"));
-		 System.out.println("开始查询");
+		System.out.println(request1.getParameter("idcard"));
+		System.out.println("开始查询");
 		String addTime = request1.getParameter("addtime");
 		JSON<V2DbMoRecordsCall> json = new JSON<V2DbMoRecordsCall>();
 		List<V2DbMoRecordsCall> list = null;
 
 		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"));
-		if (customr != null && customr.getId() != null) {
-			// 获取运营商B的通话记录
-			V2DbMoBase moBase = service.getV2DbMoBase(customr.getId(), addTime);
-			list = service.getV2DbMoRecordsCall(moBase.getId(), addTime);
-			json.setCode("200");
-			json.setMsg("返回成功");
+		if (customr != null && ("0").equals(customr.getOperatorType())) {
+			if (customr.getId() != null) {
+				// 获取运营商B的通话记录
+				V2DbMoBase moBase = service.getV2DbMoBase(customr.getId(), addTime);
+				list = service.getV2DbMoRecordsCall(moBase.getId(), addTime);
+				json.setCode("200");
+				json.setMsg("返回成功");
+			}
 		} else {
 			json.setCode("404");
 			json.setMsg("没有找到");
 		}
 		json.setData(list);
 		ObjectMapper mapper = new ObjectMapper();
+		HbaseUtils.setResponse(response1);
 		try {
-			response1.setContentType("text/plain;charset=UTF-8");
-			response1.setCharacterEncoding("utf-8");
-			response1.setHeader("Pragma", "No-cache");
-			response1.setHeader("Cache-Control", "no-cache");
-			response1.setDateHeader("Expires", 0);
 			String result = mapper.writeValueAsString(json);
 			response1.getWriter().write(result);
 		} catch (IOException e) {
-			// TODO: handle exception
+			// TODO Auto-generated catch block
 		}
 	}
 

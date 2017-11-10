@@ -3,6 +3,8 @@ package com.min.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @ClassName: HbaseUtils
  * @Description: TODO
@@ -30,11 +32,8 @@ public class HbaseUtils {
 	}
 
 	/*
-	 * java属性名转hbase表列名 
-	 * 特别注意：当类属性名采用驼峰命名法后，此方法返回为每个大写字母前面加下划线
-	 *          如果不需要返回下划线，类属性名不要采用驼峰命名法
-	 *     举例：addTime 返回 add_time
-	 *          addtime 返回 addtime    
+	 * java属性名转hbase表列名 特别注意：当类属性名采用驼峰命名法后，此方法返回为每个大写字母前面加下划线
+	 * 如果不需要返回下划线，类属性名不要采用驼峰命名法 举例：addTime 返回 add_time addtime 返回 addtime
 	 */
 	public static String switchParam(String name) {
 		if (name.matches("[a-z]+[A-Z][a-z]+([A-Z][a-z]+)*")) {
@@ -49,8 +48,16 @@ public class HbaseUtils {
 		return name;
 	}
 
+	// 统一设置Response
+	public static void setResponse(HttpServletResponse response) {
+		response.setContentType("text/plain;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+		response.setHeader("Pragma", "No-cache");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setDateHeader("Expires", 0);
+	}
 	// 测试
-//	public static void main(String[] args) {
-//		System.out.println();
-//	}
+	// public static void main(String[] args) {
+	// System.out.println();
+	// }
 }
