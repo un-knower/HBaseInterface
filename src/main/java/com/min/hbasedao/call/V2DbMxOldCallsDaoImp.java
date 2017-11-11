@@ -1,4 +1,4 @@
-package com.min.hbasedao.mx_old_calls;
+package com.min.hbasedao.call;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -18,8 +18,8 @@ import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
 
-import com.min.model.mx_old_calls.V2DbMxBase;
-import com.min.model.mx_old_calls.V2DbMxOldCalls;
+import com.min.model.call.V2DbMxBase;
+import com.min.model.call.V2DbMxOldCalls;
 import com.min.utils.HbaseUtils;
 
 @Component

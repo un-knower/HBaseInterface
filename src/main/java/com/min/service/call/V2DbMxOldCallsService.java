@@ -1,10 +1,9 @@
-package com.min.service.mx_old_calls;
+package com.min.service.call;
 
 import java.util.List;
 
-
-import com.min.model.mx_old_calls.V2DbMxBase;
-import com.min.model.mx_old_calls.V2DbMxOldCalls;
+import com.min.model.call.V2DbMxBase;
+import com.min.model.call.V2DbMxOldCalls;
 
 public interface V2DbMxOldCallsService {
 

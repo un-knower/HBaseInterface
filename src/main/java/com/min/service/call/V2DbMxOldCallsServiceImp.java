@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.min.service.mx_old_calls;
+package com.min.service.call;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.min.hbasedao.mx_old_calls.V2DbMxOldCallsDaoImp;
-import com.min.model.mx_old_calls.V2DbMxBase;
-import com.min.model.mx_old_calls.V2DbMxOldCalls;
+import com.min.hbasedao.call.V2DbMxOldCallsDaoImp;
+import com.min.model.call.V2DbMxBase;
+import com.min.model.call.V2DbMxOldCalls;
 
 /**
  * 语音详情Service

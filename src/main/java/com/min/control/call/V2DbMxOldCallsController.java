@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.min.control.mx_old_calls;
+package com.min.control.call;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.min.model.JSON;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbMoBase;
-import com.min.model.mx_old_calls.V2DbMxBase;
-import com.min.model.mx_old_calls.V2DbMxOldCalls;
+import com.min.model.call.V2DbMxBase;
+import com.min.model.call.V2DbMxOldCalls;
 import com.min.service.call.V2CallService;
-import com.min.service.mx_old_calls.V2DbMxOldCallsService;
+import com.min.service.call.V2DbMxOldCallsService;
 import com.min.utils.HbaseUtils;
 
 /**
