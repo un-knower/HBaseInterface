@@ -17,6 +17,15 @@ public class V2DbOperatorCall {
 	private String CREATETIME;
 	private String LASTMODIFYTIME;
 	private String COUNT;
+	private String TASKID;
+
+	public String getTASKID() {
+		return TASKID;
+	}
+
+	public void setTASKID(String tASKID) {
+		TASKID = tASKID;
+	}
 
 	public String getID() {
 		return ID;
