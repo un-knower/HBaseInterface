@@ -75,6 +75,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 				v2DbOpca.setLASTMODIFYTIME(
 						Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("LASTMODIFYTIME"))));
 				v2DbOpca.setCOUNT(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("COUNT"))));
+				v2DbOpca.setTASKID(Bytes.toString(res.getValue(Bytes.toBytes(column), Bytes.toBytes("TASKID"))));
 				list.add(v2DbOpca);
 			}
 			scanner.close();
@@ -157,7 +158,28 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 	}
+    //运营商B的中间表
+	public V2DbOperatorTask getOperatorTask(String cid) {
+		// TODO Auto-generated method stub
+		try {
+			// 根据连接得到表
+			Table table = con.getTable(TableName.valueOf("V2_DB_OPERATOR_TASK"));
+			String cloum = "ot"; // 列族
 
+			// 根据表结构的设计注意反转cid
+			String rowKey = new StringBuilder(cid).reverse().toString();
+			Result res = table.get(new Get(rowKey.getBytes()));
+			V2DbOperatorTask v2 = new V2DbOperatorTask();
+			// 保存到实体类
+			v2.setTaskid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), // 注意小写转大写
+					Bytes.toBytes("TASKID"))));
+			return v2;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
+	//运营商C的中间表
 	public List<V2DbXdBase> getV2DbXdBase(String cid) {
 		// TODO Auto-generated method stub
 		List<V2DbXdBase> list = new ArrayList<V2DbXdBase>();
@@ -216,27 +238,6 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public V2DbOperatorTask getOperatorTask(String cid) {
-		// TODO Auto-generated method stub
-		try {
-			// 根据连接得到表
-			Table table = con.getTable(TableName.valueOf("V2_DB_OPERATOR_TASK"));
-			String cloum = "ot"; // 列族
-
-			// 根据表结构的设计注意反转cid
-			String rowKey = new StringBuilder(cid).reverse().toString();
-			Result res = table.get(new Get(rowKey.getBytes()));
-			V2DbOperatorTask v2 = new V2DbOperatorTask();
-			// 保存到实体类
-			v2.setTaskid(Bytes.toString(res.getValue(Bytes.toBytes(cloum), // 注意小写转大写
-					Bytes.toBytes("TASKID"))));
-			return v2;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			return null;
 		}
 	}
