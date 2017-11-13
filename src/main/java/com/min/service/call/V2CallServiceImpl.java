@@ -24,9 +24,9 @@ public class V2CallServiceImpl implements V2CallService {
 		return conDao.getContacts(cid);
 	}
 
-	public V2ZScustomerInfo getCustomr(String idcard, String siteid) {
+	public V2ZScustomerInfo getCustomr(String idcard, String siteid, String mobile) {
 		// TODO Auto-generated method stub
-		return conDao.getCustomr(idcard, siteid);
+		return conDao.getCustomr(idcard, siteid, mobile);
 	}
 
 	public V2DbMoBase getV2DbMoBase(String cid) {

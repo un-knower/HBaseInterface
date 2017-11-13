@@ -45,7 +45,7 @@ public class V2DbXdSmsesController {
 				JSON<V2DbXdSmses> json = new JSON<V2DbXdSmses>();
 				List<V2DbXdSmses> xdSmses = new ArrayList<V2DbXdSmses>();
 
-				V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+				V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 				if (customr != null && "2".equals(customr.getOperatorType()) && customr.getId() != null) {
 					System.out.println("customr.getId()" + customr.getId());
 					

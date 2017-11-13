@@ -43,7 +43,7 @@ public class V2DbMxOldSmsesController {
 			JSON<V2DbMxOldSmses> json = new JSON<V2DbMxOldSmses>();
 			List<V2DbMxOldSmses> mxOldSmses = new ArrayList<V2DbMxOldSmses>();
 
-			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 			if (customr != null && "3".equals(customr.getOperatorType()) && customr.getId() != null) {
 				// 获取运营商的语音详情
 				V2DbMxBase mxBase = v2DbMxOldSmsesService.getV2DbMxBase(customr.getId());

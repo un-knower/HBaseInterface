@@ -18,7 +18,6 @@ import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
 
-import com.min.model.call.V2DbMxOldCalls;
 import com.min.model.sms.V2DbOperatorSms;
 import com.min.model.sms.V2DbOperatorTask;
 import com.min.utils.HbaseUtils;

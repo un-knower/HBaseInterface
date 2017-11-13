@@ -42,7 +42,8 @@ public class V2DbMxOldBillsController {
 		List<V2DbMxOldBills> contacts = null;
 
 		// 获取cid
-		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
+				request.getParameter("mobile"));
 		System.out.println("获取cid：" + customr.getId());
 
 		// 获取通讯录

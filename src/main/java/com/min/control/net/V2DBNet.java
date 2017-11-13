@@ -29,7 +29,7 @@ public class V2DBNet {
 		JSON<V2DbMxNet> json = new JSON<V2DbMxNet>();
 		List<V2DbMxNet> vList = null;
 		// 获取通讯录
-		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 
 		if (customr != null && customr.getId() != null) {
 			vList = netService.getMxOldNets(customr.getId());

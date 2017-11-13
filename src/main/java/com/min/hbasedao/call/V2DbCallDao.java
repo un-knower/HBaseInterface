@@ -17,9 +17,9 @@ public interface V2DbCallDao {
 	List<V2DbContact> getContacts(String cid);
 
 	/*
-	 * 根据身份证号和平台id获取客户信息
+	 * 根据身份证号、平台id和手机号获取客户信息
 	 */
-	V2ZScustomerInfo getCustomr(String idcard, String siteid);
+	V2ZScustomerInfo getCustomr(String idcard, String siteid, String mobile);
 
 	/*
 	 * 根据客户的ID关联获取v2_db_mo_base表

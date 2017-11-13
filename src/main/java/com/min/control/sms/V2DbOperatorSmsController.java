@@ -15,12 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.min.model.JSON;
 import com.min.model.V2ZScustomerInfo;
-import com.min.model.call.V2DbMxBase;
-import com.min.model.call.V2DbMxOldCalls;
 import com.min.model.sms.V2DbOperatorSms;
 import com.min.model.sms.V2DbOperatorTask;
 import com.min.service.call.V2CallService;
-import com.min.service.call.V2DbMxOldCallsService;
 import com.min.service.sms.V2DbOperatorSmsService;
 import com.min.utils.HbaseUtils;
 
@@ -46,7 +43,7 @@ public class V2DbOperatorSmsController {
 			JSON<V2DbOperatorSms> json = new JSON<V2DbOperatorSms>();
 			List<V2DbOperatorSms> operatorSms = new ArrayList<V2DbOperatorSms>();
 
-			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 			if (customr != null && "1".equals(customr.getOperatorType()) && customr.getId() != null) {
 				// 获取运营商的语音详情
 				V2DbOperatorTask opTask = v2DbOperatorSmsService.getV2DbOperatorTask(customr.getId());

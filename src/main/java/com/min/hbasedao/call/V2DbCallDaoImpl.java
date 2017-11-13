@@ -118,9 +118,9 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		return list;
 	}
 
-	public V2ZScustomerInfo getCustomr(String idcard, String siteid) {
+	public V2ZScustomerInfo getCustomr(String idcard, String siteid, String mobile) {
 		// TODO Auto-generated method stub
-		String rowkey = HbaseUtils.transformRowkey(idcard, siteid);
+		String rowkey = HbaseUtils.transformRowkey(idcard, siteid, mobile);
 		if (rowkey == null) {
 			return null;
 		}
