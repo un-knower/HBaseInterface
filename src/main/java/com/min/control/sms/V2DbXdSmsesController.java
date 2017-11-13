@@ -2,7 +2,6 @@ package com.min.control.sms;
 
 import java.io.IOException;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.min.model.JSON;
+import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
-import com.min.model.sms.V2DbXdBase;
 import com.min.model.sms.V2DbXdSmses;
 import com.min.service.call.V2CallService;
 import com.min.service.sms.V2DbXdSmsesService;
@@ -39,6 +38,8 @@ public class V2DbXdSmsesController {
 	@Autowired
 	private V2DbXdSmsesService v2DbXdSmsesService;
 	
+	@Autowired
+	private V2CallService v2CallService;
 	// 运营商C的短信详情
 			@RequestMapping(value = "/v2/XdSmses", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 			public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
@@ -49,8 +50,8 @@ public class V2DbXdSmsesController {
 				if (customr != null && "2".equals(customr.getOperatorType()) && customr.getId() != null) {
 					System.out.println("customr.getId()" + customr.getId());
 					
-					// 获取运营商C的短信详情
-					List<V2DbXdBase> xdBase = v2DbXdSmsesService.getV2DbXdBase(customr.getId());
+					// 获取运营商C的短信详情s
+					List<V2DbXdBase> xdBase = v2CallService.getV2DbXdBase(customr.getId());
 					System.out.println("xdBase.getId()" + ((V2ZScustomerInfo) xdBase).getId());
 					xdSmses = v2DbXdSmsesService.getV2DbXdSmses(((V2ZScustomerInfo) xdBase).getId());
 					json.setCode("200");
