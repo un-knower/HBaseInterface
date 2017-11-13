@@ -10,7 +10,7 @@ public interface V2DbXdSmsesService {
 	/*
 	 * 根据客户的ID关联获取V2_DB_XD_BASE表
 	 */
-	V2DbXdBase getV2DbXdBase(String cid);
+	List<V2DbXdBase> getV2DbXdBase(String cid);
 	
 	/*
 	 * 根据客户的baseinfo_id获取V2_DB_XD_SMSES表

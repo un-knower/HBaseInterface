@@ -10,7 +10,7 @@ public interface V2DbXdSmsesDao {
 	/*
 	 * 获取V2_DB_XD_BASE表信息
 	 */
-	V2DbXdBase getV2DbXdBase(String cid);
+	List<V2DbXdBase> getV2DbXdBase(String cid);
 	
 	/*
 	 * 根据V2_DB_OPERATOR_TASK表中baseinfo_id获取V2_DB_OPERATOR_SMS表信息

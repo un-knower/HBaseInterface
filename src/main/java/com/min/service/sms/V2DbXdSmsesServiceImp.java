@@ -23,7 +23,7 @@ public class V2DbXdSmsesServiceImp implements V2DbXdSmsesService {
 	@Autowired
 	private V2DbXdSmsesDaoImp v2DbXdSmsesDaoImp;
 	
-	public V2DbXdBase getV2DbXdBase(String cid) {
+	public List<V2DbXdBase> getV2DbXdBase(String cid) {
 		// TODO Auto-generated method stub
 		return v2DbXdSmsesDaoImp.getV2DbXdBase(cid);
 	}

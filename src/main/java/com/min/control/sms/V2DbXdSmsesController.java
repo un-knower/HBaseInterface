@@ -39,7 +39,7 @@ public class V2DbXdSmsesController {
 	@Autowired
 	private V2DbXdSmsesService v2DbXdSmsesService;
 	
-	// 运营商的语音详情
+	// 运营商C的短信详情
 			@RequestMapping(value = "/v2/XdSmses", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 			public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
 				JSON<V2DbXdSmses> json = new JSON<V2DbXdSmses>();
@@ -49,10 +49,10 @@ public class V2DbXdSmsesController {
 				if (customr != null && "2".equals(customr.getOperatorType()) && customr.getId() != null) {
 					System.out.println("customr.getId()" + customr.getId());
 					
-					// 获取运营商的语音详情
-					V2DbXdBase xdBase = v2DbXdSmsesService.getV2DbXdBase(customr.getId());
-					System.out.println("xdBase.getId()" + xdBase.getId());
-					xdSmses = v2DbXdSmsesService.getV2DbXdSmses(xdBase.getId());
+					// 获取运营商C的短信详情
+					List<V2DbXdBase> xdBase = v2DbXdSmsesService.getV2DbXdBase(customr.getId());
+					System.out.println("xdBase.getId()" + ((V2ZScustomerInfo) xdBase).getId());
+					xdSmses = v2DbXdSmsesService.getV2DbXdSmses(((V2ZScustomerInfo) xdBase).getId());
 					json.setCode("200");
 					json.setMsg("返回成功");
 				} else {
