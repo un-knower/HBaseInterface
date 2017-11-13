@@ -57,9 +57,10 @@ public class V2DbXdTransactionsDaoImp implements V2DbXdTransactionsDao {
 			}
 			scanner.close();
 			table.close();
+			return list;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return list;
 	}
 }

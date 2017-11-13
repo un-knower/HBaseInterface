@@ -143,11 +143,12 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	// 运营商A的中间表
 	public V2DbMoBase getV2DbMoBase(String cid) {
 		// TODO Auto-generated method stub
-		String rowkey = new StringBuilder(cid).reverse().toString();
-		if (rowkey == null) {
-			return null;
-		}
 		try {
+			String rowkey = new StringBuilder(cid).reverse().toString();
+			if (rowkey == null) {
+				return null;
+			}
+
 			V2DbMoBase mb = new V2DbMoBase();
 			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_MO_BASE"));
@@ -158,7 +159,8 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 	}
-    //运营商B的中间表
+
+	// 运营商B的中间表
 	public V2DbOperatorTask getOperatorTask(String cid) {
 		// TODO Auto-generated method stub
 		try {
@@ -179,7 +181,8 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 	}
-	//运营商C的中间表
+
+	// 运营商C的中间表
 	public List<V2DbXdBase> getV2DbXdBase(String cid) {
 		// TODO Auto-generated method stub
 		List<V2DbXdBase> list = new ArrayList<V2DbXdBase>();
@@ -243,12 +246,13 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	}
 
 	public List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId) {
-		String rowkey = new StringBuilder(baseInfoId).reverse().toString();
-		if (rowkey == null) {
-			return null;
-		}
-		List<V2DbMoRecordsCall> list = new ArrayList<V2DbMoRecordsCall>();
 		try {
+			String rowkey = new StringBuilder(baseInfoId).reverse().toString();
+			if (rowkey == null) {
+				return null;
+			}
+			List<V2DbMoRecordsCall> list = new ArrayList<V2DbMoRecordsCall>();
+
 			// 根据连接得到表
 			Table table = con.getTable(TableName.valueOf("V2_DB_MO_RECORDS_CALL"));
 			String cloum = "call";
@@ -275,15 +279,11 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			}
 			scanner.close();
 			table.close();
+			return list;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-		return list;
 	}
-
-	// 测试
-	// public static void main(String[] args) throws ParseException {
-	// }
 }

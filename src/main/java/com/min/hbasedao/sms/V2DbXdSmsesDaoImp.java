@@ -28,21 +28,22 @@ public class V2DbXdSmsesDaoImp implements V2DbXdSmsesDao {
 
 	// 加载配置文件
 	static Configuration conf = HBaseConfiguration.create();
-	
+
 	@SuppressWarnings("unused")
 	public V2DbXdBase getV2DbXdBase(String cid) {
-		
-		String rowkey = new StringBuilder(cid).reverse().toString() + "|";
-		if (rowkey == null) {
-			return null;
-		}
 		try {
+			String rowkey = new StringBuilder(cid).reverse().toString() + "|";
+			if (rowkey == null) {
+				return null;
+			}
+
 			V2DbXdBase xb = new V2DbXdBase();
 			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_XD_BASE"));
-			Result result = table.get(new Get(Bytes.toBytes(rowkey)));			
+			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
 			xb.setId(Bytes.toString(result.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
-			System.out.println("xb" + xb.getId() + "cid:" + Bytes.toString(result.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
+			System.out.println("xb" + xb.getId() + "cid:"
+					+ Bytes.toString(result.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
 			return xb;
 		} catch (IOException e) {
 			return null;
@@ -64,17 +65,17 @@ public class V2DbXdSmsesDaoImp implements V2DbXdSmsesDao {
 
 			for (Result res : scanner) {
 				V2DbXdSmses v2DbXdSmses = new V2DbXdSmses();
-						@SuppressWarnings("unchecked")
-						Class<V2DbXdSmses> cls = (Class<V2DbXdSmses>) v2DbXdSmses.getClass();
-						Field[] fields = cls.getDeclaredFields();
-						for (Field field : fields) {
-							field.setAccessible(true);
-							String fieldName = field.getName();
-							field.set(v2DbXdSmses,
-									Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase()))));
-						}
-						list.add(v2DbXdSmses);
-					}
+				@SuppressWarnings("unchecked")
+				Class<V2DbXdSmses> cls = (Class<V2DbXdSmses>) v2DbXdSmses.getClass();
+				Field[] fields = cls.getDeclaredFields();
+				for (Field field : fields) {
+					field.setAccessible(true);
+					String fieldName = field.getName();
+					field.set(v2DbXdSmses, Bytes.toString(res.getValue(Bytes.toBytes(colum),
+							Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase()))));
+				}
+				list.add(v2DbXdSmses);
+			}
 			System.out.println("list" + list.size());
 			scanner.close();
 			table.close();
@@ -83,11 +84,5 @@ public class V2DbXdSmsesDaoImp implements V2DbXdSmsesDao {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	
-	public static void main(String[] args) {
-		V2DbXdSmsesDaoImp ww = new V2DbXdSmsesDaoImp();
-		ww.getV2DbXdSmses("2000");
 	}
 }
