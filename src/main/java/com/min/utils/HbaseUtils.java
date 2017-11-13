@@ -15,7 +15,7 @@ public class HbaseUtils {
 	/*
 	 * 转换rowkey,将传入的身份证和平台ID处理为rowkey
 	 */
-	public static String transformRowkey(String idcard, String siteid) {
+	public static String transformRowkey(String idcard, String siteid, String mobile) {
 		long keyTmp = 0;
 		try {
 			// 去掉身份证最后一位
@@ -23,7 +23,7 @@ public class HbaseUtils {
 			// 反转
 			String newStr = new StringBuilder(str).reverse().toString();
 			// 身份证号加上平台id
-			keyTmp = Long.valueOf(newStr) + Long.valueOf(siteid);
+			keyTmp = Long.valueOf(newStr) + Long.valueOf(siteid) + Long.valueOf(mobile);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;

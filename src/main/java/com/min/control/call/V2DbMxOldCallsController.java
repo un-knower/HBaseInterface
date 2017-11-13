@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.min.model.JSON;
 import com.min.model.V2ZScustomerInfo;
-import com.min.model.call.V2DbMoBase;
 import com.min.model.call.V2DbMxBase;
 import com.min.model.call.V2DbMxOldCalls;
 import com.min.service.call.V2CallService;
@@ -47,7 +46,7 @@ public class V2DbMxOldCallsController {
 		JSON<V2DbMxOldCalls> json = new JSON<V2DbMxOldCalls>();
 		List<V2DbMxOldCalls> mxOldCalls = new ArrayList<V2DbMxOldCalls>();
 
-		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 		if (customr != null && "3".equals(customr.getOperatorType()) && customr.getId() != null) {
 			// 获取运营商的语音详情
 			V2DbMxBase mxBase = v2DbMxOldCallsService.getV2DbMxBase(customr.getId());

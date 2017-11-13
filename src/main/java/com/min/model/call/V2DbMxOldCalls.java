@@ -3,33 +3,33 @@
  */
 package com.min.model.call;
 
-
 /**
  * 语音详情Entity
+ * 
  * @author dddd
  * @version 2017-11-10
  */
 public class V2DbMxOldCalls {
-	
-	private String userid;		// userid
-	private String cid;		// cid
-	private String addtime;		// addtime
-	private String baseinfoId;		// baseinfo_id
-	private String billMonth;		// bill_month
-	private String totalSize;		// total_size
-	private String time;		// time
-	private String location;		// location
-	private String fee;		// fee
-	private String detailsId;		// details_id
-	private String peerNumber;		// peer_number
-	private String locationType;		// location_type
-	private String duration;		// duration
-	private String dialType;		// dial_type
-	
+
+	private String userid; // userid
+	private String cid; // cid
+	private String addtime; // addtime
+	private String baseinfoId; // baseinfo_id
+	private String billMonth; // bill_month
+	private String totalSize; // total_size
+	private String time; // time
+	private String location; // location
+	private String fee; // fee
+	private String detailsId; // details_id
+	private String peerNumber; // peer_number
+	private String locationType; // location_type
+	private String duration; // duration
+	private String dialType; // dial_type
+
 	public V2DbMxOldCalls() {
 		super();
 	}
-	
+
 	public String getUserid() {
 		return userid;
 	}
@@ -37,7 +37,7 @@ public class V2DbMxOldCalls {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	
+
 	public String getCid() {
 		return cid;
 	}
@@ -45,7 +45,7 @@ public class V2DbMxOldCalls {
 	public void setCid(String cid) {
 		this.cid = cid;
 	}
-	
+
 	public String getAddtime() {
 		return addtime;
 	}
@@ -53,7 +53,7 @@ public class V2DbMxOldCalls {
 	public void setAddtime(String addtime) {
 		this.addtime = addtime;
 	}
-	
+
 	public String getBaseinfoId() {
 		return baseinfoId;
 	}
@@ -61,7 +61,7 @@ public class V2DbMxOldCalls {
 	public void setBaseinfoId(String baseinfoId) {
 		this.baseinfoId = baseinfoId;
 	}
-	
+
 	public String getBillMonth() {
 		return billMonth;
 	}
@@ -69,7 +69,7 @@ public class V2DbMxOldCalls {
 	public void setBillMonth(String billMonth) {
 		this.billMonth = billMonth;
 	}
-	
+
 	public String getTotalSize() {
 		return totalSize;
 	}
@@ -77,7 +77,7 @@ public class V2DbMxOldCalls {
 	public void setTotalSize(String totalSize) {
 		this.totalSize = totalSize;
 	}
-	
+
 	public String getTime() {
 		return time;
 	}
@@ -85,7 +85,7 @@ public class V2DbMxOldCalls {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
+
 	public String getLocation() {
 		return location;
 	}
@@ -93,7 +93,7 @@ public class V2DbMxOldCalls {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	
+
 	public String getFee() {
 		return fee;
 	}
@@ -101,7 +101,7 @@ public class V2DbMxOldCalls {
 	public void setFee(String fee) {
 		this.fee = fee;
 	}
-	
+
 	public String getDetailsId() {
 		return detailsId;
 	}
@@ -109,7 +109,7 @@ public class V2DbMxOldCalls {
 	public void setDetailsId(String detailsId) {
 		this.detailsId = detailsId;
 	}
-	
+
 	public String getPeerNumber() {
 		return peerNumber;
 	}
@@ -117,7 +117,7 @@ public class V2DbMxOldCalls {
 	public void setPeerNumber(String peerNumber) {
 		this.peerNumber = peerNumber;
 	}
-	
+
 	public String getLocationType() {
 		return locationType;
 	}
@@ -125,7 +125,7 @@ public class V2DbMxOldCalls {
 	public void setLocationType(String locationType) {
 		this.locationType = locationType;
 	}
-	
+
 	public String getDuration() {
 		return duration;
 	}
@@ -133,7 +133,7 @@ public class V2DbMxOldCalls {
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	
+
 	public String getDialType() {
 		return dialType;
 	}
@@ -141,5 +141,5 @@ public class V2DbMxOldCalls {
 	public void setDialType(String dialType) {
 		this.dialType = dialType;
 	}
-	
+
 }

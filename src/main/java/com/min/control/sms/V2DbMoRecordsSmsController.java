@@ -37,7 +37,7 @@ public class V2DbMoRecordsSmsController {
 			JSON<V2DbMoRecordsSms> json = new JSON<V2DbMoRecordsSms>();
 			List<V2DbMoRecordsSms> moRecordsSms = new ArrayList<V2DbMoRecordsSms>();
 
-			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 			if (customr != null && "0".equals(customr.getOperatorType()) && customr.getId() != null) {
 				// 获取运营商B的短信详情
 				V2DbMoBase moBase = v2DbMoRecordsSmsService.getV2DbMoBase(customr.getId());

@@ -34,7 +34,7 @@ public class V2DBCallControl {
 	public void getContact(HttpServletRequest request, HttpServletResponse response) {
 		JSON<V2DbContact> json = new JSON<V2DbContact>();
 		List<V2DbContact> contacts = null;
-		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 		if (customr != null && customr.getId() != null) {
 			contacts = service.getContacts(customr.getId());
 			json.setCode("200");
@@ -60,7 +60,7 @@ public class V2DBCallControl {
 	public void getOperatorCall(HttpServletRequest request1, HttpServletResponse response1) {
 		JSON<V2DbOperatorCall> json = new JSON<V2DbOperatorCall>();
 		List<V2DbOperatorCall> OperatorCall = null;
-		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"));
+		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"),request1.getParameter("mobile"));
 		if (customr != null && ("1").equals(customr.getOperatorType())) {
 			if (customr != null && customr.getId() != null) {
 				OperatorCall = service.getV2DbOperatorCall(customr.getId());
@@ -87,7 +87,7 @@ public class V2DBCallControl {
 	public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
 		JSON<V2DbXdCalls> json = new JSON<V2DbXdCalls>();
 		List<V2DbXdCalls> XdCalls = new ArrayList<V2DbXdCalls>();
-		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 		if (customr != null && ("2").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
 				// System.out.println(customr.getId());
@@ -123,7 +123,7 @@ public class V2DBCallControl {
 		JSON<V2DbMoRecordsCall> json = new JSON<V2DbMoRecordsCall>();
 		List<V2DbMoRecordsCall> list = null;
 
-		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"));
+		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"),request1.getParameter("mobile"));
 		if (customr != null && ("0").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
 				// 获取运营商B的通话记录

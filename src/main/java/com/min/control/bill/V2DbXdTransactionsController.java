@@ -41,7 +41,8 @@ public class V2DbXdTransactionsController {
 		JSON<V2DbXdTransactions> json = new JSON<V2DbXdTransactions>();
 		List<V2DbXdTransactions> xdtrans = null;
 		// 获取账单信息
-		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"));
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
+				request.getParameter("mobile"));
 		if (customr.getId() != null) {
 			xdtrans = v2DbXdTranService.getContacts(customr.getId());
 			json.setCode("200");

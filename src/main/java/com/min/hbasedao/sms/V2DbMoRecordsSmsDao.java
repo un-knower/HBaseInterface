@@ -3,8 +3,6 @@ package com.min.hbasedao.sms;
 import java.util.List;
 
 import com.min.model.call.V2DbMoBase;
-import com.min.model.call.V2DbMxBase;
-import com.min.model.call.V2DbMxOldCalls;
 import com.min.model.sms.V2DbMoRecordsSms;
 
 /**
