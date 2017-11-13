@@ -1,11 +1,9 @@
 package com.min.hbasedao.sms;
 
 import java.io.IOException;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
@@ -19,7 +17,7 @@ import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.stereotype.Component;
 
-import com.min.model.sms.V2DbXdBase;
+import com.min.model.V2DbXdBase;
 import com.min.model.sms.V2DbXdSmses;
 import com.min.utils.HbaseUtils;
 
@@ -41,8 +39,8 @@ public class V2DbXdSmsesDaoImp implements V2DbXdSmsesDao {
 			Connection con = ConnectionFactory.createConnection(conf);
 			Table table = con.getTable(TableName.valueOf("V2_DB_XD_BASE"));
 			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
-			xb.setId(Bytes.toString(result.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
-			System.out.println("xb" + xb.getId() + "cid:"
+			xb.setID(Bytes.toString(result.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
+			System.out.println("xb" + xb.getID() + "cid:"
 					+ Bytes.toString(result.getValue(Bytes.toBytes("xb"), Bytes.toBytes("ID"))));
 			return xb;
 		} catch (IOException e) {
