@@ -23,6 +23,10 @@ import com.min.utils.HbaseUtils;
 
 @Component
 public class V2DBNetsDaoImpl implements V2DBNetsDao {
+	
+	// 加载配置文件
+	static Configuration conf = HBaseConfiguration.create();
+	
 	public List<V2DbMxNet> getMxOldNets(String cid) {
 		// TODO Auto-generated method stub
 		if (cid==null) {

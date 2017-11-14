@@ -1,7 +1,6 @@
 package com.min.hbasedao.net;
 
 import java.lang.reflect.Field;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +29,16 @@ public class V2DbXdNetsDaoImp implements V2DbXdNetsDao {
 	// 加载配置文件
 	static Configuration conf = HBaseConfiguration.create();
 	
+	/*public List<V2DbXdNets> getV2DbXdNets(String baseinfo_id) {
+		// TODO Auto-generated method stub
+		if (baseinfo_id == null) {
+			return null;
+		}
+		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
+		HbaseBase<V2DbXdNets> base = new HbaseBase<V2DbXdNets>();
+		return base.scan("V2_DB_XD_NETS", rowkey, "nets");
+	}*/
+	
 	public List<V2DbXdNets> getV2DbXdNets(String baseinfo_id) {
 
 		// TODO Auto-generated method stub
@@ -57,6 +66,7 @@ public class V2DbXdNetsDaoImp implements V2DbXdNetsDao {
 							for (Field field : fields) {
 								field.setAccessible(true);
 								String fieldName = field.getName();
+								System.out.println(fieldName);
 								field.set(v2, res.getValue(Bytes.toBytes(cloum),
 										Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
 							}
@@ -68,6 +78,7 @@ public class V2DbXdNetsDaoImp implements V2DbXdNetsDao {
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						System.out.println("list2:" + list.size());
+						e.printStackTrace();
 						return null;
 					}
 					System.out.println("list:" + list.size());
@@ -75,7 +86,7 @@ public class V2DbXdNetsDaoImp implements V2DbXdNetsDao {
 				}
 	public static void main(String[] args) {
 		V2DbXdNetsDaoImp pp = new V2DbXdNetsDaoImp();
-		System.out.println("pp.getV2DbXdNets(\"2000\");" + pp.getV2DbXdNets("1000"));
+		System.out.println("pp.getV2DbXdNets" + pp.getV2DbXdNets("1000"));
 	}
 	
 	}

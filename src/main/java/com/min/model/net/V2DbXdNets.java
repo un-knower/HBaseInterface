@@ -23,24 +23,6 @@ public class V2DbXdNets {
 	public V2DbXdNets() {
 		super();
 	}
-	
-	public V2DbXdNets(String userid, String cid, String addtime, String baseinfoId, String cellPhone, String startTime,
-			String updateTime, String subtotal, String place, String netType, String useTime, String subflow) {
-		super();
-		this.userid = userid;
-		this.cid = cid;
-		this.addtime = addtime;
-		this.baseinfoId = baseinfoId;
-		this.cellPhone = cellPhone;
-		this.startTime = startTime;
-		this.updateTime = updateTime;
-		this.subtotal = subtotal;
-		this.place = place;
-		this.netType = netType;
-		this.useTime = useTime;
-		this.subflow = subflow;
-	}
-
 
 	public String getUserid() {
 		return userid;
