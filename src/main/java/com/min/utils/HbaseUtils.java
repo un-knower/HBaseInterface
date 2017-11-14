@@ -36,6 +36,7 @@ public class HbaseUtils {
 	 * 如果不需要返回下划线，类属性名不要采用驼峰命名法 举例：addTime 返回 add_time addtime 返回 addtime
 	 */
 	public static String switchParam(String name) {
+		//System.out.println("hjbghj:"+name);
 		if (name.matches("[a-z]+[A-Z][a-z]+([A-Z][a-z]+)*")) {
 			Pattern pattern = Pattern.compile("[A-Z]");
 			Matcher matcher = pattern.matcher(name);

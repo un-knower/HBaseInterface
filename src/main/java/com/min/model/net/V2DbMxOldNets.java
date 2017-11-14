@@ -4,38 +4,37 @@
 package com.min.model.net;
 
 /**
- * CONTACTEntity
- * 
+ * V2_DB_MX_OLD_NETS表实体类
  * @author d
  * @version 2017-11-01
  */
-public class V2DbMxNet {
-	private String id;
-	private String cid; //
-	private String userid; //
-	private String baseInfoId; //
-	private String billMonth; //
-	private String addtime; //
-	private String totalSize;
-	private String time; //
-	private String location; //
-	private String fee; //
-	private String detailsId; //
-	private String subflow; //
-	private String netType; //
-	private String duration; //
-	private String serviceName; //
+public class V2DbMxOldNets {
 
-	public V2DbMxNet() {
+	private String userid; 			//userid
+	private String cid; 			//cid
+	private String addtime;	 		//addtime
+	private String baseinfoId; 		//baseinfo_Id
+	private String billMonth;	 	//billMonth
+	private String totalSize;		//total_Size
+	private String time; 			//time
+	private String location; 		//location
+	private String fee; 			//fee
+	private String detailsId; 		//details_Id
+	private String subflow; 		//subflow
+	private String netType; 		//net_Type
+	private String duration; 		//duration
+	private String serviceName; 	//service_Name
+
+	public V2DbMxOldNets() {
 		super();
 	}
 
-	public String getBaseInfoId() {
-		return baseInfoId;
+	public String getBaseinfoId() {
+		return baseinfoId;
 	}
 
-	public void setBaseInfoId(String baseInfoId) {
-		this.baseInfoId = baseInfoId;
+	public void setBaseinfoId(String baseinfoId) {
+		this.baseinfoId = baseinfoId;
 	}
 
 	public String getBillMonth() {
@@ -142,12 +141,5 @@ public class V2DbMxNet {
 		this.addtime = addtime;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 }

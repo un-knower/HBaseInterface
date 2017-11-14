@@ -7,6 +7,7 @@ package com.min.model.net;
  */
 public class V2DbXdNets {
 
+	private String id; 				//id
 	private String userid; 			//userid
 	private String cid;			 	//cid
 	private String addtime; 		//addtime
@@ -23,6 +24,17 @@ public class V2DbXdNets {
 	public V2DbXdNets() {
 		super();
 	}
+
+	
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 
 	public String getUserid() {
 		return userid;
