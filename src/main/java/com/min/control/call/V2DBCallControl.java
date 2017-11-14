@@ -122,7 +122,7 @@ public class V2DBCallControl {
 	public void getV2DbMoRecordsCall(HttpServletRequest request1, HttpServletResponse response1) {
 		JSON<V2DbMoRecordsCall> json = new JSON<V2DbMoRecordsCall>();
 		List<V2DbMoRecordsCall> list = null;
-
+ 
 		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"),request1.getParameter("mobile"));
 		if (customr != null && ("0").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
