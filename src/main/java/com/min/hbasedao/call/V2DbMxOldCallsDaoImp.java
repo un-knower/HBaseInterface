@@ -15,7 +15,7 @@ public class V2DbMxOldCallsDaoImp implements V2DbMxOldCallsDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(cid).reverse().toString();
-		HbaseBase<V2DbMxBase> base = new HbaseBase<V2DbMxBase>();
+		HbaseBase<V2DbMxBase> base = new HbaseBase<V2DbMxBase>(new V2DbMxBase());
 		return base.get("V2_DB_MX_BASE", rowkey, "m");
 	}
 
@@ -25,7 +25,7 @@ public class V2DbMxOldCallsDaoImp implements V2DbMxOldCallsDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
-		HbaseBase<V2DbMxOldCalls> base = new HbaseBase<V2DbMxOldCalls>();
+		HbaseBase<V2DbMxOldCalls> base = new HbaseBase<V2DbMxOldCalls>(new V2DbMxOldCalls());
 		return base.scan("V2_DB_MX_OLD_CALLS", rowkey, "calls");
 	}
 }

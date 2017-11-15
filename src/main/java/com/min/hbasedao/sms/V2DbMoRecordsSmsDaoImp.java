@@ -86,5 +86,4 @@ public class V2DbMoRecordsSmsDaoImp implements V2DbMoRecordsSmsDao {
 			}
 
 		}
-	
 }

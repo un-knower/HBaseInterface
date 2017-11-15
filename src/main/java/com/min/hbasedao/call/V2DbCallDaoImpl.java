@@ -21,7 +21,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(taskid).reverse().toString() + "|";
-		HbaseBase<V2DbOperatorCall> base = new HbaseBase<V2DbOperatorCall>();
+		HbaseBase<V2DbOperatorCall> base = new HbaseBase<V2DbOperatorCall>(new V2DbOperatorCall());
 		return base.scan("V2_DB_OPERATOR_CALL", rowkey, "call");
 	}
 
@@ -29,7 +29,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		if (cid == null) {
 			return null;
 		}
-		HbaseBase<V2DbContact> base = new HbaseBase<V2DbContact>();
+		HbaseBase<V2DbContact> base = new HbaseBase<V2DbContact>(new V2DbContact());
 		return base.scan("V2_DB_CONTACT", cid + "|", "con");
 	}
 
@@ -39,7 +39,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(cid).reverse().toString();
-		HbaseBase<V2DbMoBase> base = new HbaseBase<V2DbMoBase>();
+		HbaseBase<V2DbMoBase> base = new HbaseBase<V2DbMoBase>(new V2DbMoBase());
 		return base.get("V2_DB_MO_BASE", rowkey, "mb");
 	}
 
@@ -49,7 +49,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(cid).reverse().toString();
-		HbaseBase<V2DbOperatorTask> base = new HbaseBase<V2DbOperatorTask>();
+		HbaseBase<V2DbOperatorTask> base = new HbaseBase<V2DbOperatorTask>(new V2DbOperatorTask());
 		return base.get("V2_DB_OPERATOR_TASK", rowkey, "ot");
 	}
 
@@ -59,7 +59,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(cid).reverse().toString() + "|";
-		HbaseBase<V2DbXdBase> base = new HbaseBase<V2DbXdBase>();
+		HbaseBase<V2DbXdBase> base = new HbaseBase<V2DbXdBase>(new V2DbXdBase());
 		return base.scan("V2_DB_XD_BASE", rowkey, "xb");
 	}
 
@@ -69,7 +69,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
-		HbaseBase<V2DbXdCalls> base = new HbaseBase<V2DbXdCalls>();
+		HbaseBase<V2DbXdCalls> base = new HbaseBase<V2DbXdCalls>(new V2DbXdCalls());
 		return base.scan("V2_DB_XD_CALLS", rowkey, "calls");
 	}
 
@@ -78,7 +78,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(baseInfoId).reverse().toString();
-		HbaseBase<V2DbMoRecordsCall> base = new HbaseBase<V2DbMoRecordsCall>();
+		HbaseBase<V2DbMoRecordsCall> base = new HbaseBase<V2DbMoRecordsCall>(new V2DbMoRecordsCall());
 		return base.scan("V2_DB_MO_RECORDS_CALL", rowkey, "call");
 	}
 
