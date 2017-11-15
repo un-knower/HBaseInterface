@@ -35,6 +35,7 @@ public class HbaseBase<E> {
 	static Connection con;
 	static {
 		try {
+			// System.out.println("创建连接");
 			con = ConnectionFactory.createConnection(conf);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -100,17 +101,18 @@ public class HbaseBase<E> {
 			for (Result res : scanner) {
 				// System.out.println(res);
 				// 保存到实体类
-				Class<?> cls = this.getClass();
+				E ee = this.getE();
+				Class<?> cls = ee.getClass();
 				@SuppressWarnings("unchecked")
-				E ee = (E) cls.newInstance();
+				E tmp = (E) cls.newInstance();
 				Field[] fields = cls.getDeclaredFields();
 				for (Field field : fields) {
 					field.setAccessible(true);
 					String fieldName = field.getName();
-					field.set(ee, res.getValue(Bytes.toBytes(columnFamily),
-							Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
+					field.set(tmp, Bytes.toString(res.getValue(Bytes.toBytes(columnFamily),
+							Bytes.toBytes(HbaseUtils.switchParam(fieldName)))));
 				}
-				list.add(ee);
+				list.add(tmp);
 			}
 			scanner.close();
 			table.close();
@@ -138,17 +140,16 @@ public class HbaseBase<E> {
 		try {
 			// 根据连接得到表
 			Table table = con.getTable(TableName.valueOf(tableName));
-			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
+			Result res = table.get(new Get(Bytes.toBytes(rowkey)));
 			// 保存到实体类
-			Class<?> cls = this.getClass();
-			@SuppressWarnings("unchecked")
-			E ee = (E) cls.newInstance();
+			E ee = this.getE();
+			Class<?> cls = ee.getClass();
 			Field[] fields = cls.getDeclaredFields();
 			for (Field field : fields) {
 				field.setAccessible(true);
 				String fieldName = field.getName();
-				field.set(ee, result.getValue(Bytes.toBytes(columnFamily),
-						Bytes.toBytes(HbaseUtils.switchParam(fieldName).toUpperCase())));
+				field.set(ee, Bytes.toString(
+						res.getValue(Bytes.toBytes(columnFamily), Bytes.toBytes(HbaseUtils.switchParam(fieldName)))));
 			}
 			table.close();
 			return ee;
@@ -159,26 +160,14 @@ public class HbaseBase<E> {
 		}
 	}
 
-	private Class<E> classType;
-
-	public HbaseBase(Class<E> classType) {
-		super();
-		this.classType = classType;
+	public HbaseBase(E e) {
+		// TODO Auto-generated constructor stub
+		this.e = e;
 	}
 
-	public E getClassType() {
-		try {
-			return classType.newInstance();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+	public E getE() {
+		return e;
 	}
 
-	public void setClassType(Class<E> classType) {
-		this.classType = classType;
-	}
-
-	public HbaseBase() {
-		super();
-	}
+	private E e;
 }

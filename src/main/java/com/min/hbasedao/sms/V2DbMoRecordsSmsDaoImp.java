@@ -15,7 +15,7 @@ public class V2DbMoRecordsSmsDaoImp implements V2DbMoRecordsSmsDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(cid).reverse().toString();
-		HbaseBase<V2DbMoBase> base = new HbaseBase<V2DbMoBase>();
+		HbaseBase<V2DbMoBase> base = new HbaseBase<V2DbMoBase>(new V2DbMoBase());
 		return base.get("V2_DB_MO_BASE", rowkey, "mb");
 	}
 
@@ -25,7 +25,7 @@ public class V2DbMoRecordsSmsDaoImp implements V2DbMoRecordsSmsDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
-		HbaseBase<V2DbMoRecordsSms> base = new HbaseBase<V2DbMoRecordsSms>();
+		HbaseBase<V2DbMoRecordsSms> base = new HbaseBase<V2DbMoRecordsSms>(new V2DbMoRecordsSms());
 		return base.scan("V2_DB_MO_RECORDS_SMS", rowkey, "sms");
 	}
 }

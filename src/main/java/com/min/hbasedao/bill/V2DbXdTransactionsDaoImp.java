@@ -12,7 +12,7 @@ public class V2DbXdTransactionsDaoImp implements V2DbXdTransactionsDao {
 		if (cid == null) {
 			return null;
 		}
-		HbaseBase<V2DbXdTransactions> base = new HbaseBase<V2DbXdTransactions>();
+		HbaseBase<V2DbXdTransactions> base = new HbaseBase<V2DbXdTransactions>(new V2DbXdTransactions());
 		return base.scan("V2_DB_XD_TRANSACTIONS", cid, "c");
 	}
 }

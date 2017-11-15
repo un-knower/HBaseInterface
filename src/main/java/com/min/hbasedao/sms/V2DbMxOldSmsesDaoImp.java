@@ -50,7 +50,7 @@ public class V2DbMxOldSmsesDaoImp implements V2DbMxOldSmsesDao {
 			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
-		HbaseBase<V2DbMxOldSmses> base = new HbaseBase<V2DbMxOldSmses>();
+		HbaseBase<V2DbMxOldSmses> base = new HbaseBase<V2DbMxOldSmses>(new V2DbMxOldSmses());
 		return base.scan("V2_DB_MX_OLD_SMSES", rowkey, "smses");
 	}
 }

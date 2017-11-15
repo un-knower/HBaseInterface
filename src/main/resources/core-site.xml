@@ -3,7 +3,7 @@
 <configuration>
 	<property>
 		<name>fs.defaultFS</name>
-		<value>hdfs://master3:8020</value>
+		<value>hdfs://master:8020</value>
 	</property>
 	<property>
 		<name>io.file.buffer.size</name>
