@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.min.hbasedao.sms.V2DbXdSmsesDaoImp;
+import com.min.hbasedao.sms.V2DbXdSmsesDao;
 import com.min.model.sms.V2DbXdSmses;
 
 /**
@@ -19,11 +19,11 @@ import com.min.model.sms.V2DbXdSmses;
 public class V2DbXdSmsesServiceImp implements V2DbXdSmsesService {
 
 	@Autowired
-	private V2DbXdSmsesDaoImp v2DbXdSmsesDaoImp;
+	private V2DbXdSmsesDao v2DbXdSmsesDao;
 
 	public List<V2DbXdSmses> getV2DbXdSmses(String baseinfo_id) {
 		// TODO Auto-generated method stub
-		return v2DbXdSmsesDaoImp.getV2DbXdSmses(baseinfo_id);
+		return v2DbXdSmsesDao.getV2DbXdSmses(baseinfo_id);
 	}
 
 }

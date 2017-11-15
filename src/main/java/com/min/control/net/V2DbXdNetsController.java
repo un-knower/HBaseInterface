@@ -34,7 +34,6 @@ public class V2DbXdNetsController {
 	private V2CallService v2CallService;
 
 	// 运营商C的上网记录接口
-		@SuppressWarnings("unused")
 		@RequestMapping(value = "/v2/XdNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 		public void getXdCalls(HttpServletRequest request, HttpServletResponse response){
 			JSON<V2DbXdNets> json = new JSON<V2DbXdNets>();
@@ -42,12 +41,12 @@ public class V2DbXdNetsController {
 			V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 			if (customr != null && ("2").equals(customr.getOperatorType())) {
 				if (customr.getId() != null) {
-					// System.out.println(customr.getId());
+					System.out.println("customr.getId" + customr.getId());
 					List<V2DbXdBase> xdBase = v2DbXdNetsService.getV2DbXdBase(customr.getId());
 					System.out.println("xdBase66666:" + xdBase.size());
 					for (V2DbXdBase v2DbXdBase : xdBase) {
 						List<V2DbXdNets> list = v2DbXdNetsService.getV2DbXdNets(v2DbXdBase.getID());
-						System.out.println("list.size" + XdCalls.size());
+						System.out.println("list.size" + list.size());
 						if(XdCalls != null) {
 						for (V2DbXdNets v2DbXdNets : list) {
 							XdCalls.add(v2DbXdNets);
@@ -71,7 +70,6 @@ public class V2DbXdNetsController {
 				String result = mapper.writeValueAsString(json);
 				response.getWriter().write(result);
 			} catch (IOException e) {
-				// TODO: handle exception
 				e.printStackTrace();
 			}
 		}

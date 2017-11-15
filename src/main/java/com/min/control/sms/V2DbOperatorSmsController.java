@@ -48,8 +48,13 @@ public class V2DbOperatorSmsController {
 				// 获取运营商的语音详情
 				V2DbOperatorTask opTask = v2DbOperatorSmsService.getV2DbOperatorTask(customr.getId());
 				operatorSms = v2DbOperatorSmsService.getV2DbOperatorSms(opTask.getId());
-				json.setCode("200");
-				json.setMsg("返回成功");
+				if(operatorSms != null) {
+					json.setCode("200");
+					json.setMsg("返回成功");
+				}else {
+					json.setCode("404");
+					json.setMsg("没有找到数据");
+				}
 			} else {
 				json.setCode("404");
 				json.setMsg("没有找到数据");

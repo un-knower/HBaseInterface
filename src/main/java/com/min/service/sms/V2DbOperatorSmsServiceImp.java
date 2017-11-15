@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.min.hbasedao.sms.V2DbOperatorSmsDaoImp;
+import com.min.hbasedao.sms.V2DbOperatorSmsDao;
 import com.min.model.sms.V2DbOperatorSms;
 import com.min.model.sms.V2DbOperatorTask;
 
@@ -20,16 +20,16 @@ import com.min.model.sms.V2DbOperatorTask;
 public class V2DbOperatorSmsServiceImp implements V2DbOperatorSmsService {
 
 	@Autowired
-	private V2DbOperatorSmsDaoImp v2DbOperatorSmsDaoImp;
+	private V2DbOperatorSmsDao v2DbOperatorSmsDao;
 	
 	public V2DbOperatorTask getV2DbOperatorTask(String cid) {
 		// TODO Auto-generated method stub
-		return v2DbOperatorSmsDaoImp.getV2DbOperatorTask(cid);
+		return v2DbOperatorSmsDao.getV2DbOperatorTask(cid);
 	}
 
 	public List<V2DbOperatorSms> getV2DbOperatorSms(String task_id) {
 		// TODO Auto-generated method stub
-		return v2DbOperatorSmsDaoImp.getV2DbOperatorSms(task_id);
+		return v2DbOperatorSmsDao.getV2DbOperatorSms(task_id);
 	}
 
 }

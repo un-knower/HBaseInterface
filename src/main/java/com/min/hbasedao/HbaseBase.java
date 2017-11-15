@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
@@ -15,6 +16,7 @@ import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
+
 import com.min.model.V2ZScustomerInfo;
 import com.min.utils.HbaseUtils;
 
@@ -58,7 +60,7 @@ public class HbaseBase<E> {
 			return null;
 		}
 		try {
-			Table table = con.getTable(TableName.valueOf("V2_DB_CUSTOMER_INFO"));
+			Table table = con.getTable(TableName.valueOf("V2_ZS_CUSTOMER_INFO"));
 			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
 			V2ZScustomerInfo info = new V2ZScustomerInfo();
 			// 按照需求只需要id
