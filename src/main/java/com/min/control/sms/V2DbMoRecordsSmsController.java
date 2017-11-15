@@ -41,7 +41,9 @@ public class V2DbMoRecordsSmsController {
 			if (customr != null && "0".equals(customr.getOperatorType()) && customr.getId() != null) {
 				// 获取运营商B的短信详情
 				V2DbMoBase moBase = v2DbMoRecordsSmsService.getV2DbMoBase(customr.getId());
+				System.out.println("moBase" + moBase.getId());
 				moRecordsSms = v2DbMoRecordsSmsService.getV2DbMoRecordsSms(moBase.getId());
+				System.out.println("moRecordsSms" + moRecordsSms.size());
 				json.setCode("200");
 				json.setMsg("返回成功");
 			} else {

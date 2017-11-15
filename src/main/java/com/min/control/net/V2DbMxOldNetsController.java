@@ -32,6 +32,7 @@ public class V2DbMxOldNetsController {
 	private V2CallService service;
 
 	// 运营商D的上网记录
+		@SuppressWarnings("unused")
 		@RequestMapping(value = "/v2/MxOldNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 		public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
 			JSON<V2DbMxOldNets> json = new JSON<V2DbMxOldNets>();
@@ -42,8 +43,14 @@ public class V2DbMxOldNetsController {
 				// 获取运营商D的上网记录
 				V2DbMxBase mxBase = v2DbMxOldNetsService.getV2DbMxBase(customr.getId());
 				mxOldNets = v2DbMxOldNetsService.getV2DbMxOldNets(mxBase.getId());
-				json.setCode("200");
-				json.setMsg("返回成功");
+				System.out.println("mxOldNets" + mxOldNets.size());
+				if(mxOldNets != null) {
+					json.setCode("200");
+					json.setMsg("返回成功");
+				}else {
+					json.setCode("404");
+					json.setMsg("未找到数据");
+				}
 			} else {
 				json.setCode("404");
 				json.setMsg("未找到数据");

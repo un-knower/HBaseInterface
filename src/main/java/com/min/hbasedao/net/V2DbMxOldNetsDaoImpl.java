@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Connection;
@@ -76,12 +77,17 @@ public class V2DbMxOldNetsDaoImpl implements V2DbMxOldNetsDao {
 
 				scanner.close();
 				table.close();
-
+				System.out.println("list" + list.size());
 				return list;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
 
+		}
+		
+		public static void main(String[] args) {
+			V2DbMxOldNetsDaoImpl mm = new V2DbMxOldNetsDaoImpl();
+			mm.getV2DbMxOldNets("105513");
 		}
 }
