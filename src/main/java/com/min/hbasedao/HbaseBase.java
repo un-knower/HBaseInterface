@@ -65,8 +65,8 @@ public class HbaseBase<E> {
 			Result result = table.get(new Get(Bytes.toBytes(rowkey)));
 			V2ZScustomerInfo info = new V2ZScustomerInfo();
 			// 按照需求只需要id
-			info.setId(Bytes.toString(result.getValue(Bytes.toBytes("ic"), Bytes.toBytes("ID"))));
-			info.setOperatorType(Bytes.toString(result.getValue(Bytes.toBytes("ic"), Bytes.toBytes("OPERATOR_TYPE"))));
+			info.setId(Bytes.toString(result.getValue(Bytes.toBytes("c"), Bytes.toBytes("ID"))));
+			info.setOperatorType(Bytes.toString(result.getValue(Bytes.toBytes("c"), Bytes.toBytes("OPERATOR_TYPE"))));
 			table.close();
 			return info;
 		} catch (IOException e) {
