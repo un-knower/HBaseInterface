@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.min.service.call;
+package com.min.service.bill;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class V2DbXdTransactionsServiceImp implements V2DbXdTransactionsService {
 	@Autowired
 	private V2DbXdTransactionsDao xdTranDao;
 
-	public List<V2DbXdTransactions> getContacts(String cid) {
-		return xdTranDao.getContacts(cid);
+	public List<V2DbXdTransactions> getContacts(String baseinfo_id) {
+		return xdTranDao.getContacts(baseinfo_id);
 	}
 
 }

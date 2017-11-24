@@ -1,6 +1,7 @@
 package com.min.control.net;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +30,9 @@ public class V2DbMxOldNetsController {
 	private V2DbMxOldNetsService v2DbMxOldNetsService;
 	
 	@Autowired
-	private V2CallService service;
+	private V2CallService v2CallService;
 
-	// 运营商D的上网记录
+	/*// 运营商D的上网记录
 		@SuppressWarnings("unused")
 		@RequestMapping(value = "/v2/MxOldNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 		public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
@@ -41,7 +42,7 @@ public class V2DbMxOldNetsController {
 			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
 			if (customr != null && "3".equals(customr.getOperatorType()) && customr.getId() != null) {
 				// 获取运营商D的上网记录
-				V2DbMxBase mxBase = v2DbMxOldNetsService.getV2DbMxBase(customr.getId());
+				List<V2DbMxBase> mxBase = v2DbMxOldNetsService.getV2DbMxBase(customr.getId());
 				mxOldNets = v2DbMxOldNetsService.getV2DbMxOldNets(mxBase.getId());
 				System.out.println("mxOldNets" + mxOldNets.size());
 				if(mxOldNets != null) {
@@ -64,5 +65,48 @@ public class V2DbMxOldNetsController {
 			} catch (IOException e) {
 				// TODO: handle exception
 			}
-		}
+		}*/
+		
+		// 运营商D的上网记录接口
+					@RequestMapping(value = "/v2/MxOldNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+					public void getXdCalls(HttpServletRequest request, HttpServletResponse response){
+						JSON<V2DbMxOldNets> json = new JSON<V2DbMxOldNets>();
+						List<V2DbMxOldNets> mxOldNets = new ArrayList<V2DbMxOldNets>();
+						V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
+						System.out.println("customr.getId():" + customr.getIdNumber());
+						if (customr != null && ("2").equals(customr.getOperatorType())) {
+							if (customr.getId() != null) {
+								//System.out.println(customr.getId());
+								List<V2DbMxBase> MxBase = v2DbMxOldNetsService.getV2DbMxBase("24");
+								//System.out.println("xdBase66666:" + MxBase.size());
+								for (V2DbMxBase v2DbMxBase : MxBase) {
+									List<V2DbMxOldNets> list = v2DbMxOldNetsService.getV2DbMxOldNets(v2DbMxBase.getId());
+									System.out.println("list.size" + list.size());
+									if(mxOldNets != null) {
+									for (V2DbMxOldNets v2DbMxOldN : list) {
+										mxOldNets.add(v2DbMxOldN);
+									}
+									}else {
+											json.setCode("404");
+											json.setMsg("未找到数据");
+										}
+								}
+								json.setData(mxOldNets);
+								json.setCode("200");
+								json.setMsg("返回成功");
+							}
+						} else {
+							json.setCode("404");
+							json.setMsg("未找到数据");
+						}
+						ObjectMapper mapper = new ObjectMapper();
+						HbaseUtils.setResponse(response);
+						try {
+							String result = mapper.writeValueAsString(json);
+							response.getWriter().write(result);
+						} catch (IOException e) {
+							// TODO: handle exception
+							e.printStackTrace();
+						}
+					}
 }

@@ -26,7 +26,7 @@ public class V2DbMxOldNetsServiceImpl implements V2DbMxOldNetsService {
 	/*
 	 * 获取中间表信息
 	 */
-	public V2DbMxBase getV2DbMxBase(String cid){
+	public List<V2DbMxBase> getV2DbMxBase(String cid){
 		return v2DbMxOldNetsDao.getV2DbMxBase(cid);
 	}
 }

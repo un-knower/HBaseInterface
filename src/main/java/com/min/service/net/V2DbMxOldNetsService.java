@@ -14,5 +14,5 @@ public interface V2DbMxOldNetsService {
 	/*
 	 * 获取中间表信息
 	 */
-	public V2DbMxBase getV2DbMxBase(String cid);
+	public List<V2DbMxBase> getV2DbMxBase(String cid);
 }
