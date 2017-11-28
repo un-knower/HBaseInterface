@@ -1,4 +1,4 @@
-package com.min.model.call;
+package com.min.model;
 
 /**
  * 

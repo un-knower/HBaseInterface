@@ -1,8 +1,10 @@
 package com.min.service.call;
 
 import java.util.Map;
+
+import com.min.model.V2DbMoBase;
+import com.min.model.V2DbMxBase;
 import com.min.model.V2ZScustomerInfo;
-import com.min.model.call.V2DbMoBase;
 
 public interface V2CallService {
 
@@ -45,4 +47,14 @@ public interface V2CallService {
 	 * 根据baseinfoid获取通话记录
 	 */
 	Map<String, Object> getV2DbMoRecordsCall(String baseInfoId, int limit, String lastRowKey);
+
+	/*
+	 * 根据客户的ID关联获取v2_db_mx_base表
+	 */
+	V2DbMxBase getV2DbMxBase(String cid);
+
+	/*
+	 * 根据客户的baseinfo_id获取V2DbMxOldCalls表
+	 */
+	Map<String, Object> getV2DbMxOldCalls(String baseinfo_id, int limit, String lastRowkey);
 }

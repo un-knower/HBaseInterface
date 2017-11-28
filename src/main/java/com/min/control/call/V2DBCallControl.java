@@ -1,6 +1,7 @@
 package com.min.control.call;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.min.model.V2DbMoBase;
+import com.min.model.V2DbMxBase;
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
-import com.min.model.call.V2DbMoBase;
 import com.min.model.call.V2DbOperatorCall;
 import com.min.model.call.V2DbXdCalls;
 import com.min.service.call.V2CallService;
@@ -104,5 +107,32 @@ public class V2DBCallControl {
 			}
 		}
 		return cMap;
+	}
+	
+	/**
+	 * 语音详情Controller
+	 * 
+	 * @author dddd
+	 * @version 2017-11-10
+	 */
+	@Controller
+	@RequestMapping(value = "/api")
+	public class V2DbMxOldCallsController {
+
+		// 运营商的语音详情
+		@RequestMapping(value = "/v1/MxOldCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+		@ResponseBody
+		public Map<String, Object> getXdCalls(HttpServletRequest request, HttpServletResponse response) {
+			Map<String, Object> mxOldCalls = null;
+
+			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
+					request.getParameter("mobile"));
+			if (customr != null && "3".equals(customr.getOperatorType()) && customr.getId() != null) {
+				// 获取运营商的语音详情
+				V2DbMxBase mxBase = service.getV2DbMxBase(customr.getId());
+				mxOldCalls = service.getV2DbMxOldCalls(mxBase.getId(), 0, null);
+			}
+			return mxOldCalls;
+		}
 	}
 }

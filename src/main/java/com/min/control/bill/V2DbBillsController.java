@@ -6,19 +6,21 @@ package com.min.control.bill;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.min.model.V2DbXdBase;
-import com.min.model.V2DbXdTransactions;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.bill.V2DbXdTransactions;
 import com.min.service.bill.V2DbBillsService;
 import com.min.service.call.V2CallService;
-import com.min.service.net.V2NetsService;
 import com.min.utils.HbaseUtils;
 
 /**
@@ -35,9 +37,6 @@ public class V2DbBillsController {
 	private V2DbBillsService billsService;
 
 	@Autowired
-	private V2NetsService netsService;
-
-	@Autowired
 	private V2CallService v2CallService;
 
 	@RequestMapping(value = "/v1/MxOldBills", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -49,7 +48,7 @@ public class V2DbBillsController {
 				request.getParameter("siteid"), request.getParameter("mobile"));
 		// 获取通讯录
 		if (customr.getId() != null) {
-			return billsService.getMxOldBills(customr.getId());
+			return billsService.getMxOldBills(customr.getId(), 0, null);
 		}
 		return HbaseUtils.returnNull();
 	}
@@ -66,9 +65,9 @@ public class V2DbBillsController {
 		Map<String, Object> map = null;
 		if (customr != null && ("2").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
-				Map<String, Object> xdBase = netsService.getV2DbXdBase(customr.getId());
+				Map<String, Object> xdBase = v2CallService.getV2DbXdBase(customr.getId(), 0, null);
 				for (V2DbXdBase v2DbXdBase : (List<V2DbXdBase>) xdBase.get("data")) {
-					map = billsService.getDbXdTransactions(v2DbXdBase.getId());
+					map = billsService.getDbXdTransactions(v2DbXdBase.getId(), 0, null);
 					List<V2DbXdTransactions> list = (List<V2DbXdTransactions>) map.get("data");
 					for (V2DbXdTransactions v2 : list) {
 						XdTransactions.add(v2);

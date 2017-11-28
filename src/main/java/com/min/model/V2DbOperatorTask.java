@@ -4,27 +4,25 @@
 package com.min.model;
 
 /**
- * CONTACTEntity
+ * operator_taskEntity
  * 
  * @author d
  * @version 2017-11-01
  */
 public class V2DbOperatorTask {
-	private String id;
-	private String cid; // cid
-	private String userid; // userid
-	private String name; // name
-	private String mobile; // mobile
-	private String addtime; // addtime
-
-	private String idcard;
-	private String uuid; //
-	private String phoneid; //
-	private String monthrecorddetailmap; //
-	private String isStart; //
-	private String isDownloaded; //
-	
-	private String taskid;
+	private String id;					 // id
+	private String cid; 				 // cid
+	private String userid; 				 // userid
+	private String name; 				 // name
+	private String mobile; 				 // mobile
+	private String addtime; 			 // addtime
+	private String idcard;				 // idcard
+	private String uuid; 				 // uuid
+	private String phoneid;				 // phoneid
+	private String monthrecorddetailmap; // monthrecorddetailmap
+	private String isStart; 			 // is_start
+	private String isDownloaded; 		 // is_downloaded
+	private String taskid;				 // taskid
 
 	public V2DbOperatorTask() {
 		super();

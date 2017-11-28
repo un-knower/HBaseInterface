@@ -1,8 +1,10 @@
 package com.min.hbasedao.call;
 
 import java.util.Map;
+
+import com.min.model.V2DbMoBase;
+import com.min.model.V2DbMxBase;
 import com.min.model.V2ZScustomerInfo;
-import com.min.model.call.V2DbMoBase;
 
 public interface V2DbCallDao {
 	/*
@@ -44,4 +46,14 @@ public interface V2DbCallDao {
 	 * 根据baseinfoid获取通话记录
 	 */
 	Map<String, Object> getV2DbMoRecordsCall(String baseInfoId, int limit, String lastRowkey);
+
+	/*
+	 * 根据客户cid获取语音详情
+	 */
+	V2DbMxBase getV2DbMxBase(String cid);
+
+	/*
+	 * 根据客户的baseinfo_id获取V2DbMxOldCalls表信息
+	 */
+	Map<String, Object> getV2DbMxOldCalls(String baseinfo_id, int limit, String lastRowkey);
 }

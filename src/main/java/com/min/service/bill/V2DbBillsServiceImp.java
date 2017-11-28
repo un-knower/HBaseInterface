@@ -4,6 +4,7 @@
 package com.min.service.bill;
 
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,13 +23,13 @@ public class V2DbBillsServiceImp implements V2DbBillsService {
 	@Autowired
 	private V2DbBillsDao mxOldBiDao;
 
-	public Map<String, Object> getMxOldBills(String cid) {
+	public Map<String, Object> getMxOldBills(String cid, int limit, String lastRowkey) {
 		// TODO Auto-generated method stub
-		return mxOldBiDao.getMxOldBills(cid);
+		return mxOldBiDao.getMxOldBills(cid,limit,lastRowkey);
 	}
 
-	public Map<String, Object> getDbXdTransactions(String baseinfo_id) {
+	public Map<String, Object> getDbXdTransactions(String baseinfo_id, int limit, String lastRowkey) {
 		// TODO Auto-generated method stub
-		return mxOldBiDao.getDbXdTransactions(baseinfo_id);
+		return mxOldBiDao.getDbXdTransactions(baseinfo_id,limit,lastRowkey);
 	}
 }

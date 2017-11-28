@@ -1,6 +1,7 @@
 package com.min.control.net;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.min.model.V2DbMxBase;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
-import com.min.model.call.V2DbMxBase;
 import com.min.model.net.V2DbMxOldNets;
 import com.min.model.net.V2DbXdNets;
 import com.min.service.call.V2CallService;
@@ -39,9 +41,9 @@ public class V2DbMxOldNetsController {
 				request.getParameter("siteid"), request.getParameter("mobile"));
 		if (customr != null && ("2").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
-				Map<String, Object> MxBase = v2NetsService.getV2DbMxBase("24");
+				Map<String, Object> MxBase = (Map<String, Object>) v2CallService.getV2DbMxBase(customr.getId());
 				for (V2DbMxBase v2DbMxBase : (List<V2DbMxBase>) MxBase.get("data")) {
-					map = v2NetsService.getV2DbMxOldNets(v2DbMxBase.getId());
+					map = v2NetsService.getV2DbMxOldNets(v2DbMxBase.getId(), 0, null);
 					List<V2DbMxOldNets> list = (List<V2DbMxOldNets>) map.get("data");
 					for (V2DbMxOldNets v2DbMxOldN : list) {
 						mxOldNets.add(v2DbMxOldN);
@@ -64,9 +66,9 @@ public class V2DbMxOldNetsController {
 				request.getParameter("siteid"), request.getParameter("mobile"));
 		if (customr != null && ("2").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
-				Map<String, Object> xdBase = v2NetsService.getV2DbXdBase(customr.getId());
+				Map<String, Object> xdBase = v2CallService.getV2DbXdBase(customr.getId(), 0, null);
 				for (V2DbXdBase v2DbXdBase : (List<V2DbXdBase>) xdBase.get("data")) {
-					map = v2NetsService.getV2DbXdNets(v2DbXdBase.getId());
+					map = v2NetsService.getV2DbXdNets(v2DbXdBase.getId(), 0, null);
 					for (V2DbXdNets v2DbXdN : (List<V2DbXdNets>) map.get("data")) {
 						XdNets.add(v2DbXdN);
 					}

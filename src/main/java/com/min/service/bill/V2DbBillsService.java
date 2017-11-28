@@ -7,10 +7,10 @@ public interface V2DbBillsService {
 	/*
 	 * 根据客户cid获取账单信息
 	 */
-	Map<String, Object> getMxOldBills(String cid);
+	Map<String, Object> getMxOldBills(String cid, int limit, String lastRowKey);
 
 	/*
 	 * 账单记录DAO接口
 	 */
-	Map<String, Object> getDbXdTransactions(String baseinfo_id);
+	Map<String, Object> getDbXdTransactions(String baseinfo_id, int limit, String lastRowKey);
 }
