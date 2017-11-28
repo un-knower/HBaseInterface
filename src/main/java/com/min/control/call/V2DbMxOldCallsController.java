@@ -5,7 +5,9 @@ package com.min.control.call;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.model.JSON;
 import com.min.model.V2ZScustomerInfo;
@@ -33,6 +36,22 @@ import com.min.utils.HbaseUtils;
 @Controller
 @RequestMapping(value = "/api")
 public class V2DbMxOldCallsController {
+	@RequestMapping("/login")
+	@ResponseBody
+	public Map<String, String> test(HttpServletRequest req, HttpServletResponse rep) {
+		String username = req.getParameter("username");
+		String pass = req.getParameter("pass");
+
+		System.out.println("使用Spring内置的支持：" + username + "--->" + pass);
+
+		Map<String, String> map = new HashMap<String, String>();
+		if (("zhr").equals(username) && ("123").equals(pass)) {
+			map.put("results", "login success");
+		} else {
+			map.put("results", "login fail");
+		}
+		return map;
+	}
 
 	@Autowired
 	private V2CallService service;
@@ -46,7 +65,8 @@ public class V2DbMxOldCallsController {
 		JSON<V2DbMxOldCalls> json = new JSON<V2DbMxOldCalls>();
 		List<V2DbMxOldCalls> mxOldCalls = new ArrayList<V2DbMxOldCalls>();
 
-		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),request.getParameter("mobile"));
+		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
+				request.getParameter("mobile"));
 		if (customr != null && "3".equals(customr.getOperatorType()) && customr.getId() != null) {
 			// 获取运营商的语音详情
 			V2DbMxBase mxBase = v2DbMxOldCallsService.getV2DbMxBase(customr.getId());

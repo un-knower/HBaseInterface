@@ -15,13 +15,11 @@ public class V2DbMoRecordsCall {
 	private String cid; // cid
 	private String userid; // userid
 	private String type; //
-
 	private String addtime; // addtime
 	private String callTime; //
 	private String area;
 	private String areaType;
 	private String selfNumber;
-
 	private String otherPartyOperator;
 	private String otherPartyNumber;
 	private String startTime;

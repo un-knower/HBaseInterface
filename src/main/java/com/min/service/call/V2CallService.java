@@ -1,11 +1,11 @@
 package com.min.service.call;
 
 import java.util.List;
+import java.util.Map;
 
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
-import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbMoBase;
 import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbOperatorCall;
@@ -16,7 +16,7 @@ public interface V2CallService {
 	/*
 	 * 根据客户cid获取通讯录列表
 	 */
-	List<V2DbContact> getContacts(String cid);
+	Map<String, Object> getContacts(String cid, int limit, String lastRowKey);
 
 	/*
 	 * 根据身份证号、平台id和手机号获取客户信息
