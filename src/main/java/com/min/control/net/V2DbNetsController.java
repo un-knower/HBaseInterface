@@ -2,6 +2,7 @@ package com.min.control.net;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import com.min.utils.HbaseUtils;
 
 @Controller
 @RequestMapping("/api")
-public class V2DbMxOldNetsController {
+public class V2DbNetsController {
 
 	@Autowired
 	private V2NetsService v2NetsService;

@@ -26,7 +26,7 @@ import com.min.utils.HbaseUtils;
 
 @Controller
 @RequestMapping(value = "/api")
-public class V2DbMoRecordsSmsController {
+public class V2DbSmsController {
 
 	@Autowired
 	private V2DbSmsService v2DbSmsService;
