@@ -19,5 +19,5 @@ public interface V2DbMxOldCallsDao {
 	/*
 	 * 根据客户的baseinfo_id获取V2DbMxOldCalls表信息
 	 */
-	Map<String, Object> getV2DbMxOldCalls(String baseinfo_id);
+	Map<String, Object> getV2DbMxOldCalls(String baseinfo_id, int limit, String lastRowkey);
 }

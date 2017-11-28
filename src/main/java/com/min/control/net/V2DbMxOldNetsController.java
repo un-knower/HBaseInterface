@@ -77,26 +77,4 @@ public class V2DbMxOldNetsController {
 		return map;
 	}
 
-	// 运营商C的上网记录接口
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/v1/XdNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	public Map<String, Object> getXdCalls(HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> map = null;
-		List<V2DbXdNets> XdNets = new ArrayList<V2DbXdNets>();
-		V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"),
-				request.getParameter("siteid"), request.getParameter("mobile"));
-		if (customr != null && ("2").equals(customr.getOperatorType())) {
-			if (customr.getId() != null) {
-				Map<String, Object> xdBase = v2NetsService.getV2DbXdBase(customr.getId());
-				for (V2DbXdBase v2DbXdBase : (List<V2DbXdBase>) xdBase.get("data")) {
-					map = v2NetsService.getV2DbXdNets(v2DbXdBase.getId());
-					for (V2DbXdNets v2DbXdN : (List<V2DbXdNets>) map.get("data")) {
-						XdNets.add(v2DbXdN);
-					}
-				}
-			}
-		}
-		map.put("data", XdNets);
-		return map;
-	}
 }

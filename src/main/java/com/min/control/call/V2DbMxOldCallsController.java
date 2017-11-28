@@ -40,10 +40,11 @@ public class V2DbMxOldCallsController {
 
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
+		System.out.println("customr.getId" + customr.getId());
 		if (customr != null && "3".equals(customr.getOperatorType()) && customr.getId() != null) {
 			// 获取运营商的语音详情
 			V2DbMxBase mxBase = v2DbMxOldCallsService.getV2DbMxBase(customr.getId());
-			mxOldCalls = v2DbMxOldCallsService.getV2DbMxOldCalls(mxBase.getId());
+			mxOldCalls = v2DbMxOldCallsService.getV2DbMxOldCalls(mxBase.getId(), 0, null);
 		}
 		return mxOldCalls;
 	}

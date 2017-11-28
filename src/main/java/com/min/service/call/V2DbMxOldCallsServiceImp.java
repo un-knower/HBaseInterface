@@ -27,9 +27,9 @@ public class V2DbMxOldCallsServiceImp implements V2DbMxOldCallsService{
 		return v2DbMxOldCallsDaoImp.getV2DbMxBase(cid);
 	}
 
-	public Map<String, Object> getV2DbMxOldCalls(String baseinfo_id) {
+	public Map<String, Object> getV2DbMxOldCalls(String baseinfo_id, int limit, String lastRowkey) {
 		// TODO Auto-generated method stub
-		return v2DbMxOldCallsDaoImp.getV2DbMxOldCalls(baseinfo_id);
+		return v2DbMxOldCallsDaoImp.getV2DbMxOldCalls(baseinfo_id,limit,lastRowkey);
 	}
 
 	
