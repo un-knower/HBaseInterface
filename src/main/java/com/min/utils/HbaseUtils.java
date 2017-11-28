@@ -16,7 +16,7 @@ public class HbaseUtils {
 	 * 转换rowkey,将传入的身份证和平台ID处理为rowkey
 	 */
 	public static String transformRowkey(String idcard, String siteid, String mobile) {
-		//long keyTmp = 0;
+		// long keyTmp = 0;
 		try {
 			// 去掉身份证最后一位
 			// String str = idcard.substring(0, idcard.length() - 1);
@@ -29,7 +29,6 @@ public class HbaseUtils {
 			// TODO Auto-generated catch block
 			return null;
 		}
-
 	}
 
 	/*
@@ -49,8 +48,9 @@ public class HbaseUtils {
 		}
 		return name.toUpperCase();
 	}
-	/** 
-	 * @Title: returnNull 
+
+	/**
+	 * @Title: returnNull
 	 * @Description: 返回空值的json结果
 	 * @return
 	 * @return: Map<String,Object>

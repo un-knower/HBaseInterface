@@ -1,5 +1,6 @@
 package com.min.control.call;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,10 @@ import com.min.model.V2DbOperatorTask;
 import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbMoBase;
+import com.min.model.call.V2DbOperatorCall;
+import com.min.model.call.V2DbXdCalls;
 import com.min.service.call.V2CallService;
+import com.min.utils.HbaseUtils;
 
 @Controller
 @RequestMapping("/api")
@@ -28,7 +32,7 @@ public class V2DBCallControl {
 	public Map<String, Object> getContact(HttpServletRequest request, HttpServletResponse response) {
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
-		Map<String, Object> cMap = null;
+		Map<String, Object> cMap = HbaseUtils.returnNull();
 		if (customr != null && customr.getId() != null) {
 			cMap = service.getContacts(customr.getId(), 0, null);
 		}
@@ -36,22 +40,26 @@ public class V2DBCallControl {
 	}
 
 	// 运营商B的通话记录接口
-
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/v1/OperatorCall", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> getOperatorCall(HttpServletRequest request, HttpServletResponse response) {
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
-		Map<String, Object> cMap = null;
+		Map<String, Object> cMap = HbaseUtils.returnNull();
+		List<V2DbOperatorCall> list = new ArrayList<V2DbOperatorCall>();
 		if (customr != null && ("1").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
 				Map<String, Object> operatorTask = service.getOperatorTask(customr.getId(), 0, null);
 				for (V2DbOperatorTask v2DbOpTask : (List<V2DbOperatorTask>) operatorTask.get("data")) {
 					cMap = service.getV2DbOperatorCall(v2DbOpTask.getPhoneid(), 0, null);
+					for (V2DbOperatorCall vask : (List<V2DbOperatorCall>) cMap.get("data")) {
+						list.add(vask);
+					}
 				}
 			}
 		}
+		cMap.put("data", list);
 		return cMap;
 	}
 
@@ -62,15 +70,20 @@ public class V2DBCallControl {
 	public Map<String, Object> getXdCalls(HttpServletRequest request, HttpServletResponse response) {
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
-		Map<String, Object> cMap = null;
+		Map<String, Object> cMap = HbaseUtils.returnNull();
+		List<V2DbXdCalls> list = new ArrayList<V2DbXdCalls>();
 		if (customr != null && ("2").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
 				Map<String, Object> xdBase = service.getV2DbXdBase(customr.getId(), 0, null);
 				for (V2DbXdBase v2DbXdBase : (List<V2DbXdBase>) xdBase.get("data")) {
 					cMap = service.getV2DbXdCalls(v2DbXdBase.getId(), 0, null);
+					for (V2DbXdCalls v2DbXdCalls : (List<V2DbXdCalls>)cMap.get("data")) {
+						list.add(v2DbXdCalls);
+					}
 				}
 			}
 		}
+		cMap.put("data", list);
 		return cMap;
 	}
 
@@ -80,13 +93,13 @@ public class V2DBCallControl {
 	public Map<String, Object> getV2DbMoRecordsCall(HttpServletRequest request1, HttpServletResponse response1) {
 		V2ZScustomerInfo customr = service.getCustomr(request1.getParameter("idcard"), request1.getParameter("siteid"),
 				request1.getParameter("mobile"));
-		Map<String, Object> cMap = null;
+		Map<String, Object> cMap = HbaseUtils.returnNull();
 		if (customr != null && ("0").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
 				// 获取运营商B的通话记录
 				V2DbMoBase moBase = service.getV2DbMoBase(customr.getId());
 				if (moBase != null) {
-					cMap = service.getV2DbXdCalls(moBase.getId(), 0, null);
+					cMap = service.getV2DbMoRecordsCall(moBase.getId(), 0, null);
 				}
 			}
 		}
