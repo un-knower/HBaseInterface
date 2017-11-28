@@ -17,6 +17,7 @@ import com.min.model.net.V2DbMxOldNets;
 import com.min.model.net.V2DbXdNets;
 import com.min.service.call.V2CallService;
 import com.min.service.net.V2NetsService;
+import com.min.utils.HbaseUtils;
 
 @Controller
 @RequestMapping("/api")
@@ -34,7 +35,7 @@ public class V2DbMxOldNetsController {
 	@ResponseBody
 	public Map<String, Object> getMxOldNets(HttpServletRequest request, HttpServletResponse response) {
 		List<V2DbMxOldNets> mxOldNets = new ArrayList<V2DbMxOldNets>();
-		Map<String, Object> map = null;
+		Map<String, Object> map = HbaseUtils.returnNull();
 		V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"),
 				request.getParameter("siteid"), request.getParameter("mobile"));
 		if (customr != null && ("2").equals(customr.getOperatorType())) {

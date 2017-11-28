@@ -15,6 +15,7 @@ import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbMxBase;
 import com.min.service.call.V2CallService;
 import com.min.service.call.V2DbMxOldCallsService;
+import com.min.utils.HbaseUtils;
 
 /**
  * 语音详情Controller
@@ -36,7 +37,7 @@ public class V2DbMxOldCallsController {
 	@RequestMapping(value = "/v1/MxOldCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> getXdCalls(HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> mxOldCalls = null;
+		Map<String, Object> mxOldCalls = HbaseUtils.returnNull();
 
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
