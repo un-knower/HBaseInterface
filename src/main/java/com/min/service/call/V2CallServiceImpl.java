@@ -35,28 +35,28 @@ public class V2CallServiceImpl implements V2CallService {
 		return conDao.getV2DbMoBase(cid);
 	}
 
-	public List<V2DbOperatorCall> getV2DbOperatorCall(String cid) {
+	public Map<String, Object> getV2DbOperatorCall(String cid, int limit, String lastRowKey) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbOperatorCall(cid);
+		return conDao.getV2DbOperatorCall(cid,limit,lastRowKey);
 	}
 
-	public List<V2DbOperatorTask> getOperatorTask(String cid) {
+	public Map<String, Object> getOperatorTask(String cid, int limit, String lastRowKey) {
 		// TODO Auto-generated method stub
-		return conDao.getOperatorTask(cid);
+		return conDao.getOperatorTask(cid,limit,lastRowKey);
 	}
 
-	public List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId) {
+	public Map<String, Object> getV2DbMoRecordsCall(String baseInfoId, int limit, String lastRowKey) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbMoRecordsCall(baseInfoId);
+		return conDao.getV2DbMoRecordsCall(baseInfoId,limit,lastRowKey);
 	}
 
-	public List<V2DbXdBase> getV2DbXdBase(String cid) {
+	public Map<String, Object> getV2DbXdBase(String cid, int limit, String lastRowKey) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbXdBase(cid);
+		return conDao.getV2DbXdBase(cid,limit,lastRowKey);
 	}
 
-	public List<V2DbXdCalls> getV2DbXdCalls(String baseinfo_id) {
+	public Map<String, Object> getV2DbXdCalls(String baseinfo_id, int limit, String lastRowKey) {
 		// TODO Auto-generated method stub
-		return conDao.getV2DbXdCalls(baseinfo_id);
+		return conDao.getV2DbXdCalls(baseinfo_id,limit,lastRowKey);
 	}
 }

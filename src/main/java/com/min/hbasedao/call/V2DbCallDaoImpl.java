@@ -17,12 +17,12 @@ import com.min.model.call.V2DbXdCalls;
 public class V2DbCallDaoImpl implements V2DbCallDao {
 
 	// 运营商B的通话记录表
-	public List<V2DbOperatorCall> getV2DbOperatorCall(String phoneid) {
+	public Map<String, Object> getV2DbOperatorCall(String phoneid, int limit, String lastRowkey) {
 		if (phoneid == null) {
 			return null;
 		}
 		HbaseBase<V2DbOperatorCall> base = new HbaseBase<V2DbOperatorCall>(new V2DbOperatorCall());
-		return base.scan("V2_DB_OPERATOR_CALL", phoneid + "|", "c");
+		return base.scan("V2_DB_OPERATOR_CALL", phoneid + "|", "c", base);
 	}
 
 	public Map<String, Object> getContacts(String cid, int limit, String lastRowkey) {
@@ -34,7 +34,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	}
 
 	// 运营商A的中间表
-	public V2DbMoBase getV2DbMoBase(String cid) {
+	public V2DbMoBase getV2DbMoBase(String cid, int limit, String lastRowkey) {
 		if (cid == null) {
 			return null;
 		}
@@ -44,42 +44,42 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	}
 	
 	// 运营商B的中间表
-		public List<V2DbOperatorTask> getOperatorTask(String cid) {
+		public Map<String, Object> getOperatorTask(String cid, int limit, String lastRowkey) {
 			if (cid == null) {
 				return null;
 			}
 			String rowkey = new StringBuilder(cid).reverse().toString() + "|";
 			HbaseBase<V2DbOperatorTask> base = new HbaseBase<V2DbOperatorTask>(new V2DbOperatorTask());
-			return base.scan("V2_DB_OPERATOR_TASK", rowkey, "c");
+			return base.scan("V2_DB_OPERATOR_TASK", rowkey, "c", base);
 		}
 
 	// 运营商C的中间表
-	public List<V2DbXdBase> getV2DbXdBase(String cid) {
+	public Map<String, Object> getV2DbXdBase(String cid, int limit, String lastRowkey) {
 		if (cid == null) {
 			return null;
 		}
 		String rowkey = new StringBuilder(cid).reverse().toString() + "|";
 		HbaseBase<V2DbXdBase> base = new HbaseBase<V2DbXdBase>(new V2DbXdBase());
-		return base.scan("V2_DB_XD_BASE", rowkey, "c");
+		return base.scan("V2_DB_XD_BASE", rowkey, "c", base);
 	}
 
-	public List<V2DbXdCalls> getV2DbXdCalls(String baseinfo_id) {
+	public Map<String, Object> getV2DbXdCalls(String baseinfo_id, int limit, String lastRowkey) {
 		// TODO Auto-generated method stub
 		if (baseinfo_id == null) {
 			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
 		HbaseBase<V2DbXdCalls> base = new HbaseBase<V2DbXdCalls>(new V2DbXdCalls());
-		return base.scan("V2_DB_XD_CALLS", rowkey, "c");
+		return base.scan("V2_DB_XD_CALLS", rowkey, "c", base);
 	}
 
-	public List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId) {
+	public Map<String, Object> getV2DbMoRecordsCall(String baseInfoId, int limit, String lastRowkey) {
 		if (baseInfoId == null) {
 			return null;
 		}
 		String rowkey = new StringBuilder(baseInfoId).reverse().toString() + "|";
 		HbaseBase<V2DbMoRecordsCall> base = new HbaseBase<V2DbMoRecordsCall>(new V2DbMoRecordsCall());
-		return base.scan("V2_DB_MO_RECORDS_CALL", rowkey, "c");
+		return base.scan("V2_DB_MO_RECORDS_CALL", rowkey, "c", base);
 	}
 
 	public V2ZScustomerInfo getCustomr(String idcard, String siteid, String mobile) {

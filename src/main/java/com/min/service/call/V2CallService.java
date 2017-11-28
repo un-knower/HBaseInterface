@@ -3,13 +3,9 @@ package com.min.service.call;
 import java.util.List;
 import java.util.Map;
 
-import com.min.model.V2DbOperatorTask;
-import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbMoBase;
 import com.min.model.call.V2DbMoRecordsCall;
-import com.min.model.call.V2DbOperatorCall;
-import com.min.model.call.V2DbXdCalls;
 
 public interface V2CallService {
 
@@ -31,25 +27,25 @@ public interface V2CallService {
 	/*
 	 * 根据客户的ID关联获取V2DbOperatorCall表的信息
 	 */
-	List<V2DbOperatorCall> getV2DbOperatorCall(String cid);
+	Map<String, Object> getV2DbOperatorCall(String cid, int limit, String lastRowKey);
 
 	/*
 	 * 根据客户cid获取OperatorTask
 	 */
-	List<V2DbOperatorTask> getOperatorTask(String cid);
+	Map<String, Object> getOperatorTask(String cid, int limit, String lastRowKey);
 
 	/*
 	 * 根据客户的cid获取V2DbXdBase表
 	 */
-	List<V2DbXdBase> getV2DbXdBase(String cid);
+	Map<String, Object> getV2DbXdBase(String cid, int limit, String lastRowKey);
 
 	/*
 	 * 根据客户的baseinfo_id获取V2DbXdCalls表
 	 */
-	List<V2DbXdCalls> getV2DbXdCalls(String baseinfo_id);
+	Map<String, Object> getV2DbXdCalls(String baseinfo_id, int limit, String lastRowKey);
 
 	/*
 	 * 根据baseinfoid获取通话记录
 	 */
-	List<V2DbMoRecordsCall> getV2DbMoRecordsCall(String baseInfoId);
+	Map<String, Object> getV2DbMoRecordsCall(String baseInfoId, int limit, String lastRowKey);
 }
