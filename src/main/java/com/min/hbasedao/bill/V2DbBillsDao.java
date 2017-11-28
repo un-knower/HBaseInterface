@@ -3,18 +3,20 @@
  */
 package com.min.hbasedao.bill;
 
-import java.util.List;
-import com.min.model.V2DbMxOldBills;
-
+import java.util.Map;
 
 /**
  * old_billsDAO接口
  * @author dddd
  * @version 2017-11-03
  */
-public interface V2DbMxOldBillsDao {
+public interface V2DbBillsDao {
 	/*
 	 * 根据客户cid获取账单信息
 	 */
-	List<V2DbMxOldBills> getContacts(String cid);
+	Map<String, Object> getMxOldBills(String cid);
+	/*
+	 * 账单记录DAO接口
+	 */
+	Map<String, Object> getDbXdTransactions(String baseinfo_id);
 }

@@ -1,8 +1,6 @@
 package com.min.service.sms;
 
-import java.util.List;
-
-import com.min.model.sms.V2DbOperatorSms;
+import java.util.Map;
 import com.min.model.sms.V2DbOperatorTask;
 
 public interface V2DbOperatorSmsService {
@@ -15,5 +13,5 @@ public interface V2DbOperatorSmsService {
 	/*
 	 * 根据客户的baseinfo_id获取V2DbOperatorSms表
 	 */
-	List<V2DbOperatorSms> getV2DbOperatorSms(String task_id);
+	Map<String, Object> getV2DbOperatorSms(String task_id);
 }

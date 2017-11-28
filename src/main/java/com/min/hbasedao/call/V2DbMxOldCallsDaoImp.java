@@ -1,10 +1,11 @@
 package com.min.hbasedao.call;
 
-import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Component;
 import com.min.hbasedao.HbaseBase;
 import com.min.model.call.V2DbMxBase;
 import com.min.model.call.V2DbMxOldCalls;
+import com.min.utils.HbaseUtils;
 
 @Component
 public class V2DbMxOldCallsDaoImp implements V2DbMxOldCallsDao {
@@ -20,12 +21,12 @@ public class V2DbMxOldCallsDaoImp implements V2DbMxOldCallsDao {
 	}
 
 	// 获取语音详情
-	public List<V2DbMxOldCalls> getV2DbMxOldCalls(String baseinfo_id) {
+	public Map<String, Object> getV2DbMxOldCalls(String baseinfo_id) {
 		if (baseinfo_id == null) {
-			return null;
+			return HbaseUtils.returnNull();
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
 		HbaseBase<V2DbMxOldCalls> base = new HbaseBase<V2DbMxOldCalls>(new V2DbMxOldCalls());
-		return base.scan("V2_DB_MX_OLD_CALLS", rowkey, "calls");
+		return base.scan("V2_DB_MX_OLD_CALLS", rowkey, "calls", base);
 	}
 }

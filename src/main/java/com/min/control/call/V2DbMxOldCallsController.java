@@ -3,29 +3,18 @@
  */
 package com.min.control.call;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.min.model.JSON;
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbMxBase;
-import com.min.model.call.V2DbMxOldCalls;
 import com.min.service.call.V2CallService;
 import com.min.service.call.V2DbMxOldCallsService;
-import com.min.utils.HbaseUtils;
 
 /**
  * 语音详情Controller
@@ -36,22 +25,6 @@ import com.min.utils.HbaseUtils;
 @Controller
 @RequestMapping(value = "/api")
 public class V2DbMxOldCallsController {
-	@RequestMapping("/login")
-	@ResponseBody
-	public Map<String, String> test(HttpServletRequest req, HttpServletResponse rep) {
-		String username = req.getParameter("username");
-		String pass = req.getParameter("pass");
-
-		System.out.println("使用Spring内置的支持：" + username + "--->" + pass);
-
-		Map<String, String> map = new HashMap<String, String>();
-		if (("zhr").equals(username) && ("123").equals(pass)) {
-			map.put("results", "login success");
-		} else {
-			map.put("results", "login fail");
-		}
-		return map;
-	}
 
 	@Autowired
 	private V2CallService service;
@@ -60,10 +33,10 @@ public class V2DbMxOldCallsController {
 	private V2DbMxOldCallsService v2DbMxOldCallsService;
 
 	// 运营商的语音详情
-	@RequestMapping(value = "/v2/MxOldCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-	public void getXdCalls(HttpServletRequest request, HttpServletResponse response) {
-		JSON<V2DbMxOldCalls> json = new JSON<V2DbMxOldCalls>();
-		List<V2DbMxOldCalls> mxOldCalls = new ArrayList<V2DbMxOldCalls>();
+	@RequestMapping(value = "/v1/MxOldCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Map<String, Object> getXdCalls(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> mxOldCalls = null;
 
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
@@ -71,21 +44,7 @@ public class V2DbMxOldCallsController {
 			// 获取运营商的语音详情
 			V2DbMxBase mxBase = v2DbMxOldCallsService.getV2DbMxBase(customr.getId());
 			mxOldCalls = v2DbMxOldCallsService.getV2DbMxOldCalls(mxBase.getId());
-			json.setCode("200");
-			json.setMsg("返回成功");
-		} else {
-			json.setCode("404");
-			json.setMsg("没有找到");
 		}
-		json.setData(mxOldCalls);
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			HbaseUtils.setResponse(response);
-			String result = mapper.writeValueAsString(json);
-			response.getWriter().write(result);
-		} catch (IOException e) {
-			// TODO: handle exception
-		}
+		return mxOldCalls;
 	}
-
 }

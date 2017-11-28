@@ -1,10 +1,7 @@
 package com.min.service.sms;
 
-import java.util.List;
-
-
+import java.util.Map;
 import com.min.model.call.V2DbMoBase;
-import com.min.model.sms.V2DbMoRecordsSms;
 
 public interface V2DbMoRecordsSmsService {
 
@@ -16,5 +13,5 @@ public interface V2DbMoRecordsSmsService {
 	/*
 	 * 根据客户的baseinfo_id获取V2DbMoRecordsSms表
 	 */
-	List<V2DbMoRecordsSms> getV2DbMoRecordsSms(String baseinfo_id);
+	Map<String, Object> getV2DbMoRecordsSms(String baseinfo_id);
 }

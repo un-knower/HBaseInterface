@@ -1,9 +1,7 @@
 package com.min.service.call;
 
-import java.util.List;
-
+import java.util.Map;
 import com.min.model.call.V2DbMxBase;
-import com.min.model.call.V2DbMxOldCalls;
 
 public interface V2DbMxOldCallsService {
 
@@ -15,5 +13,5 @@ public interface V2DbMxOldCallsService {
 	/*
 	 * 根据客户的baseinfo_id获取V2DbMxOldCalls表
 	 */
-	List<V2DbMxOldCalls> getV2DbMxOldCalls(String baseinfo_id);
+	Map<String, Object> getV2DbMxOldCalls(String baseinfo_id);
 }

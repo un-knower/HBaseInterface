@@ -1,14 +1,11 @@
 package com.min.service.sms;
 
-import java.util.List;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.min.hbasedao.sms.V2DbMxOldSmsesDao;
 import com.min.model.call.V2DbMxBase;
-import com.min.model.sms.V2DbMxOldSmses;
 
 /**
  * 运营商D短信详情Service
@@ -27,7 +24,7 @@ public class V2DbMxOldSmsesServiceImp implements V2DbMxOldSmsesService {
 		return v2DbMxOldSmsesDao.getV2DbMxBase(cid);
 	}
 
-	public List<V2DbMxOldSmses> getV2DbMxOldSmses(String baseinfo_id) {
+	public Map<String, Object> getV2DbMxOldSmses(String baseinfo_id) {
 		// TODO Auto-generated method stub
 		return v2DbMxOldSmsesDao.getV2DbMxOldSmses(baseinfo_id);
 	}

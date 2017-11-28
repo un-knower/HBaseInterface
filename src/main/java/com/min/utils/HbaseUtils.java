@@ -1,9 +1,9 @@
 package com.min.utils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @ClassName: HbaseUtils
@@ -49,17 +49,17 @@ public class HbaseUtils {
 		}
 		return name.toUpperCase();
 	}
-
-	// 统一设置Response
-	public static void setResponse(HttpServletResponse response) {
-		response.setContentType("text/plain;charset=UTF-8");
-		response.setCharacterEncoding("utf-8");
-		response.setHeader("Pragma", "No-cache");
-		response.setHeader("Cache-Control", "no-cache");
-		response.setDateHeader("Expires", 0);
+	/** 
+	 * @Title: returnNull 
+	 * @Description: 返回空值的json结果
+	 * @return
+	 * @return: Map<String,Object>
+	 */
+	public static Map<String, Object> returnNull() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("msg", "没有找到");
+		map.put("code", "404");
+		map.put("data", "");
+		return map;
 	}
-	// 测试
-	// public static void main(String[] args) {
-	// System.out.println();
-	// }
 }

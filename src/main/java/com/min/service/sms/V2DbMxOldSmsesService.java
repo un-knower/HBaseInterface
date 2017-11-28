@@ -1,9 +1,7 @@
 package com.min.service.sms;
 
-import java.util.List;
-
+import java.util.Map;
 import com.min.model.call.V2DbMxBase;
-import com.min.model.sms.V2DbMxOldSmses;
 
 public interface V2DbMxOldSmsesService {
 
@@ -15,5 +13,5 @@ public interface V2DbMxOldSmsesService {
 	/*
 	 * 根据客户的baseinfo_id获取V2_DB_MX_OLD_SMSES表信息
 	 */
-	List<V2DbMxOldSmses> getV2DbMxOldSmses(String baseinfo_id);
+	Map<String, Object> getV2DbMxOldSmses(String baseinfo_id);
 }

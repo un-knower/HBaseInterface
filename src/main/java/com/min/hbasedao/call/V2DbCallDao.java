@@ -1,11 +1,8 @@
 package com.min.hbasedao.call;
 
-import java.util.List;
 import java.util.Map;
-
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.call.V2DbMoBase;
-import com.min.model.call.V2DbMoRecordsCall;
 
 public interface V2DbCallDao {
 	/*
