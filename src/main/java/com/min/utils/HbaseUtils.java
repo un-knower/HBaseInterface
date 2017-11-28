@@ -47,7 +47,7 @@ public class HbaseUtils {
 				name = name.replaceAll(old, "_" + ne);
 			}
 		}
-		return name;
+		return name.toUpperCase();
 	}
 
 	// 统一设置Response

@@ -1,9 +1,8 @@
 package com.min.hbasedao.call;
 
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.stereotype.Component;
-
 import com.min.hbasedao.HbaseBase;
 import com.min.model.V2DbOperatorTask;
 import com.min.model.V2DbXdBase;
@@ -26,12 +25,12 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 		return base.scan("V2_DB_OPERATOR_CALL", phoneid + "|", "c");
 	}
 
-	public List<V2DbContact> getContacts(String cid) {
+	public Map<String, Object> getContacts(String cid, int limit, String lastRowkey) {
 		if (cid == null) {
 			return null;
 		}
 		HbaseBase<V2DbContact> base = new HbaseBase<V2DbContact>(new V2DbContact());
-		return base.scan("V2_DB_CONTACT", cid + "|", "con");
+		return base.scan("V2_DB_CONTACT", new StringBuilder(cid).reverse().toString() + "|","con", base);
 	}
 
 	// 运营商A的中间表
