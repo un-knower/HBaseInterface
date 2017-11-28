@@ -22,6 +22,7 @@ import com.min.model.sms.V2DbOperatorSms;
 import com.min.model.sms.V2DbXdSmses;
 import com.min.service.call.V2CallService;
 import com.min.service.sms.V2DbSmsService;
+import com.min.utils.HbaseUtils;
 
 @Controller
 @RequestMapping(value = "/api")
@@ -37,7 +38,7 @@ public class V2DbMoRecordsSmsController {
 	@RequestMapping(value = "/v1/MoRecodsSms", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> getMoRecodsSms(HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> sms = null;
+		Map<String, Object> sms = HbaseUtils.returnNull();
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
 		if (customr != null && "0".equals(customr.getOperatorType()) && customr.getId() != null) {
@@ -52,7 +53,7 @@ public class V2DbMoRecordsSmsController {
 	@RequestMapping(value = "/v1/MxOldSmses", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> getMxOldSmses(HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> map = null;
+		Map<String, Object> map = HbaseUtils.returnNull();
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
 		if (customr != null && "3".equals(customr.getOperatorType()) && customr.getId() != null) {
@@ -69,7 +70,7 @@ public class V2DbMoRecordsSmsController {
 	@ResponseBody
 	public Map<String, Object> getOperatorSms(HttpServletRequest request, HttpServletResponse response) {
 		List<V2DbOperatorSms> OpSms = new ArrayList<V2DbOperatorSms>();
-		Map<String, Object> map = null;
+		Map<String, Object> map = HbaseUtils.returnNull();
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
 		if (customr != null && "1".equals(customr.getOperatorType()) && customr.getId() != null) {
@@ -92,7 +93,7 @@ public class V2DbMoRecordsSmsController {
 	@ResponseBody
 	public Map<String, Object> getXdSmses(HttpServletRequest request, HttpServletResponse response) {
 		List<V2DbXdSmses> XdSmses = new ArrayList<V2DbXdSmses>();
-		Map<String, Object> map = null;
+		Map<String, Object> map =HbaseUtils.returnNull(); 
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
 		if (customr != null && ("2").equals(customr.getOperatorType())) {

@@ -62,7 +62,7 @@ public class V2DbBillsController {
 		List<V2DbXdTransactions> XdTransactions = new ArrayList<V2DbXdTransactions>();
 		V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"),
 				request.getParameter("siteid"), request.getParameter("mobile"));
-		Map<String, Object> map = null;
+		Map<String, Object> map = HbaseUtils.returnNull();
 		if (customr != null && ("2").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
 				Map<String, Object> xdBase = v2CallService.getV2DbXdBase(customr.getId(), 0, null);
