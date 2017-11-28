@@ -1,131 +1,142 @@
 package com.min.model;
 
+/**
+ * V2_DB_XD_BASE表的实体类
+ * @author Administrator
+ * dddd
+ */
 public class V2DbXdBase {
-	private String ID;
-	private String USERID;
-	private String CID;
-	private String NAME;
-	private String IDCARD;
-	private String MOBILE;
-	private String MOBILE_SERVICE_PWD;
-	private String ADDTIME;
-	private String ISP;
-	private String IS_STATUS;
-	private String IS_DOWNLOAD;
-	private String OPEN_ID;
-	private String TASK_ID;
-	private String STATUS;
 
-	public String getID() {
-		return ID;
+	private String id;
+	private String userid;
+	private String cid;
+	private String name;
+	private String idcard;
+	private String mobile;
+	private String mobileServicePwd;
+	private String addtime;
+	private String isp;
+	private String isStatus;
+	private String isDownload;
+	private String openId;
+	private String taskId;
+	private String status;
+	
+	public V2DbXdBase() {
+		super();
 	}
 
-	public void setID(String iD) {
-		ID = iD;
+	public String getId() {
+		return id;
 	}
 
-	public String getUSERID() {
-		return USERID;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public void setUSERID(String uSERID) {
-		USERID = uSERID;
+	public String getUserid() {
+		return userid;
 	}
 
-	public String getCID() {
-		return CID;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
-	public void setCID(String cID) {
-		CID = cID;
+	public String getCid() {
+		return cid;
 	}
 
-	public String getNAME() {
-		return NAME;
+	public void setCid(String cid) {
+		this.cid = cid;
 	}
 
-	public void setNAME(String nAME) {
-		NAME = nAME;
+	public String getName() {
+		return name;
 	}
 
-	public String getIDCARD() {
-		return IDCARD;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setIDCARD(String iDCARD) {
-		IDCARD = iDCARD;
+	public String getIdcard() {
+		return idcard;
 	}
 
-	public String getMOBILE() {
-		return MOBILE;
+	public void setIdcard(String idcard) {
+		this.idcard = idcard;
 	}
 
-	public void setMOBILE(String mOBILE) {
-		MOBILE = mOBILE;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public String getMOBILE_SERVICE_PWD() {
-		return MOBILE_SERVICE_PWD;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
-	public void setMOBILE_SERVICE_PWD(String mOBILE_SERVICE_PWD) {
-		MOBILE_SERVICE_PWD = mOBILE_SERVICE_PWD;
+	public String getMobileServicePwd() {
+		return mobileServicePwd;
 	}
 
-	public String getADDTIME() {
-		return ADDTIME;
+	public void setMobileServicePwd(String mobileServicePwd) {
+		this.mobileServicePwd = mobileServicePwd;
 	}
 
-	public void setADDTIME(String aDDTIME) {
-		ADDTIME = aDDTIME;
+	public String getAddtime() {
+		return addtime;
 	}
 
-	public String getISP() {
-		return ISP;
+	public void setAddtime(String addtime) {
+		this.addtime = addtime;
 	}
 
-	public void setISP(String iSP) {
-		ISP = iSP;
+	public String getIsp() {
+		return isp;
 	}
 
-	public String getIS_STATUS() {
-		return IS_STATUS;
+	public void setIsp(String isp) {
+		this.isp = isp;
 	}
 
-	public void setIS_STATUS(String iS_STATUS) {
-		IS_STATUS = iS_STATUS;
+	public String getIsStatus() {
+		return isStatus;
 	}
 
-	public String getIS_DOWNLOAD() {
-		return IS_DOWNLOAD;
+	public void setIsStatus(String isStatus) {
+		this.isStatus = isStatus;
 	}
 
-	public void setIS_DOWNLOAD(String iS_DOWNLOAD) {
-		IS_DOWNLOAD = iS_DOWNLOAD;
+	public String getIsDownload() {
+		return isDownload;
 	}
 
-	public String getOPEN_ID() {
-		return OPEN_ID;
+	public void setIsDownload(String isDownload) {
+		this.isDownload = isDownload;
 	}
 
-	public void setOPEN_ID(String oPEN_ID) {
-		OPEN_ID = oPEN_ID;
+	public String getOpenId() {
+		return openId;
 	}
 
-	public String getTASK_ID() {
-		return TASK_ID;
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
 
-	public void setTASK_ID(String tASK_ID) {
-		TASK_ID = tASK_ID;
+	public String getTaskId() {
+		return taskId;
 	}
 
-	public String getSTATUS() {
-		return STATUS;
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
 	}
 
-	public void setSTATUS(String sTATUS) {
-		STATUS = sTATUS;
+	public String getStatus() {
+		return status;
 	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 }

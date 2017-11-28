@@ -42,7 +42,7 @@ public class V2DbXdNetsController {
 					if (customr.getId() != null) {
 						List<V2DbXdBase> xdBase = v2DbXdNetsService.getV2DbXdBase(customr.getId());
 						for (V2DbXdBase v2DbXdBase : xdBase) {
-							List<V2DbXdNets> list = v2DbXdNetsService.getV2DbXdNets(v2DbXdBase.getID());
+							List<V2DbXdNets> list = v2DbXdNetsService.getV2DbXdNets(v2DbXdBase.getId());
 							System.out.println("list.size" + list.size());
 							if(XdNets != null) {
 							for (V2DbXdNets v2DbXdN : list) {

@@ -55,7 +55,7 @@ public class V2DbXdNetsDaoImp implements V2DbXdNetsDao {
 
 					for (Result res : scanner) {
 						V2DbXdBase v2XB = new V2DbXdBase();
-						v2XB.setID(Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ID")))); // 按照需求只需要ID
+						v2XB.setId(Bytes.toString(res.getValue(Bytes.toBytes(colum), Bytes.toBytes("ID")))); // 按照需求只需要ID
 						list.add(v2XB);
 					}
 					scanner.close();

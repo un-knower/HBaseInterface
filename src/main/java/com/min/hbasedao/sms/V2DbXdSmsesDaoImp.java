@@ -54,10 +54,12 @@ public class V2DbXdSmsesDaoImp implements V2DbXdSmsesDao {
 			System.out.println("list" + list.size());
 			scanner.close();
 			table.close();
+			System.out.println("list.size:" + list.size());
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+
 }

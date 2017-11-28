@@ -56,7 +56,7 @@ public class V2DbXdTransactionsController {
 				List<V2DbXdBase> xdBase = v2DbXdNetsService.getV2DbXdBase(customr.getId());
 				System.out.println("xdBase66666:" + xdBase.size());
 				for (V2DbXdBase v2DbXdBase : xdBase) {
-					List<V2DbXdTransactions> list = v2DbXdTranService.getContacts(v2DbXdBase.getID());
+					List<V2DbXdTransactions> list = v2DbXdTranService.getContacts(v2DbXdBase.getId());
 					System.out.println("list.size" + list.size());
 					if(XdTransactions != null) {
 					for (V2DbXdTransactions v2DbXdTransac : list) {

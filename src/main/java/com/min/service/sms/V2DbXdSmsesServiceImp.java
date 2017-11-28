@@ -25,5 +25,7 @@ public class V2DbXdSmsesServiceImp implements V2DbXdSmsesService {
 		// TODO Auto-generated method stub
 		return v2DbXdSmsesDao.getV2DbXdSmses(baseinfo_id);
 	}
+	
+	
 
 }

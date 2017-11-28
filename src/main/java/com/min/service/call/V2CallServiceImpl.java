@@ -39,7 +39,7 @@ public class V2CallServiceImpl implements V2CallService {
 		return conDao.getV2DbOperatorCall(cid);
 	}
 
-	public V2DbOperatorTask getOperatorTask(String cid) {
+	public List<V2DbOperatorTask> getOperatorTask(String cid) {
 		// TODO Auto-generated method stub
 		return conDao.getOperatorTask(cid);
 	}

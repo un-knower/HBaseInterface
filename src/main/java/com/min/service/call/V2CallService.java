@@ -36,7 +36,7 @@ public interface V2CallService {
 	/*
 	 * 根据客户cid获取OperatorTask
 	 */
-	V2DbOperatorTask getOperatorTask(String cid);
+	List<V2DbOperatorTask> getOperatorTask(String cid);
 
 	/*
 	 * 根据客户的cid获取V2DbXdBase表

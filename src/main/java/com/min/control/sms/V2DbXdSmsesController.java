@@ -53,7 +53,7 @@ public class V2DbXdSmsesController {
 						List<V2DbXdBase> xdBase = v2DbXdNetsService.getV2DbXdBase(customr.getId());
 						System.out.println("xdBase66666:" + xdBase.size());
 						for (V2DbXdBase v2DbXdBase : xdBase) {
-							List<V2DbXdSmses> list = v2DbXdSmsesService.getV2DbXdSmses(v2DbXdBase.getID());
+							List<V2DbXdSmses> list = v2DbXdSmsesService.getV2DbXdSmses(v2DbXdBase.getId());
 							System.out.println("list.size" + list.size());
 							if(XdSmses != null) {
 							for (V2DbXdSmses v2DbXdSmses : list) {
