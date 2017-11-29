@@ -45,8 +45,7 @@ public class V2DbSmsDaoImp implements V2DbSmsDao {
 		if (task_id == null) {
 			return HbaseUtils.returnNull();
 		}
-		String rowkey = new StringBuilder(task_id).reverse().toString() + "|";
 		HbaseBase<V2DbOperatorSms> base = new HbaseBase<V2DbOperatorSms>(new V2DbOperatorSms());
-		return base.scan("V2_DB_OPERATOR_SMS", rowkey, "c", base);
+		return base.scan("V2_DB_OPERATOR_SMS", task_id + "|", "c", base);
 	}
 }
