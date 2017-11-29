@@ -123,16 +123,16 @@ public class V2DBCallControl {
 		@RequestMapping(value = "/v1/MxOldCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 		@ResponseBody
 		public Map<String, Object> getXdCalls(HttpServletRequest request, HttpServletResponse response) {
-			Map<String, Object> mxOldCalls = null;
+			Map<String, Object> cMap = HbaseUtils.returnNull();
 
 			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 					request.getParameter("mobile"));
 			if (customr != null && "3".equals(customr.getOperatorType()) && customr.getId() != null) {
 				// 获取运营商的语音详情
 				V2DbMxBase mxBase = service.getV2DbMxBase(customr.getId());
-				mxOldCalls = service.getV2DbMxOldCalls(mxBase.getId(), 0, null);
+				cMap = service.getV2DbMxOldCalls(mxBase.getId(), 0, null);
 			}
-			return mxOldCalls;
+			return cMap;
 		}
 	}
 }

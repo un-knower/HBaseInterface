@@ -3,6 +3,7 @@ package com.min.hbasedao.call;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
+
 import com.min.hbasedao.HbaseBase;
 import com.min.model.V2DbMoBase;
 import com.min.model.V2DbMxBase;
@@ -14,7 +15,6 @@ import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbMxOldCalls;
 import com.min.model.call.V2DbOperatorCall;
 import com.min.model.call.V2DbXdCalls;
-import com.min.utils.HbaseUtils;
 
 @Component
 public class V2DbCallDaoImpl implements V2DbCallDao {
@@ -59,7 +59,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	// 运营商C的中间表
 	public Map<String, Object> getV2DbXdBase(String cid, int limit, String lastRowkey) {
 		if (cid == null) {
-			return HbaseUtils.returnNull();
+			return null;
 		}
 		String rowkey = new StringBuilder(cid).reverse().toString() + "|";
 		HbaseBase<V2DbXdBase> base = new HbaseBase<V2DbXdBase>(new V2DbXdBase());
@@ -69,7 +69,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	public Map<String, Object> getV2DbXdCalls(String baseinfo_id, int limit, String lastRowkey) {
 		// TODO Auto-generated method stub
 		if (baseinfo_id == null) {
-			return HbaseUtils.returnNull();
+			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
 		HbaseBase<V2DbXdCalls> base = new HbaseBase<V2DbXdCalls>(new V2DbXdCalls());
@@ -78,7 +78,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 
 	public Map<String, Object> getV2DbMoRecordsCall(String baseInfoId, int limit, String lastRowkey) {
 		if (baseInfoId == null) {
-			return HbaseUtils.returnNull();
+			return null;
 		}
 		String rowkey = new StringBuilder(baseInfoId).reverse().toString() + "|";
 		HbaseBase<V2DbMoRecordsCall> base = new HbaseBase<V2DbMoRecordsCall>(new V2DbMoRecordsCall());
@@ -103,7 +103,7 @@ public class V2DbCallDaoImpl implements V2DbCallDao {
 	// 获取语音详情
 	public Map<String, Object> getV2DbMxOldCalls(String baseinfo_id, int limit, String lastRowkey) {
 		if (baseinfo_id == null) {
-			return HbaseUtils.returnNull();
+			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
 		HbaseBase<V2DbMxOldCalls> base = new HbaseBase<V2DbMxOldCalls>(new V2DbMxOldCalls());

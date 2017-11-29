@@ -8,7 +8,6 @@ import com.min.hbasedao.HbaseBase;
 import com.min.model.sms.V2DbMoRecordsSms;
 import com.min.model.sms.V2DbMxOldSmses;
 import com.min.model.sms.V2DbOperatorSms;
-import com.min.utils.HbaseUtils;
 
 @Component
 public class V2DbSmsDaoImp implements V2DbSmsDao {
@@ -16,7 +15,7 @@ public class V2DbSmsDaoImp implements V2DbSmsDao {
 	// 获取运营商B短信详情
 	public Map<String, Object> getV2DbMoRecordsSms(String baseinfo_id, int limit, String lastRowkeys) {
 		if (baseinfo_id == null) {
-			return HbaseUtils.returnNull();
+			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
 		HbaseBase<V2DbMoRecordsSms> base = new HbaseBase<V2DbMoRecordsSms>(new V2DbMoRecordsSms());
@@ -25,7 +24,7 @@ public class V2DbSmsDaoImp implements V2DbSmsDao {
 
 	public Map<String, Object> getV2DbXdSmses(String baseinfo_id, int limit, String lastRowkeys) {
 		if (baseinfo_id == null) {
-			return HbaseUtils.returnNull();
+			return null;
 		}
 		String rowkey = new StringBuilder(baseinfo_id).reverse().toString() + "|";
 		HbaseBase<V2DbMoRecordsSms> base = new HbaseBase<V2DbMoRecordsSms>(new V2DbMoRecordsSms());
