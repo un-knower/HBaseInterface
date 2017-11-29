@@ -1,4 +1,4 @@
-package com.min.model;
+package com.min.model.base;
 
 /**
  * V2_DB_XD_BASE表的实体类

@@ -5,11 +5,11 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.min.hbasedao.HbaseBase;
-import com.min.model.V2DbMoBase;
-import com.min.model.V2DbMxBase;
-import com.min.model.V2DbOperatorTask;
-import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.base.V2DbMoBase;
+import com.min.model.base.V2DbMxBase;
+import com.min.model.base.V2DbOperatorTask;
+import com.min.model.base.V2DbXdBase;
 import com.min.model.call.V2DbContact;
 import com.min.model.call.V2DbMoRecordsCall;
 import com.min.model.call.V2DbMxOldCalls;

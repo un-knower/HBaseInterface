@@ -6,18 +6,16 @@ package com.min.control.bill;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.base.V2DbXdBase;
 import com.min.model.bill.V2DbXdTransactions;
 import com.min.service.bill.V2DbBillsService;
 import com.min.service.call.V2CallService;

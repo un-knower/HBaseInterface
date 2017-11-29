@@ -5,8 +5,8 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.min.hbasedao.HbaseBase;
-import com.min.model.V2DbMxBase;
-import com.min.model.V2DbXdBase;
+import com.min.model.base.V2DbMxBase;
+import com.min.model.base.V2DbXdBase;
 
 @Component
 public class V2DbNetsDaoImp implements V2DbNetsDao {

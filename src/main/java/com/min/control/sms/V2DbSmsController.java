@@ -3,21 +3,19 @@ package com.min.control.sms;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.min.model.V2DbMoBase;
-import com.min.model.V2DbMxBase;
-import com.min.model.V2DbOperatorTask;
-import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.base.V2DbMoBase;
+import com.min.model.base.V2DbMxBase;
+import com.min.model.base.V2DbOperatorTask;
+import com.min.model.base.V2DbXdBase;
 import com.min.model.sms.V2DbOperatorSms;
 import com.min.model.sms.V2DbXdSmses;
 import com.min.service.call.V2CallService;

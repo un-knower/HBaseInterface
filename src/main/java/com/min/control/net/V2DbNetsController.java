@@ -1,8 +1,6 @@
 package com.min.control.net;
 
 import java.util.ArrayList;
-
-
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.min.model.V2DbMxBase;
-import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.base.V2DbMxBase;
+import com.min.model.base.V2DbXdBase;
 import com.min.model.net.V2DbMxOldNets;
 import com.min.model.net.V2DbXdNets;
 import com.min.service.call.V2CallService;
@@ -80,5 +78,4 @@ public class V2DbNetsController {
 		map.put("data", XdNets);
 		return map;
 	}
-
 }

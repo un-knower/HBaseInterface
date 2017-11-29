@@ -1,7 +1,6 @@
 package com.min.control.call;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.min.model.V2DbMoBase;
-import com.min.model.V2DbMxBase;
-import com.min.model.V2DbOperatorTask;
-import com.min.model.V2DbXdBase;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.base.V2DbMoBase;
+import com.min.model.base.V2DbMxBase;
+import com.min.model.base.V2DbOperatorTask;
+import com.min.model.base.V2DbXdBase;
 import com.min.model.call.V2DbOperatorCall;
 import com.min.model.call.V2DbXdCalls;
 import com.min.service.call.V2CallService;
@@ -123,6 +122,5 @@ public class V2DBCallControl {
 				cMap = service.getV2DbMxOldCalls(mxBase.getId(), 0, null);
 			}
 			return cMap;
-		}
-		
+		}	
 }

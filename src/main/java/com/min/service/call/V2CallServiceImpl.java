@@ -5,9 +5,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.min.hbasedao.call.V2DbCallDao;
-import com.min.model.V2DbMoBase;
-import com.min.model.V2DbMxBase;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.base.V2DbMoBase;
+import com.min.model.base.V2DbMxBase;
 
 @Service
 public class V2CallServiceImpl implements V2CallService {

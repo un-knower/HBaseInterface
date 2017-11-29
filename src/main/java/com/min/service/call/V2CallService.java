@@ -2,9 +2,9 @@ package com.min.service.call;
 
 import java.util.Map;
 
-import com.min.model.V2DbMoBase;
-import com.min.model.V2DbMxBase;
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.base.V2DbMoBase;
+import com.min.model.base.V2DbMxBase;
 
 public interface V2CallService {
 
