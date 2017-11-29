@@ -10,7 +10,7 @@ package com.min.model.call;
  * @version 2017-11-10
  */
 public class V2DbMxOldCalls {
-
+	private String id;
 	private String userid; // userid
 	private String cid; // cid
 	private String addtime; // addtime
@@ -140,6 +140,14 @@ public class V2DbMxOldCalls {
 
 	public void setDialType(String dialType) {
 		this.dialType = dialType;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }
