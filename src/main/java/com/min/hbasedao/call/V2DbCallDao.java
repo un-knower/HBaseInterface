@@ -1,7 +1,6 @@
 package com.min.hbasedao.call;
 
 import java.util.Map;
-
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.base.V2DbMoBase;
 import com.min.model.base.V2DbMxBase;

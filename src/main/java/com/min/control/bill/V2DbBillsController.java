@@ -13,9 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.min.model.V2ZScustomerInfo;
+import com.min.model.base.V2DbMoBase;
+import com.min.model.base.V2DbMxBase;
+import com.min.model.base.V2DbOperatorTask;
 import com.min.model.base.V2DbXdBase;
+import com.min.model.bill.V2DbOperatorBill;
 import com.min.model.bill.V2DbXdTransactions;
 import com.min.service.bill.V2DbBillsService;
 import com.min.service.call.V2CallService;
@@ -41,14 +44,16 @@ public class V2DbBillsController {
 	@ResponseBody
 	// 账单记录查询
 	public Map<String, Object> getMxOldBills(HttpServletRequest request, HttpServletResponse response) {
-		// 获取cid
+		Map<String, Object> map = HbaseUtils.returnNull();
 		V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"),
 				request.getParameter("siteid"), request.getParameter("mobile"));
-		// 获取通讯录
-		if (customr.getId() != null) {
-			return billsService.getMxOldBills(customr.getId(), 0, null);
+		if (customr != null && ("3").equals(customr.getOperatorType())) {
+			if (customr.getId() != null) {
+				V2DbMxBase mxBase = v2CallService.getV2DbMxBase(customr.getId());
+				map = billsService.getMxOldBills(mxBase.getId(), 0, null);
+			}
 		}
-		return HbaseUtils.returnNull();
+		return map;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -74,6 +79,47 @@ public class V2DbBillsController {
 			}
 		}
 		map.put("data", XdTransactions);
+		return map;
+	}
+
+	@RequestMapping(value = "/v1/MoRecordsBill", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	// 账单记录查询
+	public Map<String, Object> getMoRecordsBill(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = HbaseUtils.returnNull();
+		V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"),
+				request.getParameter("siteid"), request.getParameter("mobile"));
+		if (customr != null && ("0").equals(customr.getOperatorType())) {
+			if (customr.getId() != null) {
+				V2DbMoBase moBase = v2CallService.getV2DbMoBase(customr.getId());
+				map = billsService.getMoRecordsBill(moBase.getId(), 0, null);
+			}
+		}
+		return map;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/v1/OperatorBill", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	// 账单记录查询
+	public Map<String, Object> getOperatorBill(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = HbaseUtils.returnNull();
+		V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"),
+				request.getParameter("siteid"), request.getParameter("mobile"));
+		List<V2DbOperatorBill> oBills = new ArrayList<V2DbOperatorBill>();
+		if (customr != null && ("1").equals(customr.getOperatorType())) {
+			if (customr.getId() != null) {
+				Map<String, Object> task = v2CallService.getOperatorTask(customr.getId(), 0, null);
+				for (V2DbOperatorTask oTask : (List<V2DbOperatorTask>) task.get("data")) {
+					map = billsService.getOperatorBill(oTask.getPhoneid(), 0, null);
+					List<V2DbOperatorBill> list = (List<V2DbOperatorBill>) map.get("data");
+					for (V2DbOperatorBill v2 : list) {
+						oBills.add(v2);
+					}
+				}
+			}
+		}
+		map.put("data", oBills);
 		return map;
 	}
 }

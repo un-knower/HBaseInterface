@@ -25,11 +25,21 @@ public class V2DbBillsServiceImp implements V2DbBillsService {
 
 	public Map<String, Object> getMxOldBills(String cid, int limit, String lastRowkey) {
 		// TODO Auto-generated method stub
-		return mxOldBiDao.getMxOldBills(cid,limit,lastRowkey);
+		return mxOldBiDao.getMxOldBills(cid, limit, lastRowkey);
 	}
 
 	public Map<String, Object> getDbXdTransactions(String baseinfo_id, int limit, String lastRowkey) {
 		// TODO Auto-generated method stub
-		return mxOldBiDao.getDbXdTransactions(baseinfo_id,limit,lastRowkey);
+		return mxOldBiDao.getDbXdTransactions(baseinfo_id, limit, lastRowkey);
+	}
+
+	public Map<String, Object> getMoRecordsBill(String baseinfo_id, int limit, String lastRowKey) {
+		// TODO Auto-generated method stub
+		return mxOldBiDao.getMoRecordsBill(baseinfo_id, limit, lastRowKey);
+	}
+
+	public Map<String, Object> getOperatorBill(String phoneid, int limit, String lastRowKey) {
+		// TODO Auto-generated method stub
+		return mxOldBiDao.getOperatorBill(phoneid, limit, lastRowKey);
 	}
 }

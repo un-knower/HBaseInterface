@@ -10,11 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.base.V2DbMxBase;
 import com.min.model.base.V2DbXdBase;
-import com.min.model.net.V2DbMxOldNets;
 import com.min.model.net.V2DbXdNets;
 import com.min.service.call.V2CallService;
 import com.min.service.net.V2NetsService;
@@ -31,27 +29,18 @@ public class V2DbNetsController {
 	private V2CallService v2CallService;
 
 	// 运营商D的上网记录接口
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/v1/MxOldNets", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Map<String, Object> getMxOldNets(HttpServletRequest request, HttpServletResponse response) {
-		List<V2DbMxOldNets> mxOldNets = new ArrayList<V2DbMxOldNets>();
 		Map<String, Object> map = HbaseUtils.returnNull();
 		V2ZScustomerInfo customr = v2CallService.getCustomr(request.getParameter("idcard"),
 				request.getParameter("siteid"), request.getParameter("mobile"));
-		if (customr != null && ("2").equals(customr.getOperatorType())) {
+		if (customr != null && ("3").equals(customr.getOperatorType())) {
 			if (customr.getId() != null) {
-				Map<String, Object> MxBase = (Map<String, Object>) v2CallService.getV2DbMxBase(customr.getId());
-				for (V2DbMxBase v2DbMxBase : (List<V2DbMxBase>) MxBase.get("data")) {
-					map = v2NetsService.getV2DbMxOldNets(v2DbMxBase.getId(), 0, null);
-					List<V2DbMxOldNets> list = (List<V2DbMxOldNets>) map.get("data");
-					for (V2DbMxOldNets v2DbMxOldN : list) {
-						mxOldNets.add(v2DbMxOldN);
-					}
-				}
+				V2DbMxBase mxBase = v2CallService.getV2DbMxBase(customr.getId());
+				map = v2NetsService.getV2DbMxOldNets(mxBase.getId(), 0, null);
 			}
 		}
-		map.put("data", mxOldNets);
 		return map;
 	}
 

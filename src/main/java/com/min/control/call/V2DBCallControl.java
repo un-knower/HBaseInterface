@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.min.model.V2ZScustomerInfo;
 import com.min.model.base.V2DbMoBase;
 import com.min.model.base.V2DbMxBase;

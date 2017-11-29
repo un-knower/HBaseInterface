@@ -13,4 +13,8 @@ public interface V2DbBillsService {
 	 * 账单记录DAO接口
 	 */
 	Map<String, Object> getDbXdTransactions(String baseinfo_id, int limit, String lastRowKey);
+
+	Map<String, Object> getMoRecordsBill(String baseinfo_id, int limit, String lastRowKey);
+
+	Map<String, Object> getOperatorBill(String phoneid, int limit, String lastRowKey);
 }
