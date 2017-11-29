@@ -42,12 +42,11 @@ public class V2DbSmsDaoImp implements V2DbSmsDao {
 	}
 
 	// 获取V2_DB_OPERATOR_SMS表信息
-	public Map<String, Object> getV2DbOperatorSms(String task_id, int limit, String lastRowkeys) {
-		if (task_id == null) {
+	public Map<String, Object> getV2DbOperatorSms(String phoneid, int limit, String lastRowkeys) {
+		if (phoneid == null) {
 			return null;
 		}
-		String rowkey = new StringBuilder(task_id).reverse().toString() + "|";
 		HbaseBase<V2DbOperatorSms> base = new HbaseBase<V2DbOperatorSms>(new V2DbOperatorSms());
-		return base.scan("V2_DB_OPERATOR_SMS", rowkey, "c", base);
+		return base.scan("V2_DB_OPERATOR_SMS", phoneid + "|", "c", base);
 	}
 }

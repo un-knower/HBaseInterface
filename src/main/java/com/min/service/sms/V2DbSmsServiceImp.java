@@ -25,9 +25,9 @@ public class V2DbSmsServiceImp implements V2DbSmsService {
 		return v2DbSmsDao.getV2DbMxOldSmses(baseinfo_id,limit,lastRowKey);
 	}
 
-	public Map<String, Object> getV2DbOperatorSms(String task_id, int limit, String lastRowKey) {
+	public Map<String, Object> getV2DbOperatorSms(String phoneid, int limit, String lastRowKey) {
 		// TODO Auto-generated method stub
-		return v2DbSmsDao.getV2DbOperatorSms(task_id,limit,lastRowKey);
+		return v2DbSmsDao.getV2DbOperatorSms(phoneid,limit,lastRowKey);
 	}
 
 	public Map<String, Object> getV2DbXdSmses(String baseinfo_id, int limit, String lastRowKey) {

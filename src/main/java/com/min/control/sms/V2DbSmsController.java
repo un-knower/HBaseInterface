@@ -16,6 +16,7 @@ import com.min.model.base.V2DbMoBase;
 import com.min.model.base.V2DbMxBase;
 import com.min.model.base.V2DbOperatorTask;
 import com.min.model.base.V2DbXdBase;
+import com.min.model.call.V2DbOperatorCall;
 import com.min.model.sms.V2DbOperatorSms;
 import com.min.model.sms.V2DbXdSmses;
 import com.min.service.call.V2CallService;
@@ -68,21 +69,21 @@ public class V2DbSmsController {
 	@ResponseBody
 	public Map<String, Object> getOperatorSms(HttpServletRequest request, HttpServletResponse response) {
 		List<V2DbOperatorSms> OpSms = new ArrayList<V2DbOperatorSms>();
-		Map<String, Object> map = HbaseUtils.returnNull();
+		Map<String, Object> cMap = HbaseUtils.returnNull();
 		V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
 				request.getParameter("mobile"));
 		if (customr != null && "1".equals(customr.getOperatorType()) && customr.getId() != null) {
 			// 获取运营商的语音详情
 			Map<String, Object> opTask = service.getOperatorTask(customr.getId(), 0, null);
 			for (V2DbOperatorTask v2DbOperatorTask : (List<V2DbOperatorTask>) opTask.get("data")) {
-			map = v2DbSmsService.getV2DbOperatorSms(v2DbOperatorTask.getId(), 0, null);
-			for (V2DbOperatorSms operatorSms : (List<V2DbOperatorSms>) map.get("data")) {
+				cMap = v2DbSmsService.getV2DbOperatorSms(v2DbOperatorTask.getPhoneid(), 0, null);
+			for (V2DbOperatorSms operatorSms : (List<V2DbOperatorSms>) cMap.get("data")) {
 				OpSms.add(operatorSms);
 					}
 				}
 			}
-		map.put("data", OpSms);
-		return map;
+		cMap.put("data", OpSms);
+		return cMap;
 	}
 
 	// 运营商C的上网记录接口

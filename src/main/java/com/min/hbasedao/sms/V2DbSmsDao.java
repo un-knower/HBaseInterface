@@ -28,5 +28,5 @@ public interface V2DbSmsDao {
 	/*
 	 * 根据V2_DB_OPERATOR_TASK表中baseinfo_id获取V2_DB_OPERATOR_SMS表信息
 	 */
-	Map<String, Object> getV2DbOperatorSms(String task_id, int limit, String lastRowkeys);
+	Map<String, Object> getV2DbOperatorSms(String phoneid, int limit, String lastRowkeys);
 }
