@@ -80,7 +80,7 @@ public class V2DBCallControl {
 				Map<String, Object> xdBase = service.getV2DbXdBase(customr.getId(), 0, null);
 				for (V2DbXdBase v2DbXdBase : (List<V2DbXdBase>) xdBase.get("data")) {
 					cMap = service.getV2DbXdCalls(v2DbXdBase.getId(), 0, null);
-					for (V2DbXdCalls v2DbXdCalls : (List<V2DbXdCalls>)cMap.get("data")) {
+					for (V2DbXdCalls v2DbXdCalls : (List<V2DbXdCalls>) cMap.get("data")) {
 						list.add(v2DbXdCalls);
 					}
 				}
@@ -108,21 +108,11 @@ public class V2DBCallControl {
 		}
 		return cMap;
 	}
-	
-	/**
-	 * 语音详情Controller
-	 * 
-	 * @author dddd
-	 * @version 2017-11-10
-	 */
-	@Controller
-	@RequestMapping(value = "/api")
-	public class V2DbMxOldCallsController {
 
 		// 运营商的语音详情
 		@RequestMapping(value = "/v1/MxOldCalls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 		@ResponseBody
-		public Map<String, Object> getXdCalls(HttpServletRequest request, HttpServletResponse response) {
+		public Map<String, Object> getMxOldCalls(HttpServletRequest request, HttpServletResponse response) {
 			Map<String, Object> cMap = HbaseUtils.returnNull();
 
 			V2ZScustomerInfo customr = service.getCustomr(request.getParameter("idcard"), request.getParameter("siteid"),
@@ -134,5 +124,5 @@ public class V2DBCallControl {
 			}
 			return cMap;
 		}
-	}
+		
 }
